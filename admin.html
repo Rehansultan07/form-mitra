@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Mitra - Owner Admin</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding: 40px; }
+        .admin-container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 800px; margin: auto; }
+        h2 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 15px; border: 1px solid #eee; text-align: left; }
+        th { background: #007bff; color: white; }
+        .approve-btn { background: #28a745; color: white; border: none; padding: 8px 16px; cursor: pointer; border-radius: 6px; font-weight: bold; }
+        .approve-btn:hover { background: #218838; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Agent Approval Requests</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Payment</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="agentList">
+                </tbody>
+        </table>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // Aapka firebase config
+        const firebaseConfig = {
+            apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
+            authDomain: "formmitra-auth.firebaseapp.com",
+            projectId: "formmitra-auth",
+            databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Agents ki list load karna
+        const agentsRef = ref(db, 'agents');
+        onValue(agentsRef, (snapshot) => {
+            const data = snapshot.val();
+            const list = document.getElementById('agentList');
+            list.innerHTML = ""; 
+
+            for (let id in data) {
+                if (data[id].status === "Pending") {
+                    list.innerHTML += `
+                        <tr>
+                            <td>${data[id].email}</td>
+                            <td><span style="color:green; font-weight:bold;">${data[id].payment}</span></td>
+                            <td><button class="approve-btn" onclick="approveAgent('${id}')">Approve ✅</button></td>
+                        </tr>`;
+                }
+            }
+        });
+
+        // Approve karne ka function
+        window.approveAgent = (uid) => {
+            update(ref(db, 'agents/' + uid), { status: "Approved" });
+            alert("Agent Approved Successfully!");
+        };
+    </script>
+</body>
+</html>
