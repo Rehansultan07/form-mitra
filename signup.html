@@ -24,15 +24,15 @@
 
     <div id="step1" class="step active">
         <input type="email" id="userEmail" placeholder="Apna Email ID daalein">
-        <button class="btn-blue" onclick="sendOTP()">Send Verification OTP</button>
+        <button class="btn-blue" onclick="sendOTP()">OTP Bhejein</button>
         <div id="otpInputDiv" style="display:none; margin-top:15px;">
             <input type="text" id="otpEntered" placeholder="6-Digit OTP daalein">
-            <button class="btn-green" onclick="verifyOTP()">Verify & Continue</button>
+            <button class="btn-green" onclick="verifyOTP()">Verify Karein</button>
         </div>
     </div>
 
     <div id="step2" class="step">
-        <input type="text" id="fullName" placeholder="Pura Naam (Aadhar Card wala)">
+        <input type="text" id="fullName" placeholder="Pura Naam">
         <input type="text" id="phone" placeholder="Mobile Number">
         <input type="text" id="address" placeholder="Pura Address">
         <input type="password" id="password" placeholder="Login Password Banayein">
@@ -40,10 +40,10 @@
     </div>
 
     <div id="step3" class="step">
-        <h3>Registration Fee: ₹999</h3>
-        <div style="background:#f9f9f9; padding:20px; border:2px dashed #ccc; margin-bottom:15px;">
-            <p>Scan QR Code to Pay</p>
-            <div style="font-weight:bold; color:red;">[ QR CODE IMAGE HERE ]</div>
+        <h3>Fee: ₹999</h3>
+        <p>QR Scan karke pay karein aur phir Submit karein.</p>
+        <div style="background:#f9f9f9; padding:20px; border:2px dashed #ccc; margin-bottom:15px; color:red; font-weight:bold;">
+            [ QR CODE IMAGE ]
         </div>
         <button class="btn-green" onclick="submitFinalRegistration()">I HAVE PAID (SUBMIT)</button>
     </div>
@@ -54,7 +54,7 @@
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    // Firebase Config
+    // Aapka Firebase Config
     const firebaseConfig = {
         apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
         authDomain: "formmitra-auth.firebaseapp.com",
@@ -71,49 +71,50 @@
 
     let systemOTP;
 
-    // 1. Send OTP Function
+    // 1. Send OTP
     window.sendOTP = () => {
         const email = document.getElementById('userEmail').value;
-        if(!email) return alert("Email daalna zaroori hai!");
+        if(!email) return alert("Email zaruri hai!");
 
-        systemOTP = Math.floor(100000 + Math.random() * 900000); // 6 Digit Random OTP
+        systemOTP = Math.floor(100000 + Math.random() * 900000);
 
         const templateParams = {
-            to_email: email,
-            otp: systemOTP
+            to_email: email, // Iska nam wahi hona chahiye jo template mein hai {{to_email}}
+            otp: systemOTP   // Iska nam wahi hona chahiye jo template mein hai {{otp}}
         };
 
-        // Service ID & Template ID
+        // Service ID: service_0iiu4gq, Template ID: template_rr1i1gp
         emailjs.send("service_0iiu4gq", "template_rr1i1gp", templateParams)
             .then(() => {
-                alert("Verification OTP aapki email par bhej diya gaya hai!");
+                alert("OTP aapki email par bhej diya gaya hai!");
                 document.getElementById('otpInputDiv').style.display = 'block';
             }, (error) => {
-                alert("Email bhejne mein galti hui: " + error.text);
+                alert("Error: OTP nahi gaya. Check karein Service ID aur Template ID.");
+                console.log("FAILED...", error);
             });
     };
 
-    // 2. Verify OTP Function
+    // 2. Verify OTP
     window.verifyOTP = () => {
         const userOTP = document.getElementById('otpEntered').value;
         if(userOTP == systemOTP) {
-            alert("Email Verified Successfully!");
+            alert("Email Verified!");
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
         } else {
-            alert("Galat OTP! Phir se koshish karein.");
+            alert("Galat OTP!");
         }
     };
 
-    // 3. Go to Payment
+    // 3. Go to Payment Step
     window.goToPayment = () => {
         const name = document.getElementById('fullName').value;
-        if(!name) return alert("Pura naam bhariye!");
+        if(!name) return alert("Sari details bhariye!");
         document.getElementById('step2').classList.remove('active');
         document.getElementById('step3').classList.add('active');
     };
 
-    // 4. Final Firebase Registration
+    // 4. Final Firebase Submission
     window.submitFinalRegistration = async () => {
         const email = document.getElementById('userEmail').value;
         const password = document.getElementById('password').value;
@@ -125,7 +126,6 @@
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // Database mein poora data save
             await set(ref(db, 'agents/' + user.uid), {
                 name: name,
                 phone: phone,
@@ -136,7 +136,7 @@
                 date: new Date().toLocaleDateString()
             });
 
-            alert("Registration Successful! Admin ke approval ka intezar karein.");
+            alert("Registration Success! Admin approval ka wait karein.");
             window.location.href = "login.html";
         } catch (error) {
             alert("Galti: " + error.message);
