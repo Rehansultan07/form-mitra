@@ -6,35 +6,30 @@
     <title>Agent Registration - Form Mitra</title>
     <style>
         body { font-family: 'Roboto', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .signup-card { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; text-align: center; }
-        h2 { color: #007bff; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        .signup-btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 16px; }
-        
-        /* Payment Pop-up Style */
+        .signup-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 380px; text-align: center; }
+        input { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        .signup-btn { width: 100%; padding: 12px; background: #28a745; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
         .payment-box { background: white; padding: 30px; border-radius: 10px; text-align: center; width: 320px; }
-        .qr-placeholder { background: #f8f9fa; border: 2px dashed #ccc; height: 200px; margin: 15px 0; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #555; }
     </style>
 </head>
 <body>
 
     <div class="signup-card">
-        <h2>Agent Signup</h2>
-        <input type="email" id="email" placeholder="Email ID enter karein">
-        <input type="password" id="password" placeholder="Password banayein">
-        <button class="signup-btn" onclick="showPayment()">Proceed to Payment</button>
-        <p style="margin-top:15px; font-size:14px;">Pehle se account hai? <a href="login.html">Login Karein</a></p>
+        <h2>Agent Registration</h2>
+        <input type="text" id="fullName" placeholder="Pura Naam Likhein">
+        <input type="text" id="phone" placeholder="Mobile Number">
+        <input type="text" id="address" placeholder="Pura Address">
+        <input type="email" id="email" placeholder="Email ID">
+        <input type="password" id="password" placeholder="Password Banayein">
+        <button class="signup-btn" onclick="showPayment()">Next: Payment</button>
     </div>
 
     <div id="paymentOverlay" class="overlay">
         <div class="payment-box">
-            <h3 style="margin-top:0;">Registration Fee: ₹999</h3>
-            <p>Scan QR and Pay</p>
-            <div class="qr-placeholder"> [ SCAN QR CODE ] </div>
-            <p style="font-size: 13px; color: #d9534f; font-weight: bold;">Note: Payment ke baad hi account approve hoga.</p>
-            <button class="signup-btn" onclick="completeRegistration()" style="background:#007bff;">I HAVE PAID (REGISTER)</button>
-            <button onclick="document.getElementById('paymentOverlay').style.display='none'" style="background:none; border:none; color:gray; cursor:pointer; margin-top:10px;">Cancel</button>
+            <h3>Fee: ₹999</h3>
+            <div style="background:#eee; height:150px; margin:10px 0; display:flex; align-items:center; justify-content:center;">[ QR CODE HERE ]</div>
+            <button class="signup-btn" onclick="completeRegistration()">PAYMENT DONE</button>
         </div>
     </div>
 
@@ -43,7 +38,6 @@
         import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // Aapka highlighted config
         const firebaseConfig = {
             apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
             authDomain: "formmitra-auth.firebaseapp.com",
@@ -58,41 +52,37 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // Pop-up dikhane ka function
         window.showPayment = () => {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('password').value;
-            if(email && pass) { 
-                document.getElementById('paymentOverlay').style.display = 'flex'; 
-            } else { 
-                alert("Pehle details bharo!"); 
-            }
+            if(document.getElementById('fullName').value && document.getElementById('email').value) {
+                document.getElementById('paymentOverlay').style.display = 'flex';
+            } else { alert("Sari details bhariye!"); }
         };
 
-        // Registration complete karne ka function
         window.completeRegistration = async () => {
+            const name = document.getElementById('fullName').value;
+            const phone = document.getElementById('phone').value;
+            const addr = document.getElementById('address').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
             try {
-                // 1. User Account banana
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                // 2. Realtime Database mein "Pending" status save karna
+                // Database mein sari details save ho rahi hain
                 await set(ref(db, 'agents/' + user.uid), {
+                    name: name,
+                    phone: phone,
+                    address: addr,
                     email: email,
-                    status: "Pending", // Admin ise Approved karega
+                    status: "Pending",
                     payment: "Paid",
                     date: new Date().toLocaleDateString()
                 });
 
-                alert("Registration Successful! Admin 24 hours mein approve kar dega.");
+                alert("Account created! Admin approval ka wait karein.");
                 window.location.href = "login.html";
-
-            } catch (error) {
-                alert("Galti: " + error.message);
-            }
+            } catch (error) { alert(error.message); }
         };
     </script>
 </body>
