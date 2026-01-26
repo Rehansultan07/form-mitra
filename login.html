@@ -71,7 +71,7 @@
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // Successful login ke baad redirection
-                    window.location.href = "public/dashboard.html"; 
+                    window.location.href = "dashboard.html"; 
                 })
                 .catch((error) => {
                     let errorMessage = "Login fail ho gaya!";
