@@ -1,119 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Seva Portal - Form Mitra</title>
+    <title>Form Mitra - Digital Seva Kendra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --csc-blue: #2c3e50; --csc-light: #f4f7f9; --csc-orange: #f39c12; }
-        body { font-family: 'Open Sans', sans-serif; margin: 0; background: var(--csc-light); display: none; }
+        :root { --primary: #007bff; --dark: #2c3e50; --orange: #f39c12; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #333; line-height: 1.6; }
         
-        /* Sidebar */
-        .sidebar { width: 70px; background: var(--csc-blue); height: 100vh; position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 20px; transition: 0.3s; z-index: 1000; }
-        .sidebar:hover { width: 200px; }
-        .sidebar i { color: white; font-size: 20px; margin: 20px 0; cursor: pointer; transition: 0.2s; }
-        .sidebar i:hover { color: var(--csc-orange); }
-        
-        /* Header */
-        .header { background: white; height: 60px; margin-left: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .search-bar { background: #eee; padding: 8px 15px; border-radius: 5px; width: 350px; font-size: 14px; }
-        
-        /* Main Area */
-        .main { margin-left: 70px; padding: 25px; }
-        .banner { background: var(--csc-blue); color: white; padding: 25px; border-radius: 4px; margin-bottom: 25px; }
-        
-        /* Service Cards */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-        .csc-card { background: white; border: 1px solid #ddd; text-align: center; padding: 25px 10px; cursor: pointer; transition: 0.2s; position: relative; }
-        .csc-card:hover { border-color: var(--csc-orange); box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-3px); }
-        .csc-card i { font-size: 40px; color: #555; margin-bottom: 12px; }
-        .csc-card h4 { margin: 10px 0 5px 0; font-size: 13px; color: #333; text-transform: uppercase; font-weight: 600; }
-        .csc-card .tag { background: var(--csc-orange); color: white; font-size: 9px; padding: 2px 7px; position: absolute; top: 0; right: 0; font-weight: bold; }
+        /* Navbar */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 10%; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+        .logo { font-size: 24px; font-weight: bold; color: var(--primary); }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: var(--dark); font-weight: 500; }
+        .btn-login { background: var(--primary); color: white !important; padding: 8px 20px; border-radius: 5px; }
 
-        .logout-btn { background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
+        /* Hero Section */
+        .hero { background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1521791136064-7986c2959213?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); 
+                background-size: cover; color: white; padding: 100px 10%; text-align: center; }
+        .hero h1 { font-size: 45px; margin-bottom: 20px; }
+        .hero p { font-size: 18px; margin-bottom: 30px; opacity: 0.9; }
+        .btn-join { background: var(--orange); color: white; padding: 15px 40px; text-decoration: none; font-size: 20px; border-radius: 50px; font-weight: bold; box-shadow: 0 4px 15px rgba(243, 156, 18, 0.4); }
+
+        /* Services Grid */
+        .services { padding: 80px 10%; text-align: center; background: #f9f9f9; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 50px; }
+        .s-card { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .s-card:hover { transform: translateY(-10px); }
+        .s-card i { font-size: 50px; color: var(--primary); margin-bottom: 20px; }
+        
+        /* Why Choose Us */
+        .why-us { padding: 80px 10%; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .why-text { flex: 1; min-width: 300px; }
+        .why-text h2 { color: var(--dark); font-size: 32px; }
+
+        footer { background: var(--dark); color: white; padding: 40px 10%; text-align: center; }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <i class="fas fa-bars"></i>
-        <i class="fas fa-home" title="Home" onclick="window.location.href='index.html'"></i>
-        <i class="fas fa-user-circle" title="My Profile" onclick="window.location.href='profile.html'"></i>
-        <i class="fas fa-th" title="Services"></i>
-        <i class="fas fa-history" title="History"></i>
-    </div>
-
-    <div class="header">
-        <div class="search-bar"><i class="fas fa-search"></i> Search Services...</div>
-        <div>
-            <span id="agentDisplay" style="margin-right: 15px; font-weight: bold; color: var(--csc-blue);"></span>
-            <button class="logout-btn" onclick="logout()">LOGOUT</button>
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-handshake"></i> FORM MITRA</div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#services">Services</a>
+            <a href="signup.html" class="btn-join" style="padding: 8px 20px; font-size: 14px;">Join as Agent</a>
+            <a href="login.html" class="btn-login">Login</a>
         </div>
-    </div>
+    </nav>
 
-    <div class="main">
-        <div class="banner">
-            <h2 style="margin:0;">Digital Seva Portal</h2>
-            <p style="margin:5px 0 0 0;">Form Mitra | Sabhi Online Kaam Ek Jagah</p>
-        </div>
+    <section class="hero">
+        <h1>Apni Digital Dukaan Shuru Karein</h1>
+        <p>Form Mitra ke saath judein aur apne area ke logo ko Digital Seva pradan karein. <br> Result, Admit Card, Photo Resizing aur bhi bahut kuch ek hi portal par.</p>
+        <a href="signup.html" class="btn-join">Abhi Register Karein</a>
+    </section>
 
-        <h3 style="color: #444; border-left: 4px solid var(--csc-orange); padding-left: 10px; margin-bottom: 20px;">Services</h3>
-        
-        <div class="services-grid">
-            <div class="csc-card" onclick="window.location.href='resizer/index.html'">
-                <div class="tag">NEW</div>
-                <i class="fas fa-crop-alt" style="color: #27ae60;"></i>
-                <h4>Photo Resizer</h4>
+    <section id="services" class="services">
+        <h2>Hamari Behtarin Services</h2>
+        <div class="grid">
+            <div class="s-card">
+                <i class="fas fa-file-invoice"></i>
+                <h3>Result/Admit Card</h3>
+                <p>Sabhi sarkari naukri ke results aur admit cards turant payein.</p>
             </div>
-
-            <div class="csc-card" onclick="window.location.href='portal/index.html'">
-                <div class="tag">HOT</div>
-                <i class="fas fa-file-signature" style="color: #2980b9;"></i>
-                <h4>Result/Admit Card</h4>
+            <div class="s-card">
+                <i class="fas fa-image"></i>
+                <h3>Photo Resizer</h3>
+                <p>Passport size photo aur documents ko sahi KB mein badlein.</p>
             </div>
-
-            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-id-card"></i><h4>PAN Service</h4></div>
-            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-university"></i><h4>Banking</h4></div>
-            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-mobile-alt"></i><h4>Recharge</h4></div>
-            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-train"></i><h4>IRCTC</h4></div>
+            <div class="s-card">
+                <i class="fas fa-id-card"></i>
+                <h3>PAN & Banking</h3>
+                <p>Naya PAN card apply karein aur banking suvidha dein (Coming Soon).</p>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    <section class="why-us">
+        <div class="why-text">
+            <h2>Kyun chunein Form Mitra?</h2>
+            <p><i class="fas fa-check-circle" style="color: green;"></i> 100% Secure aur Fast Portal.</p>
+            <p><i class="fas fa-check-circle" style="color: green;"></i> Agent Support aur Training.</p>
+            <p><i class="fas fa-check-circle" style="color: green;"></i> Ek hi login se sari services access karein.</p>
+        </div>
+        <div style="flex: 1; text-align: center;">
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" style="width: 100%; border-radius: 10px;">
+        </div>
+    </section>
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
-            authDomain: "formmitra-auth.firebaseapp.com",
-            projectId: "formmitra-auth",
-            databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
-        };
+    <footer>
+        <p>&copy; 2026 Form Mitra | Developed by Rehan Sultan Sultan</p>
+        <p>Contact: mitraform@gmail.com</p>
+    </footer>
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                get(ref(db, 'agents/' + user.uid)).then((snapshot) => {
-                    const userData = snapshot.val();
-                    if (userData && userData.status === "Approved") {
-                        document.body.style.display = "block";
-                        document.getElementById('agentDisplay').innerText = userData.name;
-                    } else {
-                        alert("Access Denied: Account not approved.");
-                        window.location.href = "login.html";
-                    }
-                });
-            } else {
-                window.location.href = "login.html";
-            }
-        });
-
-        window.logout = () => { signOut(auth).then(() => { window.location.href = "login.html"; }); };
-    </script>
 </body>
 </html>
