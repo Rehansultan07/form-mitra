@@ -3,66 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Mitra - Dashboard</title>
+    <title>Digital Seva Portal - Form Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: none; } /* Hide until approved */
-        .navbar { background: #007bff; color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .container { padding: 30px; max-width: 1200px; margin: auto; }
-        .welcome-section { margin-bottom: 30px; }
+        :root { --csc-blue: #2c3e50; --csc-light-blue: #34495e; --csc-orange: #f39c12; }
+        body { font-family: 'Open Sans', sans-serif; margin: 0; background: #f4f7f9; display: none; }
         
-        /* Professional Card Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-        .card { background: white; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer; border-bottom: 5px solid #007bff; }
-        .card:hover { transform: translateY(-10px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-        .card i { font-size: 45px; color: #007bff; margin-bottom: 15px; }
-        .card h3 { margin: 10px 0; color: #333; font-size: 20px; }
-        .card p { color: #666; font-size: 14px; }
+        /* Sidebar */
+        .sidebar { width: 70px; background: var(--csc-blue); height: 100vh; position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 20px; transition: 0.3s; z-index: 1000; }
+        .sidebar:hover { width: 200px; }
+        .sidebar i { color: white; font-size: 20px; margin: 20px 0; cursor: pointer; }
         
-        /* Tool Specific Colors */
-        .tool-card { border-bottom-color: #28a745; }
-        .tool-card i { color: #28a745; }
+        /* Top Header */
+        .header { background: white; height: 60px; margin-left: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .search-bar { background: #eee; padding: 8px 15px; border-radius: 5px; width: 400px; }
         
-        .logout-btn { background: #ff4757; color: white; border: none; padding: 8px 18px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        /* Main Content */
+        .main { margin-left: 70px; padding: 25px; }
+        .banner { background: var(--csc-blue); color: white; padding: 20px; border-radius: 4px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* CSC Style Cards */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
+        .csc-card { background: white; border: 1px solid #ddd; text-align: center; padding: 20px 10px; cursor: pointer; transition: 0.2s; position: relative; }
+        .csc-card:hover { border-color: var(--csc-orange); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .csc-card i { font-size: 35px; color: #555; margin-bottom: 10px; }
+        .csc-card h4 { margin: 10px 0 5px 0; font-size: 14px; color: #333; text-transform: uppercase; }
+        .csc-card .tag { background: var(--csc-orange); color: white; font-size: 10px; padding: 2px 6px; position: absolute; top: 0; right: 0; }
+
+        .logout-btn { background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div style="font-size: 20px; font-weight: bold;">FORM MITRA</div>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </nav>
+    <div class="sidebar">
+        <i class="fas fa-bars"></i>
+        <i class="fas fa-home"></i>
+        <i class="fas fa-th"></i>
+        <i class="fas fa-wallet"></i>
+        <i class="fas fa-history"></i>
+    </div>
 
-    <div class="container">
-        <div class="welcome-section">
-            <h1 id="welcomeText">Welcome, Agent</h1>
-            <p>Apni pasandida service chunein aur kaam shuru karein.</p>
+    <div class="header">
+        <div class="search-bar"><i class="fas fa-search"></i> Search Services...</div>
+        <div>
+            <span id="agentDisplay" style="margin-right: 15px; font-weight: bold;"></span>
+            <button class="logout-btn" onclick="logout()">LOGOUT</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="banner">
+            <div>
+                <h2 style="margin:0;">Digital Seva Portal</h2>
+                <p style="margin:5px 0 0 0;">Welcome to Form Mitra Services</p>
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size: 20px;">Balance: ₹0.00</div>
+            </div>
         </div>
 
-        <div class="grid">
-            <div class="card tool-card" onclick="window.location.href='photo-resizer.html'">
-                <i class="fas fa-camera"></i>
-                <h3>Photo Resizer</h3>
-                <p>Passport Size & KB Adjust Tool</p>
+        <h3>Services</h3>
+        <div class="services-grid">
+            <div class="csc-card" onclick="window.location.href='photo-resizer.html'">
+                <div class="tag">NEW</div>
+                <i class="fas fa-image" style="color: #27ae60;"></i>
+                <h4>Photo Resizer</h4>
             </div>
 
-            <div class="card tool-card" onclick="window.location.href='sarkari-portal.html'">
-                <i class="fas fa-university"></i>
-                <h3>Sarkari Tool</h3>
-                <p>All Govt Services & Links</p>
+            <div class="csc-card" onclick="window.location.href='sarkari-portal.html'">
+                <div class="tag">HOT</div>
+                <i class="fas fa-file-invoice" style="color: #2980b9;"></i>
+                <h4>Sarkari Tool</h4>
             </div>
 
-            <div class="card" style="opacity: 0.6; cursor: not-allowed;">
-                <i class="fas fa-id-card"></i>
-                <h3>PAN Card</h3>
-                <p>Coming Soon (API Integration)</p>
-            </div>
-
-            <div class="card" style="opacity: 0.6; cursor: not-allowed;">
-                <i class="fas fa-money-check-alt"></i>
-                <h3>AEPS</h3>
-                <p>Coming Soon (Banking Services)</p>
-            </div>
+            <div class="csc-card"><i class="fas fa-id-card"></i><h4>PAN Card</h4></div>
+            <div class="csc-card"><i class="fas fa-mobile-alt"></i><h4>Recharge</h4></div>
+            <div class="csc-card"><i class="fas fa-university"></i><h4>Banking</h4></div>
+            <div class="csc-card"><i class="fas fa-bolt"></i><h4>Electricity</h4></div>
+            <div class="csc-card"><i class="fas fa-plane"></i><h4>Travel</h4></div>
+            <div class="csc-card"><i class="fas fa-heartbeat"></i><h4>Health</h4></div>
         </div>
     </div>
 
@@ -82,16 +101,15 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // Security logic
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 get(ref(db, 'agents/' + user.uid)).then((snapshot) => {
                     const userData = snapshot.val();
                     if (userData && userData.status === "Approved") {
                         document.body.style.display = "block";
-                        document.getElementById('welcomeText').innerText = "Welcome, " + userData.name;
+                        document.getElementById('agentDisplay').innerText = userData.name;
                     } else {
-                        alert("Access Denied: Aapka account Pending hai.");
+                        alert("Account not approved!");
                         window.location.href = "login.html";
                     }
                 });
@@ -100,9 +118,7 @@
             }
         });
 
-        window.logout = () => {
-            signOut(auth).then(() => { window.location.href = "login.html"; });
-        };
+        window.logout = () => { signOut(auth).then(() => { window.location.href = "login.html"; }); };
     </script>
 </body>
 </html>
