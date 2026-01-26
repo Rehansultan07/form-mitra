@@ -3,40 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Form Mitra</title>
+    <title>Form Mitra - Agent Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 500px; }
-        #mainContent { display: none; } /* Shuruat mein chupa rahega */
-        .status-msg { padding: 20px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
-        .pending-msg { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
-        .blocked-msg { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
-        .logout-btn { padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        :root { --primary: #007bff; --dark: #343a40; --light: #f8f9fa; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #eef2f3; display: none; } /* Pehle chupa rahega check hone tak */
+        
+        /* Sidebar & Navbar */
+        .navbar { background: var(--primary); color: white; padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .main-container { display: flex; min-height: calc(100vh - 60px); }
+        .sidebar { width: 250px; background: var(--dark); color: white; padding: 20px; }
+        .content { flex: 1; padding: 30px; }
+
+        /* Dashboard Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 20px; border-radius: 10px; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; cursor: pointer; border-top: 4px solid var(--primary); }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .card i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
+        .card h3 { margin: 10px 0; font-size: 18px; color: #333; }
+
+        .wallet-box { background: #28a745; color: white; padding: 10px 20px; border-radius: 5px; font-weight: bold; }
+        .logout-btn { background: #ff4757; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="container" id="loadingArea">
-        <h2>Checking Account Status...</h2>
-    </div>
-
-    <div class="container" id="statusArea" style="display: none;">
-        <div id="statusMessage" class="status-msg"></div>
-        <p>Agar aapne payment kar di hai, toh 2-4 ghante wait karein.</p>
-        <button class="logout-btn" onclick="logout()">Logout</button>
-    </div>
-
-    <div class="container" id="mainContent">
-        <h1 id="welcomeText">Welcome, Agent!</h1>
-        <hr>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
-            <button style="padding: 20px;">PAN Card Services</button>
-            <button style="padding: 20px;">AEPS (Cash Out)</button>
-            <button style="padding: 20px;">Mobile Recharge</button>
-            <button style="padding: 20px;">Wallet: ₹0</button>
+    <nav class="navbar">
+        <div class="logo"><b>FORM MITRA</b> | Digital Seva</div>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div class="wallet-box">Wallet: ₹0.00</div>
+            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
-        <br><br>
-        <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </nav>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <p><i class="fas fa-user-circle"></i> <span id="agentName">Loading...</span></p>
+            <hr>
+            <p><i class="fas fa-home"></i> Dashboard</p>
+            <p><i class="fas fa-history"></i> History</p>
+            <p><i class="fas fa-headset"></i> Support</p>
+        </aside>
+
+        <main class="content">
+            <h2 id="welcomeText">Welcome back!</h2>
+            <div class="grid">
+                <div class="card"><i class="fas fa-id-card"></i><h3>PAN Card</h3><p>New / Correction</p></div>
+                <div class="card"><i class="fas fa-university"></i><h3>AEPS</h3><p>Cash Withdrawal</p></div>
+                <div class="card"><i class="fas fa-mobile-alt"></i><h3>Recharge</h3><p>Mobile & DTH</p></div>
+                <div class="card"><i class="fas fa-bolt"></i><h3>Electricity</h3><p>Bill Payment</p></div>
+                <div class="card"><i class="fas fa-file-invoice"></i><h3>ITR Filing</h3><p>Income Tax</p></div>
+                <div class="card"><i class="fas fa-plane"></i><h3>Booking</h3><p>Air & Rail</p></div>
+            </div>
+        </main>
     </div>
 
     <script type="module">
@@ -55,39 +74,29 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // Security Check
+        // Security logic
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const userRef = ref(db, 'agents/' + user.uid);
                 get(userRef).then((snapshot) => {
                     const userData = snapshot.val();
-                    document.getElementById('loadingArea').style.display = 'none';
-
+                    
+                    // Approval Check
                     if (userData && userData.status === "Approved") {
-                        // Agent Approved hai
-                        document.getElementById('mainContent').style.display = 'block';
-                        document.getElementById('welcomeText').innerText = "Welcome, " + userData.name;
+                        document.body.style.display = "block"; // Sirf approved ko dikhao
+                        document.getElementById('agentName').innerText = userData.name;
+                        document.getElementById('welcomeText').innerText = "Welcome back, " + userData.name;
                     } 
-                    else if (userData && userData.status === "Suspended") {
-                        // Agent Blocked hai
-                        showStatus("Aapka account BLOCK kar diya gaya hai. Admin se sampark karein.", "blocked-msg");
-                    }
                     else {
-                        // Status Pending hai
-                        showStatus("Aapka account abhi PENDING hai. Approval milne par hi services khulengi.", "pending-msg");
+                        // Agar Approved nahi hai
+                        alert("Aapka account abhi Pending hai ya Suspended hai. Admin approval ka intezar karein.");
+                        window.location.href = "login.html";
                     }
                 });
             } else {
                 window.location.href = "login.html";
             }
         });
-
-        function showStatus(msg, className) {
-            document.getElementById('statusArea').style.display = 'block';
-            const msgDiv = document.getElementById('statusMessage');
-            msgDiv.innerText = msg;
-            msgDiv.className = "status-msg " + className;
-        }
 
         window.logout = () => {
             signOut(auth).then(() => { window.location.href = "login.html"; });
