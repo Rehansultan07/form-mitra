@@ -3,152 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Mitra | Digital Seva Platform</title>
+    <title>Digital Seva Portal - Form Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #0f172a; --accent: #3b82f6; --gold: #f59e0b; --bg: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #1e293b; line-height: 1.6; }
+        :root { --csc-blue: #223d5d; --csc-orange: #f39c12; --csc-text: #333; --csc-bg: #f4f7f9; }
+        body { font-family: Arial, sans-serif; margin: 0; background-color: var(--csc-bg); color: var(--csc-text); }
+
+        /* Top Bar */
+        .top-header { background: #fff; padding: 10px 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid var(--csc-blue); }
+        .brand { display: flex; align-items: center; gap: 15px; }
+        .brand b { font-size: 24px; color: var(--csc-blue); text-transform: uppercase; border-left: 5px solid var(--csc-orange); padding-left: 10px; }
+        .auth-links a { text-decoration: none; padding: 8px 20px; font-weight: bold; border-radius: 2px; font-size: 13px; }
+        .login-btn { background: var(--csc-blue); color: white; }
+        .reg-btn { color: var(--csc-blue); border: 1px solid var(--csc-blue); margin-right: 10px; }
+
+        /* Hero Banner */
+        .hero-banner { background: var(--csc-blue); color: white; padding: 60px 10%; display: flex; align-items: center; justify-content: space-between; }
+        .hero-content h1 { font-size: 38px; margin: 0 0 15px 0; }
+        .hero-content p { font-size: 18px; opacity: 0.9; margin: 0; }
+        .hero-icon i { font-size: 100px; opacity: 0.3; }
+
+        /* News Ticker */
+        .ticker { background: #ffefd5; color: #d35400; padding: 10px 10%; font-size: 13px; font-weight: bold; border-bottom: 1px solid #ffd39b; }
+
+        /* Service Grid */
+        .container { padding: 50px 10%; text-align: center; }
+        .section-title { font-size: 24px; color: var(--csc-blue); margin-bottom: 40px; text-transform: uppercase; border-bottom: 2px solid #ddd; padding-bottom: 10px; display: inline-block; }
         
-        /* Glass Navbar */
-        .nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); padding: 15px 10%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .logo { font-size: 24px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
-        .logo span { color: var(--accent); }
-        .nav-actions a { text-decoration: none; font-weight: 600; font-size: 14px; padding: 10px 24px; border-radius: 8px; transition: 0.3s; }
-        .btn-log { color: var(--primary); }
-        .btn-reg { background: var(--primary); color: white !important; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2); }
-        .btn-reg:hover { background: var(--accent); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; }
+        .service-box { background: #fff; border: 1px solid #ddd; padding: 30px 10px; transition: 0.2s; cursor: pointer; text-align: center; }
+        .service-box:hover { border-color: var(--csc-orange); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .service-box i { font-size: 45px; color: #555; margin-bottom: 15px; }
+        .service-box h4 { font-size: 14px; margin: 0; color: #444; text-transform: uppercase; }
 
-        /* Modern Hero Section */
-        .hero { padding: 100px 10%; display: flex; align-items: center; gap: 50px; background: white; min-height: 70vh; flex-wrap: wrap; }
-        .hero-text { flex: 1.2; min-width: 350px; }
-        .hero-text h1 { font-size: 56px; font-weight: 800; line-height: 1.1; margin-bottom: 25px; color: var(--primary); }
-        .hero-text p { font-size: 18px; color: #64748b; margin-bottom: 35px; max-width: 550px; }
-        .hero-img { flex: 1; min-width: 350px; text-align: center; }
-        .hero-img img { width: 100%; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+        /* About Section */
+        .about-box { background: #fff; padding: 60px 10%; margin-top: 30px; display: flex; gap: 40px; align-items: center; flex-wrap: wrap; }
+        .about-text { flex: 1; min-width: 300px; text-align: left; }
+        .about-text h2 { color: var(--csc-blue); }
+        .about-text p { line-height: 1.8; color: #666; }
 
-        /* Service Section */
-        .section { padding: 90px 10%; }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 36px; font-weight: 800; margin-bottom: 15px; }
-        .section-header div { width: 60px; height: 5px; background: var(--accent); margin: 0 auto; border-radius: 10px; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #e2e8f0; transition: 0.4s; }
-        .card:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--accent); }
-        .card-image { height: 220px; background-size: cover; background-position: center; }
-        .card-content { padding: 30px; }
-        .card-content h3 { font-size: 22px; margin-bottom: 15px; color: var(--primary); }
-        .card-content p { color: #64748b; font-size: 15px; margin-bottom: 0; }
-
-        /* Trust & Honesty Info */
-        .trust-info { background: var(--primary); color: white; padding: 100px 10%; display: flex; align-items: center; gap: 60px; flex-wrap: wrap; }
-        .trust-text { flex: 1; }
-        .trust-text h2 { font-size: 38px; color: white; margin-bottom: 25px; }
-        .trust-list { list-style: none; padding: 0; }
-        .trust-list li { margin-bottom: 20px; font-size: 16px; display: flex; align-items: flex-start; gap: 15px; }
-        .trust-list i { color: var(--accent); font-size: 22px; margin-top: 3px; }
-
-        /* Compact Footer */
-        footer { background: #020617; color: #94a3b8; padding: 80px 10% 40px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; }
-        .footer-logo { color: white; font-size: 24px; font-weight: 800; margin-bottom: 20px; }
-        .footer-col h4 { color: white; margin-bottom: 25px; text-transform: uppercase; font-size: 14px; letter-spacing: 1px; }
-        .footer-col a { display: block; color: #94a3b8; text-decoration: none; margin-bottom: 12px; font-size: 14px; transition: 0.3s; }
-        .footer-col a:hover { color: var(--accent); }
-
-        .bottom-bar { text-align: center; border-top: 1px solid #1e293b; margin-top: 60px; padding-top: 40px; font-size: 13px; }
+        /* Footer */
+        footer { background: #eee; padding: 30px 10%; border-top: 1px solid #ddd; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 30px; }
+        .footer-col h5 { color: var(--csc-blue); margin: 0 0 15px 0; font-size: 16px; }
+        .footer-col p, .footer-col a { font-size: 13px; color: #777; text-decoration: none; margin-bottom: 8px; display: block; }
+        .bottom-strip { background: var(--csc-blue); color: #fff; text-align: center; padding: 15px; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <nav class="nav">
-        <div class="logo">FORM<span>MITRA</span></div>
-        <div class="nav-actions">
-            <a href="login.html" class="btn-log">Agent Login</a>
-            <a href="signup.html" class="btn-reg">Join Team Mitra</a>
+    <header class="top-header">
+        <div class="brand">
+            <b>FORM MITRA</b>
         </div>
-    </nav>
-
-    <header class="hero">
-        <div class="hero-text">
-            <h1>Digital Services, Simplified for You.</h1>
-            <p>Form Mitra is a streamlined portal for agents to access Government Exams, Document Tools, and Identity Services on a single, secure platform.</p>
-            <a href="signup.html" class="btn-reg" style="font-size: 18px; padding: 16px 40px; display: inline-block;">Get Started Today</a>
-        </div>
-        <div class="hero-img">
-            <img src="https://images.unsplash.com/photo-1551288049-bb1c003f2c8d?auto=format&fit=crop&w=800&q=80" alt="Dashboard View">
+        <div class="auth-links">
+            <a href="signup.html" class="reg-btn">REGISTRATION</a>
+            <a href="login.html" class="login-btn">LOGIN</a>
         </div>
     </header>
 
-    <section class="section" id="services">
-        <div class="section-header">
-            <h2>Our Core Tools</h2>
-            <div></div>
+    <div class="ticker">
+        <marquee behavior="scroll" direction="left">Welcome to Team Mitra Digital Portal | Voter ID Correction, Result Check and Document Resizing services are now available for all registered agents.</marquee>
+    </div>
+
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1>Digital Seva Portal</h1>
+            <p>Sabhi Online Kaam Ab Ek Hi Jagah Par</p>
         </div>
-        <div class="grid">
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1621600411688-4be93cd68504?auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="card-content">
-                    <h3>Identity & Voter ID</h3>
-                    <p>Direct dashboard links to apply for new Voter IDs or make essential corrections seamlessly.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="card-content">
-                    <h3>Exam Central</h3>
-                    <p>Fastest access to Government Exam Results, Admit Cards, and latest job notifications for your clients.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80');"></div>
-                <div class="card-content">
-                    <h3>Precision Resizer</h3>
-                    <p>A smart utility to resize photos and signatures to exact official dimensions (KB & pixels) instantly.</p>
-                </div>
-            </div>
+        <div class="hero-icon">
+            <i class="fas fa-university"></i>
         </div>
     </section>
 
-    <section class="trust-info">
-        <div class="trust-text">
-            <h2>Our Honest Commitment</h2>
-            <p>We are a small, dedicated team building digital tools for local businesses. We believe in transparency and real utility over big promises.</p>
-            <ul class="trust-list">
-                <li><i class="fas fa-check-circle"></i> <b>Direct Portals:</b> Clean, direct links to government websites.</li>
-                <li><i class="fas fa-check-circle"></i> <b>No Middleman:</b> We provide the platform; you manage your business.</li>
-                <li><i class="fas fa-check-circle"></i> <b>Data Security:</b> Your agent account and data stay private and secure.</li>
-            </ul>
+    <div class="container">
+        <h2 class="section-title">Hamari Pramukh Sevayein</h2>
+        <div class="services-grid">
+            <div class="service-box"><i class="fas fa-id-card"></i><h4>Voter Services</h4></div>
+            <div class="service-box"><i class="fas fa-file-invoice"></i><h4>Results/Admit Card</h4></div>
+            <div class="service-box"><i class="fas fa-crop-alt"></i><h4>Photo Resizer</h4></div>
+            <div class="service-box"><i class="fas fa-address-card"></i><h4>PAN Card</h4></div>
+            <div class="service-box"><i class="fas fa-university"></i><h4>Banking</h4></div>
+            <div class="service-box"><i class="fas fa-print"></i><h4>Print Services</h4></div>
         </div>
-        <div style="flex: 0.8;">
-            <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=600&q=80" style="width: 100%; border-radius: 20px;">
+    </div>
+
+    <section class="about-box">
+        <div class="about-text">
+            <h2>Kyun Chunein Team Mitra?</h2>
+            <p>Team Mitra ek aisi pehal hai jo gaon aur shehar ke dukaandaro ko digital takat dena chahti hai. Hum koi bade waade nahi karte, balki ek saral aur authentic platform dete hain jahan aap imandari se apna business chala sakein.</p>
+            <p><b>Note:</b> Hum sirf email ke madhyam se zaroori support dete hain.</p>
+        </div>
+        <div style="flex: 0.8; text-align: center;">
+            <i class="fas fa-users-cog" style="font-size: 150px; color: #ddd;"></i>
         </div>
     </section>
 
     <footer>
-        <div class="footer-grid">
+        <div class="footer-content">
             <div class="footer-col">
-                <div class="footer-logo">FORM<span>MITRA</span></div>
-                <p>Building a digital ecosystem for Indian agents. Simple, honest, and effective.</p>
+                <h5>About Us</h5>
+                <p>Team Mitra Digital Portal for Agents.</p>
             </div>
             <div class="footer-col">
-                <h4>Platform</h4>
+                <h5>Links</h5>
                 <a href="signup.html">Registration</a>
-                <a href="login.html">Agent Login</a>
-                <a href="#services">Our Tools</a>
+                <a href="login.html">Login</a>
             </div>
             <div class="footer-col">
-                <h4>Get in Touch</h4>
-                <p><i class="fas fa-envelope" style="margin-right: 10px;"></i> mitraform@gmail.com</p>
-                <p style="font-size: 12px; opacity: 0.6;">Email support only. Response time may vary.</p>
+                <h5>Contact</h5>
+                <p>Email: mitraform@gmail.com</p>
             </div>
-        </div>
-        <div class="bottom-bar">
-            &copy; 2026 Form Mitra. All rights reserved. <br>
-            <span style="font-weight: 800; color: white; display: block; margin-top: 10px;">Made by Team Mitra for you</span>
         </div>
     </footer>
+
+    <div class="bottom-strip">
+        &copy; 2026 Form Mitra. All Rights Reserved. | <b>Made by Team Mitra for you</b>
+    </div>
 
 </body>
 </html>
