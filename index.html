@@ -1,345 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-    // Wahi config jo aapne screenshot mein dekha
-    const firebaseConfig = {
-        apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
-        authDomain: "formmitra-auth.firebaseapp.com",
-        projectId: "formmitra-auth",
-        storageBucket: "formmitra-auth.firebasestorage.app",
-        messagingSenderId: "820805030003",
-        appId: "1:820805030003:web:3be924b3ccfecce6d65a06"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Check if user is logged in
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            // Agar user login nahi hai, toh use login page par bhej do
-            window.location.href = "login.html";
-        }
-    });
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Mitra - Digital Seva Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    
+    <title>Dashboard - Form Mitra</title>
     <style>
-        :root {
-            --bg-body: #f4f6f9;
-            --text-dark: #333;
-            --blue: #007bff;
-            --green: #28a745;
-            --orange: #fd7e14;
-        }
-
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            background-color: var(--bg-body);
-            color: var(--text-dark);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* --- Header --- */
-        header {
-            background: white;
-            border-bottom: 1px solid #dcdcdc;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .top-header {
-            padding: 10px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-text { font-size: 24px; font-weight: 700; color: #333; }
-        .logo-text span { color: var(--blue); }
-        .logo-sub { font-size: 11px; color: #666; border-left: 1px solid #999; padding-left: 10px; margin-left: 5px; font-weight: 500; text-transform: uppercase; }
-
-        .login-btn {
-            background: var(--blue);
-            color: white;
-            padding: 7px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-
-        .nav-strip { height: 4px; background: #f39c12; width: 100%; }
-
-        /* --- Main Content --- */
-        .main-container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-            flex: 1;
-        }
-
-        .section-header {
-            border-bottom: 2px solid #e0e0e0;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            font-size: 18px;
-            font-weight: 700;
-            color: #444;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* --- FLEXBOX FIX (Yahin Magic Hai) --- */
-        .services-grid {
-            display: flex;           /* Grid hata diya, Flex lagaya */
-            flex-wrap: wrap;         /* Line khatam hone par niche aayega */
-            gap: 20px;               /* Beech mein gap */
-            justify-content: flex-start; /* Left se shuru karega */
-        }
-
-        .service-card {
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            
-            /* FIXED WIDTH & HEIGHT - Taaki sab barabar dikhein */
-            width: 170px;            
-            height: 140px;
-            
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #333;
-            transition: all 0.2s ease;
-            position: relative;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-top: 4px solid #ccc;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-            border-color: #bbb;
-        }
-
-        .icon-box {
-            font-size: 38px;
-            margin-bottom: 15px;
-            height: 45px; 
-            display: flex; 
-            align-items: center;
-        }
-
-        .service-label {
-            font-size: 13px;
-            font-weight: 600;
-            line-height: 1.3;
-            text-align: center;
-        }
-
-        /* Card Colors */
-        .theme-blue { border-top-color: var(--blue); }
-        .theme-blue .icon-box { color: var(--blue); }
-
-        .theme-green { border-top-color: var(--green); }
-        .theme-green .icon-box { color: var(--green); }
-
-        .theme-orange { border-top-color: var(--orange); }
-        .theme-orange .icon-box { color: var(--orange); }
-
-        .theme-red { border-top-color: #dc3545; }
-        .theme-red .icon-box { color: #dc3545; }
-
-        .theme-purple { border-top-color: #6f42c1; }
-        .theme-purple .icon-box { color: #6f42c1; }
-
-
-        /* --- Footer --- */
-        footer {
-            background: #232f3e;
-            color: #ccc;
-            padding: 50px 0 0 0;
-            margin-top: 60px;
-            font-size: 13px;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 40px;
-            display: flex; /* Flexbox footer ke liye bhi */
-            flex-wrap: wrap;
-            gap: 40px;
-            justify-content: space-between;
-            border-bottom: 1px solid #444;
-        }
-        
-        .footer-col { flex: 1; min-width: 200px; }
-
-        .footer-col h4 {
-            color: white;
-            font-size: 15px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .footer-links { list-style: none; padding: 0; margin: 0; }
-        .footer-links li { margin-bottom: 10px; }
-        .footer-links a { color: #aaa; text-decoration: none; transition: 0.2s; }
-        .footer-links a:hover { color: white; padding-left: 5px; }
-
-        .social-icons a { margin-right: 15px; font-size: 16px; color: white; }
-
-        .footer-bottom {
-            background: #19212b;
-            text-align: center;
-            padding: 20px;
-            color: #777;
-        }
-
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; width: 90%; max-width: 500px; }
+        #mainContent { display: none; } /* Shuruat mein chupa rahega */
+        .status-msg { padding: 20px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
+        .pending-msg { background: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
+        .blocked-msg { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .logout-btn { padding: 10px 20px; background: #dc3545; color: white; border: none; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
-<script type="module">
-    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    
-    // Ye function button dabane par kaam karega
-    window.logoutAgent = function() {
-        const auth = getAuth();
-        signOut(auth).then(() => {
-            window.location.href = "login.html"; // Logout ke baad login page par bhej dega
-        }).catch((error) => {
-            alert("Error logging out!");
-        });
-    }
-</script>
 <body>
 
-    <header>
-        <div class="top-header">
-            <div class="logo-area">
-                <div class="logo-text">Form<span>Mitra</span></div>
-                <div class="logo-sub">Digital Seva Portal</div>
-            </div>
-<button onclick="logoutAgent()" class="login-btn" style="background: #dc3545; border: none; cursor: pointer; color: white; padding: 7px 20px; border-radius: 4px;">
-    LOGOUT
-</button>
-        </div>
-        <div class="nav-strip"></div>
-    </header>
-
-    <div class="main-container">
-        
-        <div class="section-header">
-            <i class="fas fa-th"></i> All Services
-        </div>
-
-        <div class="services-grid">
-
-            <a href="/resizer/" class="service-card theme-blue">
-                <div class="icon-box"><i class="fas fa-crop-simple"></i></div>
-                <div class="service-label">Photo Resizer</div>
-            </a>
-
-            <a href="/portal/" class="service-card theme-green">
-                <div class="icon-box"><i class="fas fa-globe"></i></div>
-                <div class="service-label">Exam Portal</div>
-            </a>
-
-            <a href="/resume/" class="service-card theme-orange">
-                <div class="icon-box"><i class="fas fa-file-contract"></i></div>
-                <div class="service-label">Resume Maker</div>
-            </a>
-
-            <a href="#" class="service-card theme-purple">
-                <div class="icon-box"><i class="fas fa-fingerprint"></i></div>
-                <div class="service-label">Aadhaar Print</div>
-            </a>
-
-            <a href="#" class="service-card theme-blue">
-                <div class="icon-box"><i class="fas fa-id-card"></i></div>
-                <div class="service-label">PAN Card Apply</div>
-            </a>
-
-            <a href="#" class="service-card theme-red">
-                <div class="icon-box"><i class="fas fa-heartbeat"></i></div>
-                <div class="service-label">Ayushman Bharat</div>
-            </a>
-            
-            <a href="#" class="service-card theme-green">
-                <div class="icon-box"><i class="fas fa-tractor"></i></div>
-                <div class="service-label">PM Kisan</div>
-            </a>
-
-            <a href="#" class="service-card theme-orange">
-                <div class="icon-box"><i class="fas fa-gas-pump"></i></div>
-                <div class="service-label">Gas Booking</div>
-            </a>
-            
-            <a href="#" class="service-card theme-blue">
-                <div class="icon-box"><i class="fas fa-bolt"></i></div>
-                <div class="service-label">Bill Payment</div>
-            </a>
-
-            <a href="#" class="service-card theme-red">
-                <div class="icon-box"><i class="fas fa-bus"></i></div>
-                <div class="service-label">Ticket Booking</div>
-            </a>
-
-        </div>
+    <div class="container" id="loadingArea">
+        <h2>Checking Account Status...</h2>
     </div>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-col">
-                <h4>About Us</h4>
-                <p style="color:#aaa; line-height:1.6;">Form Mitra simplifies online government services. Access tools for exams, documents, and utilities in one secure platform.</p>
-                <div class="social-icons" style="margin-top:15px;">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Our Services</a></li>
-                    <li><a href="#">Contact Support</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h4>Contact Info</h4>
-                <ul class="footer-links">
-                    <li><i class="fas fa-map-marker-alt"></i> Digital Zone, Delhi</li>
-                    <li><i class="fas fa-phone-alt"></i> +91 1800-11-2233</li>
-                    <li><i class="fas fa-envelope"></i> help@formmitra.in</li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            &copy; 2026 Form Mitra Digital Portal. All rights reserved.
-        </div>
-    </footer>
+    <div class="container" id="statusArea" style="display: none;">
+        <div id="statusMessage" class="status-msg"></div>
+        <p>Agar aapne payment kar di hai, toh 2-4 ghante wait karein.</p>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
 
+    <div class="container" id="mainContent">
+        <h1 id="welcomeText">Welcome, Agent!</h1>
+        <hr>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px;">
+            <button style="padding: 20px;">PAN Card Services</button>
+            <button style="padding: 20px;">AEPS (Cash Out)</button>
+            <button style="padding: 20px;">Mobile Recharge</button>
+            <button style="padding: 20px;">Wallet: ₹0</button>
+        </div>
+        <br><br>
+        <button class="logout-btn" onclick="logout()">Sign Out</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
+            authDomain: "formmitra-auth.firebaseapp.com",
+            projectId: "formmitra-auth",
+            databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        // Security Check
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const userRef = ref(db, 'agents/' + user.uid);
+                get(userRef).then((snapshot) => {
+                    const userData = snapshot.val();
+                    document.getElementById('loadingArea').style.display = 'none';
+
+                    if (userData && userData.status === "Approved") {
+                        // Agent Approved hai
+                        document.getElementById('mainContent').style.display = 'block';
+                        document.getElementById('welcomeText').innerText = "Welcome, " + userData.name;
+                    } 
+                    else if (userData && userData.status === "Suspended") {
+                        // Agent Blocked hai
+                        showStatus("Aapka account BLOCK kar diya gaya hai. Admin se sampark karein.", "blocked-msg");
+                    }
+                    else {
+                        // Status Pending hai
+                        showStatus("Aapka account abhi PENDING hai. Approval milne par hi services khulengi.", "pending-msg");
+                    }
+                });
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        function showStatus(msg, className) {
+            document.getElementById('statusArea').style.display = 'block';
+            const msgDiv = document.getElementById('statusMessage');
+            msgDiv.innerText = msg;
+            msgDiv.className = "status-msg " + className;
+        }
+
+        window.logout = () => {
+            signOut(auth).then(() => { window.location.href = "login.html"; });
+        };
+    </script>
 </body>
 </html>
