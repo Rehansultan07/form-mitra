@@ -8,18 +8,29 @@
     <style>
         :root { --csc-blue: #2c3e50; --csc-light: #f4f7f9; --csc-orange: #f39c12; }
         body { font-family: 'Open Sans', sans-serif; margin: 0; background: var(--csc-light); display: none; }
+        
+        /* Hover Sidebar */
         .sidebar { width: 70px; background: var(--csc-blue); height: 100vh; position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 20px; transition: 0.3s; z-index: 1000; }
         .sidebar:hover { width: 200px; }
-        .sidebar i { color: white; font-size: 20px; margin: 20px 0; cursor: pointer; }
+        .sidebar i { color: white; font-size: 20px; margin: 20px 0; cursor: pointer; transition: 0.2s; }
+        .sidebar i:hover { color: var(--csc-orange); }
+        
+        /* Top Navigation Header */
         .header { background: white; height: 60px; margin-left: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .search-bar { background: #eee; padding: 8px 15px; border-radius: 5px; width: 350px; font-size: 14px; }
+        
+        /* Main Body Area */
         .main { margin-left: 70px; padding: 25px; }
         .banner { background: var(--csc-blue); color: white; padding: 20px; border-radius: 4px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
+        
+        /* CSC Style Card Layout */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
         .csc-card { background: white; border: 1px solid #ddd; text-align: center; padding: 25px 10px; cursor: pointer; transition: 0.2s; position: relative; }
         .csc-card:hover { border-color: var(--csc-orange); box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-3px); }
         .csc-card i { font-size: 40px; color: #555; margin-bottom: 12px; }
         .csc-card h4 { margin: 10px 0 5px 0; font-size: 13px; color: #333; text-transform: uppercase; font-weight: 600; }
         .csc-card .tag { background: var(--csc-orange); color: white; font-size: 9px; padding: 2px 7px; position: absolute; top: 0; right: 0; font-weight: bold; }
+
         .logout-btn { background: #e74c3c; color: white; border: none; padding: 8px 15px; border-radius: 3px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
@@ -27,14 +38,15 @@
 
     <div class="sidebar">
         <i class="fas fa-bars"></i>
-        <i class="fas fa-home"></i>
-        <i class="fas fa-th"></i>
-        <i class="fas fa-wallet"></i>
-        <i class="fas fa-history"></i>
+        <i class="fas fa-home" title="Home" onclick="window.location.href='index.html'"></i>
+        <i class="fas fa-user-circle" title="My Profile" onclick="window.location.href='profile.html'"></i>
+        <i class="fas fa-wallet" title="Wallet"></i>
+        <i class="fas fa-history" title="History"></i>
+        <i class="fas fa-headset" title="Support"></i>
     </div>
 
     <div class="header">
-        <div style="background: #eee; padding: 8px 15px; border-radius: 5px; width: 350px;"><i class="fas fa-search"></i> Search Services...</div>
+        <div class="search-bar"><i class="fas fa-search"></i> Search Services...</div>
         <div>
             <span id="agentDisplay" style="margin-right: 15px; font-weight: bold; color: var(--csc-blue);"></span>
             <button class="logout-btn" onclick="logout()">LOGOUT</button>
@@ -43,11 +55,17 @@
 
     <div class="main">
         <div class="banner">
-            <div><h2 style="margin:0;">Digital Seva Portal</h2><p style="margin:5px 0 0 0;">Form Mitra | Sabhi Online Kaam Ek Jagah</p></div>
-            <div style="text-align:right;"><div style="font-size: 18px; font-weight: bold;">Wallet: ₹0.00</div></div>
+            <div>
+                <h2 style="margin:0;">Digital Seva Portal</h2>
+                <p style="margin:5px 0 0 0;">Form Mitra | Sabhi Online Kaam Ek Jagah</p>
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size: 18px; font-weight: bold;">Wallet: ₹0.00</div>
+                <div style="font-size: 12px; opacity: 0.8;">Admin: Rehan Sultan</div>
+            </div>
         </div>
 
-        <h3 style="color: #444; border-left: 4px solid var(--csc-orange); padding-left: 10px; margin-bottom: 20px;">Favorite Services</h3>
+        <h3 style="color: #444; border-left: 4px solid var(--csc-orange); padding-left: 10px; margin-bottom: 20px;">Services</h3>
         
         <div class="services-grid">
             <div class="csc-card" onclick="window.location.href='resizer/index.html'">
@@ -62,10 +80,12 @@
                 <h4>Result/Admit Card</h4>
             </div>
 
-            <div class="csc-card" style="opacity: 0.7;"><i class="fas fa-id-card"></i><h4>PAN Service</h4></div>
-            <div class="csc-card" style="opacity: 0.7;"><i class="fas fa-university"></i><h4>Banking</h4></div>
-            <div class="csc-card" style="opacity: 0.7;"><i class="fas fa-train"></i><h4>IRCTC</h4></div>
-            <div class="csc-card" style="opacity: 0.7;"><i class="fas fa-lightbulb"></i><h4>Bills</h4></div>
+            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-id-card"></i><h4>PAN Service</h4></div>
+            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-university"></i><h4>Banking</h4></div>
+            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-mobile-alt"></i><h4>Recharge</h4></div>
+            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-train"></i><h4>IRCTC</h4></div>
+            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-plane"></i><h4>Flight</h4></div>
+            <div class="csc-card" style="opacity: 0.6;"><i class="fas fa-lightbulb"></i><h4>Bills</h4></div>
         </div>
     </div>
 
@@ -74,6 +94,7 @@
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
+        // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
             authDomain: "formmitra-auth.firebaseapp.com",
@@ -85,15 +106,16 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
+        // Access Control Logic
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 get(ref(db, 'agents/' + user.uid)).then((snapshot) => {
                     const userData = snapshot.val();
                     if (userData && userData.status === "Approved") {
-                        document.body.style.display = "block";
+                        document.body.style.display = "block"; // Show dashboard only if Approved
                         document.getElementById('agentDisplay').innerText = userData.name;
                     } else {
-                        alert("Account Approval Pending!");
+                        alert("Access Denied: Aapka account Approved nahi hai.");
                         window.location.href = "login.html";
                     }
                 });
