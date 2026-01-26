@@ -2,73 +2,99 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Form Mitra - Owner Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Control - Form Mitra</title>
+    <script>
+        let pin = prompt("Admin Security PIN daalein:");
+        if (pin !== "Rehan@786") { 
+            alert("Access Denied!"); 
+            window.location.href = "index.html"; 
+        }
+    </script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; padding: 40px; }
-        .admin-container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 800px; margin: auto; }
-        h2 { color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 15px; border: 1px solid #eee; text-align: left; }
-        th { background: #007bff; color: white; }
-        .approve-btn { background: #28a745; color: white; border: none; padding: 8px 16px; cursor: pointer; border-radius: 6px; font-weight: bold; }
-        .approve-btn:hover { background: #218838; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        .header { background: #007bff; color: white; padding: 15px; border-radius: 8px; text-align: center; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #eee; text-align: left; }
+        th { background: #0056b3; color: white; }
+        .status-badge { padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .pending { background: #fff3cd; color: #856404; }
+        .approved { background: #d4edda; color: #155724; }
+        .suspended { background: #f8d7da; color: #721c24; }
+        .btn { border: none; padding: 8px 12px; cursor: pointer; border-radius: 5px; font-size: 12px; margin-right: 5px; }
+        .btn-approve { background: #28a745; color: white; }
+        .btn-reject { background: #ffc107; color: black; }
+        .btn-suspend { background: #dc3545; color: white; }
     </style>
 </head>
 <body>
-    <div class="admin-container">
-        <h2>Agent Approval Requests</h2>
-        <table>
-            <thead>
+
+<div class="header">
+    <h1>Form Mitra Master Admin Dashboard</h1>
+    <p>Sare Agents ka control yahan se karein</p>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody id="agentTableBody">
+        </tbody>
+</table>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
+        authDomain: "formmitra-auth.firebaseapp.com",
+        projectId: "formmitra-auth",
+        databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Agents ka data load karna
+    const agentsRef = ref(db, 'agents');
+    onValue(agentsRef, (snapshot) => {
+        const data = snapshot.val();
+        const tableBody = document.getElementById('agentTableBody');
+        tableBody.innerHTML = ""; 
+
+        for (let id in data) {
+            let statusClass = data[id].status.toLowerCase();
+            tableBody.innerHTML += `
                 <tr>
-                    <th>Email</th>
-                    <th>Payment</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="agentList">
-                </tbody>
-        </table>
-    </div>
+                    <td>${data[id].name || 'N/A'}</td>
+                    <td>${data[id].phone || 'N/A'}</td>
+                    <td>${data[id].address || 'N/A'}</td>
+                    <td>${data[id].email}</td>
+                    <td><span class="status-badge ${statusClass}">${data[id].status}</span></td>
+                    <td>
+                        <button class="btn btn-approve" onclick="updateAgentStatus('${id}', 'Approved')">Approve</button>
+                        <button class="btn btn-reject" onclick="updateAgentStatus('${id}', 'Rejected')">Reject</button>
+                        <button class="btn btn-suspend" onclick="updateAgentStatus('${id}', 'Suspended')">Block</button>
+                    </td>
+                </tr>`;
+        }
+    });
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-
-        // Aapka firebase config
-        const firebaseConfig = {
-            apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
-            authDomain: "formmitra-auth.firebaseapp.com",
-            projectId: "formmitra-auth",
-            databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-
-        // Agents ki list load karna
-        const agentsRef = ref(db, 'agents');
-        onValue(agentsRef, (snapshot) => {
-            const data = snapshot.val();
-            const list = document.getElementById('agentList');
-            list.innerHTML = ""; 
-
-            for (let id in data) {
-                if (data[id].status === "Pending") {
-                    list.innerHTML += `
-                        <tr>
-                            <td>${data[id].email}</td>
-                            <td><span style="color:green; font-weight:bold;">${data[id].payment}</span></td>
-                            <td><button class="approve-btn" onclick="approveAgent('${id}')">Approve ✅</button></td>
-                        </tr>`;
-                }
-            }
-        });
-
-        // Approve karne ka function
-        window.approveAgent = (uid) => {
-            update(ref(db, 'agents/' + uid), { status: "Approved" });
-            alert("Agent Approved Successfully!");
-        };
-    </script>
+    // Status badalne ka function
+    window.updateAgentStatus = (uid, newStatus) => {
+        if(confirm("Kya aap status ko " + newStatus + " karna chahte hain?")) {
+            update(ref(db, 'agents/' + uid), { status: newStatus });
+            alert("Status updated!");
+        }
+    };
+</script>
 </body>
 </html>
