@@ -3,52 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Login - Form Mitra</title>
+    <title>Login - Form Mitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Roboto', sans-serif; background: #eaeff2; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-card { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; text-align: center; }
-        .logo { font-size: 24px; font-weight: bold; color: #0056b3; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #0056b3; color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
-        #error-msg { color: red; font-size: 13px; margin-top: 10px; display: none; }
+        :root { --primary: #007bff; --dark: #2c3e50; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
+        .logo { font-size: 28px; font-weight: bold; color: var(--primary); margin-bottom: 10px; }
+        h2 { margin-bottom: 25px; color: var(--dark); }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; margin-bottom: 5px; font-weight: 500; color: #555; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; }
+        .btn-login { background: var(--primary); color: white; border: none; width: 100%; padding: 14px; border-radius: 6px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-login:hover { background: #0056b3; }
+        .footer-links { margin-top: 20px; font-size: 14px; color: #666; }
+        .footer-links a { color: var(--primary); text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
+
     <div class="login-card">
-        <div class="logo">Form<span>Mitra</span> Agent Login</div>
-        <input type="email" id="email" placeholder="Agent Email ID">
-        <input type="password" id="password" placeholder="Password">
-        <button id="loginBtn">Login to Portal</button>
-        <p id="error-msg">Invalid login details!</p>
+        <div class="logo"><i class="fas fa-handshake"></i> FORM MITRA</div>
+        <h2>Agent Login</h2>
+        
+        <div class="input-group">
+            <label>Email ID</label>
+            <input type="email" id="email" placeholder="Apna Email daalein">
+        </div>
+        
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+
+        <button class="btn-login" onclick="handleLogin()">LOGIN TO DASHBOARD</button>
+
+        <div class="footer-links">
+            Naye Agent hain? <a href="signup.html">Register Karein</a><br><br>
+            <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-        // Aapka highlighted config yahan hai
+        // Firebase Config
         const firebaseConfig = {
             apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
             authDomain: "formmitra-auth.firebaseapp.com",
             projectId: "formmitra-auth",
-            storageBucket: "formmitra-auth.firebasestorage.app",
-            messagingSenderId: "820805030003",
-            appId: "1:820805030003:web:3be924b3ccfecce6d65a06"
+            databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        document.getElementById('loginBtn').addEventListener('click', async () => {
+        window.handleLogin = () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                window.location.href = "index.html"; 
-            } catch (error) {
-                document.getElementById('error-msg').style.display = "block";
+
+            if(!email || !password) {
+                alert("Email aur Password dono bharna zaroori hai!");
+                return;
             }
-        });
+
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Successful login ke baad redirection
+                    window.location.href = "public/dashboard.html"; 
+                })
+                .catch((error) => {
+                    let errorMessage = "Login fail ho gaya!";
+                    if (error.code === 'auth/user-not-found') errorMessage = "User nahi mila!";
+                    if (error.code === 'auth/wrong-password') errorMessage = "Galat Password!";
+                    alert(errorMessage);
+                });
+        };
     </script>
 </body>
 </html>
