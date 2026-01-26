@@ -1,51 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Signup - Form Mitra</title>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <title>Registration - Form Mitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .signup-container { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; text-align: center; }
-        h2 { color: #007bff; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 16px; }
-        button { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 16px; }
-        .btn-blue { background: #007bff; color: white; }
-        .btn-green { background: #28a745; color: white; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; margin: 0; padding: 20px; }
+        .reg-container { background: white; max-width: 550px; margin: 40px auto; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden; }
+        .header-blue { background: #223d5d; color: white; padding: 20px; text-align: center; }
+        .content { padding: 30px; }
         .step { display: none; }
-        .step.active { display: block; }
+        .active { display: block; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+        .btn-blue { background: #223d5d; color: white; }
+        .btn-green { background: #27ae60; color: white; }
+        .qr-section { text-align: center; border: 2px dashed #3498db; padding: 20px; margin-bottom: 20px; border-radius: 8px; }
+        .qr-section img { width: 180px; height: 180px; }
     </style>
 </head>
 <body>
 
-<div class="signup-container">
-    <h2>Agent Signup</h2>
-
-    <div id="step1" class="step active">
-        <input type="email" id="userEmail" placeholder="Apna Email ID daalein">
-        <button class="btn-blue" onclick="sendOTP()">OTP Bhejein</button>
-        <div id="otpInputDiv" style="display:none; margin-top:15px;">
-            <input type="text" id="otpEntered" placeholder="6-Digit OTP daalein">
-            <button class="btn-green" onclick="verifyOTP()">Verify Karein</button>
+<div class="reg-container">
+    <div class="header-blue"><h2>Agent Registration</h2></div>
+    <div class="content">
+        <div id="step1" class="step active">
+            <label>Pura Naam</label><input type="text" id="name" placeholder="Full Name">
+            <label>Email ID</label><input type="email" id="email" placeholder="Email Address">
+            <label>Mobile Number</label><input type="number" id="phone" placeholder="9876543210">
+            <button class="btn btn-blue" onclick="showStep(2)">NEXT: ADDRESS</button>
         </div>
-    </div>
 
-    <div id="step2" class="step">
-        <input type="text" id="fullName" placeholder="Pura Naam">
-        <input type="text" id="phone" placeholder="Mobile Number">
-        <input type="text" id="address" placeholder="Pura Address">
-        <input type="password" id="password" placeholder="Login Password Banayein">
-        <button class="btn-blue" onclick="goToPayment()">Next: Payment</button>
-    </div>
-
-    <div id="step3" class="step">
-        <h3>Fee: ₹999</h3>
-        <p>QR Scan karke pay karein aur phir Submit karein.</p>
-        <div style="background:#f9f9f9; padding:20px; border:2px dashed #ccc; margin-bottom:15px; color:red; font-weight:bold;">
-            [ QR CODE IMAGE ]
+        <div id="step2" class="step">
+            <label>Dukaan ka Pata</label><input type="text" id="address" placeholder="Shop Address">
+            <label>Password Chunein</label><input type="password" id="password" placeholder="Min 6 chars">
+            <button class="btn btn-blue" onclick="showStep(3)">NEXT: PAYMENT</button>
         </div>
-        <button class="btn-green" onclick="submitFinalRegistration()">I HAVE PAID (SUBMIT)</button>
+
+        <div id="step3" class="step">
+            <div class="qr-section">
+                <h4>Registration Fee: ₹999</h4>
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=REHAN@UPI&pn=FormMitra&am=999" alt="UPI QR">
+                <p style="font-size: 12px; color: #e74c3c;">Scan & Pay via any UPI App</p>
+            </div>
+            <label>Payment Transaction ID (UTR)</label>
+            <input type="text" id="utr" placeholder="Enter 12 digit UTR number">
+            <button class="btn btn-green" onclick="handleSignup()">FINISH REGISTRATION</button>
+        </div>
     </div>
 </div>
 
@@ -54,7 +56,6 @@
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    // Aapka Firebase Config
     const firebaseConfig = {
         apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
         authDomain: "formmitra-auth.firebaseapp.com",
@@ -66,81 +67,30 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // EmailJS Init
-    emailjs.init("vfjPT3DX3Psmx98md");
-
-    let systemOTP;
-
-    // 1. Send OTP
-    window.sendOTP = () => {
-        const email = document.getElementById('userEmail').value;
-        if(!email) return alert("Email zaruri hai!");
-
-        systemOTP = Math.floor(100000 + Math.random() * 900000);
-
-        const templateParams = {
-            to_email: email, // Iska nam wahi hona chahiye jo template mein hai {{to_email}}
-            otp: systemOTP   // Iska nam wahi hona chahiye jo template mein hai {{otp}}
-        };
-
-        // Service ID: service_0iiu4gq, Template ID: template_rr1i1gp
-        emailjs.send("service_0iiu4gq", "template_rr1i1gp", templateParams)
-            .then(() => {
-                alert("OTP aapki email par bhej diya gaya hai!");
-                document.getElementById('otpInputDiv').style.display = 'block';
-            }, (error) => {
-                alert("Error: OTP nahi gaya. Check karein Service ID aur Template ID.");
-                console.log("FAILED...", error);
-            });
+    window.showStep = (s) => {
+        document.querySelectorAll('.step').forEach(d => d.classList.remove('active'));
+        document.getElementById('step'+s).classList.add('active');
     };
 
-    // 2. Verify OTP
-    window.verifyOTP = () => {
-        const userOTP = document.getElementById('otpEntered').value;
-        if(userOTP == systemOTP) {
-            alert("Email Verified!");
-            document.getElementById('step1').classList.remove('active');
-            document.getElementById('step2').classList.add('active');
-        } else {
-            alert("Galat OTP!");
-        }
-    };
-
-    // 3. Go to Payment Step
-    window.goToPayment = () => {
-        const name = document.getElementById('fullName').value;
-        if(!name) return alert("Sari details bhariye!");
-        document.getElementById('step2').classList.remove('active');
-        document.getElementById('step3').classList.add('active');
-    };
-
-    // 4. Final Firebase Submission
-    window.submitFinalRegistration = async () => {
-        const email = document.getElementById('userEmail').value;
+    window.handleSignup = () => {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const name = document.getElementById('fullName').value;
         const phone = document.getElementById('phone').value;
         const address = document.getElementById('address').value;
+        const utr = document.getElementById('utr').value;
 
-        try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        if(!utr) return alert("Please enter Transaction ID!");
+
+        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
             const user = userCredential.user;
-
-            await set(ref(db, 'agents/' + user.uid), {
-                name: name,
-                phone: phone,
-                address: address,
-                email: email,
-                status: "Pending",
-                payment: "Paid",
-                date: new Date().toLocaleDateString()
+            set(ref(db, 'agents/' + user.uid), {
+                name, email, phone, address, utr, status: "Pending"
+            }).then(() => {
+                alert("Success! Admin approval ke baad aapka account active hoga.");
+                window.location.href = "login.html";
             });
-
-            alert("Registration Success! Admin approval ka wait karein.");
-            window.location.href = "login.html";
-        } catch (error) {
-            alert("Galti: " + error.message);
-        }
+        }).catch(err => alert(err.message));
     };
 </script>
 </body>
