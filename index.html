@@ -3,244 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form Mitra – Digital Service Platform</title>
+<title>Form Mitra – Trusted Digital Service Platform</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
 :root{
-  --primary:#223d5d;
-  --accent:#3498db;
-  --bg:#f5f8fc;
+  --p1:#1e3c72;
+  --p2:#2a5298;
+  --accent:#38bdf8;
+  --dark:#0f172a;
 }
 
 *{box-sizing:border-box}
 body{
   margin:0;
   font-family:Inter,Segoe UI,sans-serif;
-  background:var(--bg);
-  color:#333;
+  background:#f8fafc;
+  color:#0f172a;
 }
 
 a{text-decoration:none}
 
-header{
-  background:white;
-  padding:16px 28px;
+/* NAV */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:18px 32px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  box-shadow:0 4px 20px rgba(0,0,0,.05);
-  position:sticky;
-  top:0;
-  z-index:10;
+  background:rgba(255,255,255,.75);
+  backdrop-filter:blur(12px);
+  z-index:100;
 }
 
-.logo{
+.brand{
   font-size:22px;
-  font-weight:800;
-  color:var(--primary);
+  font-weight:900;
+  color:var(--p1);
 }
 
-.nav a{
-  margin-left:20px;
-  color:#555;
-  font-weight:600;
-}
-
-.btn{
+.nav-btn{
+  margin-left:14px;
   padding:10px 18px;
-  border-radius:8px;
+  border-radius:999px;
   font-weight:700;
-  border:none;
-  cursor:pointer;
 }
 
-.btn-primary{
-  background:var(--primary);
+.primary{
+  background:linear-gradient(135deg,var(--p1),var(--p2));
   color:white;
 }
 
-.btn-outline{
-  background:none;
-  border:2px solid var(--primary);
-  color:var(--primary);
+.ghost{
+  border:2px solid var(--p1);
+  color:var(--p1);
 }
 
 /* HERO */
 .hero{
-  padding:80px 20px;
+  min-height:100vh;
+  padding:140px 20px 80px;
+  background:
+    radial-gradient(circle at 20% 20%,#93c5fd33,transparent 40%),
+    linear-gradient(135deg,#e0f2fe,#ffffff);
   text-align:center;
-  background:linear-gradient(135deg,#e8f1fb,#ffffff);
 }
 
 .hero h1{
-  font-size:40px;
-  color:var(--primary);
-  max-width:800px;
+  font-size:48px;
+  max-width:900px;
   margin:auto;
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
 .hero p{
-  font-size:18px;
-  max-width:700px;
-  margin:20px auto;
-  color:#555;
+  max-width:720px;
+  margin:26px auto;
+  font-size:20px;
+  color:#475569;
 }
 
-.hero .actions{
-  margin-top:30px;
+.hero-actions{
+  margin-top:36px;
 }
 
-/* SECTIONS */
+.hero-actions a{
+  margin:0 8px;
+}
+
+/* FLOATING TRUST */
+.trust-bar{
+  margin-top:60px;
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.trust-item{
+  background:white;
+  padding:16px 22px;
+  border-radius:14px;
+  box-shadow:0 20px 40px rgba(0,0,0,.08);
+  font-weight:600;
+}
+
+/* SECTION */
 section{
-  padding:70px 20px;
-  max-width:1100px;
+  padding:100px 20px;
+  max-width:1200px;
   margin:auto;
 }
 
-.section-title{
+.title{
   text-align:center;
-  font-size:32px;
-  color:var(--primary);
-  margin-bottom:40px;
+  font-size:36px;
+  margin-bottom:60px;
 }
 
 /* SERVICES */
-.services{
+.grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
 }
 
-.card{
+.service{
   background:white;
-  padding:26px;
-  border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.08);
-  text-align:center;
+  padding:34px;
+  border-radius:22px;
+  box-shadow:0 30px 60px rgba(0,0,0,.08);
+  transition:.3s;
 }
 
-.card i{
-  font-size:34px;
+.service:hover{
+  transform:translateY(-8px);
+}
+
+.service i{
+  font-size:36px;
   color:var(--accent);
-  margin-bottom:14px;
 }
 
-/* TRUST */
-.trust{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:20px;
-}
-
-/* HOW */
-.steps{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:20px;
-}
-
-.step{
-  background:white;
-  padding:24px;
-  border-radius:14px;
+/* STORY */
+.story{
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  color:white;
+  border-radius:28px;
+  padding:80px 30px;
   text-align:center;
-  box-shadow:0 8px 25px rgba(0,0,0,.07);
-}
-
-.step span{
-  font-size:28px;
-  font-weight:800;
-  color:var(--accent);
 }
 
 /* CTA */
-.cta{
-  background:var(--primary);
-  color:white;
+.final{
   text-align:center;
-  border-radius:16px;
+  padding:120px 20px;
 }
 
-.cta h2{font-size:32px}
-.cta p{opacity:.9}
+.final h2{
+  font-size:40px;
+}
 
-/* FOOTER */
+.final p{
+  font-size:20px;
+  color:#475569;
+  max-width:600px;
+  margin:20px auto 40px;
+}
+
 footer{
-  background:#0f2238;
-  color:#ccc;
-  padding:30px;
+  background:#020617;
+  color:#94a3b8;
   text-align:center;
+  padding:30px;
 }
 
+/* MOBILE */
 @media(max-width:600px){
-  .hero h1{font-size:30px}
+  .hero h1{font-size:34px}
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logo">Form Mitra</div>
-  <div class="nav">
-    <a href="login.html">Login</a>
-    <a href="register.html" class="btn btn-primary">Register Free</a>
+<nav>
+  <div class="brand">Form Mitra</div>
+  <div>
+    <a href="login.html" class="nav-btn ghost">Login</a>
+    <a href="register.html" class="nav-btn primary">Register Free</a>
   </div>
-</header>
+</nav>
 
 <div class="hero">
-  <h1>India’s Smart Digital Service Platform for Agents</h1>
+  <h1>Build Your Digital Service Business With Confidence</h1>
   <p>
-    Form Mitra helps agents manage digital services, online forms,
-    and customer work — fast, secure and reliable.
+    Form Mitra is a secure, agent-first digital platform designed
+    for real-world service providers — fast, transparent and reliable.
   </p>
-  <div class="actions">
-    <a href="register.html" class="btn btn-primary">Get Started Free</a>
-    <a href="login.html" class="btn btn-outline">Login</a>
+
+  <div class="hero-actions">
+    <a href="register.html" class="nav-btn primary">Start Free</a>
+    <a href="login.html" class="nav-btn ghost">Login</a>
+  </div>
+
+  <div class="trust-bar">
+    <div class="trust-item">🔐 Secure Auth</div>
+    <div class="trust-item">🇮🇳 Made for India</div>
+    <div class="trust-item">⚡ Fast Support</div>
+    <div class="trust-item">💼 Agent Friendly</div>
   </div>
 </div>
 
 <section>
-  <h2 class="section-title">Our Services</h2>
-  <div class="services">
-    <div class="card"><i class="fa fa-file-lines"></i><h3>Online Forms</h3></div>
-    <div class="card"><i class="fa fa-building-columns"></i><h3>Govt Services</h3></div>
-    <div class="card"><i class="fa fa-credit-card"></i><h3>Bill & Payments</h3></div>
-    <div class="card"><i class="fa fa-user-gear"></i><h3>Agent Dashboard</h3></div>
+  <h2 class="title">Everything You Need, One Platform</h2>
+  <div class="grid">
+    <div class="service"><i class="fa fa-file"></i><h3>Online Forms</h3><p>Handle customer applications efficiently.</p></div>
+    <div class="service"><i class="fa fa-building-columns"></i><h3>Govt Services</h3><p>Support government related services.</p></div>
+    <div class="service"><i class="fa fa-gauge"></i><h3>Agent Dashboard</h3><p>Track status, earnings and activity.</p></div>
+    <div class="service"><i class="fa fa-headset"></i><h3>Support System</h3><p>Get help when you need it.</p></div>
   </div>
 </section>
 
-<section>
-  <h2 class="section-title">Why Trust Form Mitra</h2>
-  <div class="trust">
-    <div class="card">🔐 Secure Authentication</div>
-    <div class="card">📊 Transparent Process</div>
-    <div class="card">🏘 Built for Small Towns</div>
-    <div class="card">⚡ Fast Support</div>
-  </div>
+<section class="story">
+  <h2>Why Form Mitra Exists</h2>
+  <p>
+    We understand the real challenges faced by agents in small towns
+    and local markets. Form Mitra is built to simplify work, build trust
+    with customers, and help agents grow sustainably.
+  </p>
 </section>
 
-<section>
-  <h2 class="section-title">How It Works</h2>
-  <div class="steps">
-    <div class="step"><span>1</span><p>Register for Free</p></div>
-    <div class="step"><span>2</span><p>Login to Dashboard</p></div>
-    <div class="step"><span>3</span><p>Access Services</p></div>
-    <div class="step"><span>4</span><p>Grow Your Business</p></div>
-  </div>
-</section>
-
-<section class="cta">
-  <h2>Ready to Start?</h2>
-  <p>No setup cost. Secure authentication.</p><br>
-  <a href="register.html" class="btn btn-outline">Register Free</a>
-  <a href="login.html" class="btn btn-primary">Login</a>
-</section>
+<div class="final">
+  <h2>Start Without Risk</h2>
+  <p>
+    Registration is free. No hidden charges.
+    Secure authentication and full control from day one.
+  </p>
+  <a href="register.html" class="nav-btn primary">Register Free</a>
+  <a href="login.html" class="nav-btn ghost">Login</a>
+</div>
 
 <footer>
-  © 2026 Form Mitra · All Rights Reserved
+  © 2026 Form Mitra · Built for Agents
 </footer>
 
 </body>
