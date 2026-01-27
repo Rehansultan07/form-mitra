@@ -3,47 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration - Form Mitra</title>
+    <title>Agent Registration - Form Mitra</title>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #002e5d; --bg: #f4f7f9; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .card { background: white; width: 90%; max-width: 450px; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
-        .header { text-align: center; margin-bottom: 25px; color: var(--primary); }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        :root { --primary: #002e5d; --accent: #3b82f6; --bg: #f8fafc; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .card { background: white; width: 100%; max-width: 450px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; }
+        .header { background: var(--primary); color: white; padding: 30px; text-align: center; }
+        .form-body { padding: 30px; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 5px; }
+        input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
         .btn-blue { background: var(--primary); color: white; }
         .btn-green { background: #27ae60; color: white; }
-        #otpSection { display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+        #otpSection { display: none; margin-top: 20px; padding-top: 20px; border-top: 2px dashed #eee; }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <div class="header"><h2>Agent Signup</h2></div>
-    
-    <div id="detailsSection">
-        <input type="text" id="name" placeholder="Full Name">
-        <input type="email" id="email" placeholder="Email Address">
-        <input type="number" id="phone" placeholder="Mobile Number">
-        <input type="password" id="password" placeholder="Create Password (Min 6)">
-        <button class="btn btn-blue" onclick="sendOTP()">SEND OTP TO EMAIL</button>
+    <div class="header">
+        <h2 style="margin:0;">Agent Registration</h2>
+        <p style="margin:5px 0 0; font-size:13px; opacity:0.8;">Secure Signup with OTP Verification</p>
     </div>
+    
+    <div class="form-body">
+        <div id="detailsSection">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="name" placeholder="Enter name">
+            </div>
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="example@mail.com">
+            </div>
+            <div class="input-group">
+                <label>Mobile Number</label>
+                <input type="number" id="phone" placeholder="9876543210">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Min 6 characters">
+            </div>
+            <button class="btn btn-blue" onclick="sendOTP()">SEND VERIFICATION OTP</button>
+        </div>
 
-    <div id="otpSection">
-        <p style="font-size: 14px; color: #666; text-align: center;">Enter 6-digit OTP sent to your email</p>
-        <input type="number" id="otpInput" placeholder="Enter OTP">
-        <button class="btn btn-green" onclick="verifyOTP()">VERIFY & REGISTER</button>
+        <div id="otpSection">
+            <p style="text-align:center; font-size:14px; color:#555;">Enter 6-digit OTP sent to your email.</p>
+            <input type="number" id="otpInput" placeholder="Enter OTP Here">
+            <button class="btn btn-green" onclick="verifyOTP()">VERIFY & COMPLETE SIGNUP</button>
+        </div>
     </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.app.js";
 
-    // Initialize Firebase
+    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
         authDomain: "formmitra-auth.firebaseapp.com",
@@ -54,30 +75,33 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // Initialize Email.js
-    emailjs.init("YOUR_PUBLIC_KEY"); // Yahan apni Email.js Public Key dalein
+    // Email.js Initialized with your Public Key
+    emailjs.init("5l39e6HclV_oN_q0-");
 
     let generatedOTP;
 
     window.sendOTP = () => {
         const email = document.getElementById('email').value;
-        if(!email) return alert("Pehle Email bhariye!");
+        const name = document.getElementById('name').value;
+        
+        if(!email || !name) return alert("Pehle Name aur Email bhariye!");
 
         generatedOTP = Math.floor(100000 + Math.random() * 900000);
 
+        // Your Configured IDs
         const templateParams = {
             to_email: email,
             otp_code: generatedOTP,
-            user_name: document.getElementById('name').value || "Agent"
+            user_name: name
         };
 
-        emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        emailjs.send('service_5z4z3v9', 'template_6p3j0m4', templateParams)
             .then(() => {
-                alert("OTP bhej diya gaya hai! Apna Inbox check karein.");
-                document.getElementById('detailsSection').style.opacity = "0.5";
+                alert("OTP bhej diya gaya hai! Email check karein.");
+                document.getElementById('detailsSection').style.display = "none";
                 document.getElementById('otpSection').style.display = "block";
             }, (error) => {
-                alert("OTP bhejne mein galti hui: " + JSON.stringify(error));
+                alert("Email.js Error: " + error.text);
             });
     };
 
@@ -86,7 +110,7 @@
         if(userOTP == generatedOTP) {
             registerUser();
         } else {
-            alert("Galat OTP! Fir se koshish karein.");
+            alert("Galat OTP! Sahi code dalein.");
         }
     };
 
@@ -99,14 +123,17 @@
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                // Instant Auto-Approve after OTP success
                 set(ref(db, 'agents/' + user.uid), {
-                    name, email, phone, status: "Approved", joinedOn: new Date().toISOString()
+                    name, email, phone, 
+                    status: "Approved", 
+                    joinedOn: new Date().toISOString()
                 }).then(() => {
-                    alert("Verification Success! Aapka account activate ho gaya hai.");
+                    alert("Verification Successful! Aapka account activate ho gaya hai.");
                     window.location.href = "login.html";
                 });
             })
-            .catch(err => alert(err.message));
+            .catch(err => alert("Firebase Error: " + err.message));
     }
 </script>
 </body>
