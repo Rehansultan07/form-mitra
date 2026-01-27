@@ -1,18 +1,86 @@
-// login.html ke handleLogin function mein ye update karein
-signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        const user = userCredential.user;
-        
-        // Check if Email is Verified
-        if (user.emailVerified) {
-            // Agar verified hai toh status "Approved" kar do aur dashboard bhej do
-            window.location.href = "dashboard.html";
-        } else {
-            alert("Account verify nahi hai! Pehle apni email inbox check karein aur link par click karein.");
-            // Optional: logout user taaki wo bin verification andar na jaye
-            signOut(auth); 
-        }
-    })
-    .catch((error) => {
-        alert("Login failed: " + error.message);
-    });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Login - Form Mitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #002e5d; --accent: #3b82f6; --bg: #f8fafc; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .login-card { background: white; width: 100%; max-width: 400px; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 30px; }
+        .logo span { color: #ff9900; }
+        .input-group { text-align: left; margin-bottom: 20px; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; color: #64748b; margin-bottom: 8px; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; }
+        .btn-login { background: var(--primary); color: white; border: none; width: 100%; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-login:hover { background: var(--accent); }
+        .footer-link { margin-top: 20px; font-size: 14px; color: #64748b; }
+        .footer-link a { color: var(--accent); text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <div class="logo">FORM <span>MITRA</span></div>
+    <h3 style="margin-bottom: 25px;">Agent Login</h3>
+    
+    <div class="input-group">
+        <label>Email ID</label>
+        <input type="email" id="email" placeholder="example@mail.com">
+    </div>
+    
+    <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="••••••••">
+    </div>
+
+    <button class="btn-login" onclick="handleLogin()">LOGIN TO PORTAL</button>
+
+    <div class="footer-link">
+        Naye Agent hain? <a href="signup.html">Register Karein</a>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
+        authDomain: "formmitra-auth.firebaseapp.com",
+        projectId: "formmitra-auth",
+        databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.handleLogin = () => {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if(!email || !password) return alert("Email aur Password bharna zaroori hai!");
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                const user = userCredential.user;
+
+                // Step 1: Check if Email is Verified
+                if (user.emailVerified) {
+                    // Agar email verified hai toh hi dashboard bhejenge
+                    window.location.href = "dashboard.html";
+                } else {
+                    alert("Account verify nahi hai! Pehle apna email check karein aur verification link par click karein.");
+                    signOut(auth); // Bin verification ke session allow nahi karenge
+                }
+            })
+            .catch((error) => {
+                alert("Login Error: " + error.message);
+            });
+    };
+</script>
+</body>
+</html>
