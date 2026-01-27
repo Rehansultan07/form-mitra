@@ -5,89 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digi Mitra - Agent Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #002e5d; --accent: #3b82f6; --bg: #e9ecef; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: var(--bg); display: flex; }
-        .sidebar { width: 70px; height: 100vh; background: #fff; border-right: 1px solid #ddd; position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 20px; z-index: 1000; }
-        .sidebar-item { margin-bottom: 25px; color: #555; font-size: 22px; cursor: pointer; transition: 0.3s; }
-        .sidebar-item:hover { color: var(--primary); }
-        .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 20px; }
-        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #fff; padding: 10px 25px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .profile-corner { position: relative; cursor: pointer; display: flex; align-items: center; gap: 10px; }
-        .user-avatar { width: 35px; height: 35px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        .ad-space { background: #fff; border: 1px dashed #bbb; margin-bottom: 20px; padding: 10px; text-align: center; font-size: 11px; color: #999; border-radius: 4px; }
-        .section-title { grid-column: 1 / -1; font-size: 14px; font-weight: 600; color: var(--primary); margin: 15px 0 10px; border-left: 4px solid var(--primary); padding-left: 10px; text-transform: uppercase; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
-        .s-card { background: white; border-radius: 4px; text-align: center; border: 1px solid #ddd; transition: 0.3s; cursor: pointer; position: relative; overflow: hidden; height: 130px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .s-card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        .s-card i { font-size: 30px; margin-bottom: 8px; }
-        .s-card h3 { margin: 0; font-size: 12px; color: #444; font-weight: 500; text-transform: uppercase; }
-        .card-strip { position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; }
-        .bg-blue { background: #3498db; } .bg-green { background: #27ae60; } .bg-orange { background: #f39c12; }
-        .bg-purple { background: #9b59b6; } .bg-red { background: #e74c3c; }
-        .profile-dropdown { display: none; position: absolute; right: 0; top: 45px; width: 260px; background: white; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2000; padding: 15px; border: 1px solid #ddd; }
-        .profile-dropdown.active { display: block; }
-        .btn-logout { width: 100%; background: #d9534f; color: white; border: none; padding: 10px; border-radius: 3px; margin-top: 10px; cursor: pointer; font-weight: 600; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); display: flex; }
+        
+        /* Main Layout */
+        .sidebar-nav { width: 70px; height: 100vh; background: #fff; border-right: 1px solid #ddd; position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 20px; }
+        .main-content { margin-left: 70px; margin-right: 300px; width: calc(100% - 370px); padding: 25px; }
+        
+        /* Header */
+        .header { background: #fff; padding: 15px 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .logo-text { font-weight: 800; color: var(--navy); font-size: 20px; }
+
+        /* Profile Sidebar (Right) */
+        .profile-sidebar { width: 300px; height: 100vh; background: #fff; border-left: 1px solid #ddd; position: fixed; right: 0; padding: 30px 20px; box-sizing: border-box; text-align: center; }
+        .profile-img { width: 80px; height: 80px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 15px; border: 4px solid var(--light-blue); }
+        .profile-info { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .profile-info h3 { margin: 0; color: var(--navy); font-size: 18px; }
+        .detail-row { text-align: left; margin-bottom: 15px; font-size: 13px; }
+        .detail-row b { display: block; color: #888; margin-bottom: 2px; }
+        .btn-logout { width: 100%; background: #e74c3c; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.3s; }
+        .btn-logout:hover { background: #c0392b; }
+
+        /* Welcome Popup */
+        #welcomePopup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center; }
+        .popup-card { background: white; padding: 40px; border-radius: 15px; text-align: center; max-width: 400px; animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* Service Cards */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .s-card { background: #fff; padding: 25px; border-radius: 10px; text-align: center; border: 1px solid #eee; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; }
+        .s-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .s-card i { font-size: 35px; color: var(--blue); margin-bottom: 15px; }
+        .s-card h3 { font-size: 14px; margin: 0; color: #333; text-transform: uppercase; }
+
+        @media (max-width: 900px) { .profile-sidebar { display: none; } .main-content { margin-right: 0; width: calc(100% - 70px); } }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <div class="sidebar-item" onclick="location.href='dashboard.html'"><i class="fas fa-th-large"></i></div>
-        <div class="sidebar-item" onclick="location.reload()"><i class="fas fa-sync"></i></div>
+
+    <div id="welcomePopup">
+        <div class="popup-card">
+            <i class="fas fa-check-circle" style="font-size: 50px; color: #2ecc71; margin-bottom: 20px;"></i>
+            <h2 id="welcomeMsg">Welcome, Agent!</h2>
+            <p style="color: #666;">Digi Mitra Portal par aapka swagat hai. Aaj ka kaam shuru karein!</p>
+            <button onclick="closePopup()" style="background: var(--navy); color: white; border: none; padding: 10px 30px; border-radius: 5px; cursor: pointer; margin-top: 20px;">Let's Start</button>
+        </div>
     </div>
+
+    <div class="sidebar-nav">
+        <div style="margin-bottom: 30px; color: var(--navy);"><i class="fas fa-th-large fa-lg"></i></div>
+        <div onclick="location.reload()" style="cursor:pointer;"><i class="fas fa-sync"></i></div>
+    </div>
+
     <div class="main-content">
         <div class="header">
-            <div style="font-weight: bold; color: var(--primary); font-size: 18px;">DIGI MITRA PORTAL</div>
-            <div class="profile-corner" onclick="toggleProfile()">
-                <div class="user-avatar" id="avatarInitial">D</div>
-                <div class="profile-dropdown" id="pDropdown">
-                    <div style="text-align: center; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                        <h4 id="dropName" style="margin: 0; color: var(--primary);">Agent</h4>
-                    </div>
-                    <div id="pEmail" style="font-size: 12px; padding: 10px 0;">Loading...</div>
-                    <button class="btn-logout" onclick="handleLogout()">Logout</button>
-                </div>
-            </div>
+            <div class="logo-text">DIGI MITRA DASHBOARD</div>
+            <div style="font-size: 14px; font-weight: 600;">Welcome, <span id="topAgentName">...</span></div>
         </div>
-
-        <div class="ad-space">Google AdSense Space (Header Ad)</div>
 
         <div class="services-grid">
-            <div class="section-title">Government & Utility Services</div>
-            <div class="s-card" onclick="location.href='photo-resizer.html'">
-                <i class="fas fa-crop-alt" style="color: #3498db;"></i>
-                <h3>Photo Resizer Pro</h3>
-                <div class="card-strip bg-blue"></div>
-            </div>
-            <div class="s-card" onclick="location.href='voter.html'">
-                <i class="fas fa-id-card" style="color: #27ae60;"></i>
-                <h3>Voter Services</h3>
-                <div class="card-strip bg-green"></div>
-            </div>
-            <div class="s-card" onclick="location.href='aadhaar.html'">
-                <i class="fas fa-fingerprint" style="color: #e74c3c;"></i>
-                <h3>Aadhaar Services</h3>
-                <div class="card-strip bg-red"></div>
-            </div>
-            <div class="s-card" onclick="location.href='pan.html'">
-                <i class="fas fa-address-card" style="color: #f39c12;"></i>
-                <h3>PAN Card Seva</h3>
-                <div class="card-strip bg-orange"></div>
-            </div>
-            
-            <div class="section-title">Financial Services (Affiliate)</div>
-            <div class="s-card" onclick="location.href='credit-card.html'">
-                <i class="fas fa-credit-card" style="color: #e74c3c;"></i>
-                <h3>Credit Cards</h3>
-                <div class="card-strip bg-red"></div>
-            </div>
+            <a href="photo-resizer.html" class="s-card"><i class="fas fa-crop-alt"></i><h3>Photo Resizer</h3></a>
+            <a href="voter.html" class="s-card"><i class="fas fa-id-card" style="color:#27ae60;"></i><h3>Voter Seva</h3></a>
+            <a href="aadhaar.html" class="s-card"><i class="fas fa-fingerprint" style="color:#e74c3c;"></i><h3>Aadhaar</h3></a>
+            <a href="pan.html" class="s-card"><i class="fas fa-address-card" style="color:#f39c12;"></i><h3>PAN Card</h3></a>
         </div>
+    </div>
 
-        <div style="margin-top: 40px; text-align: center; color: #777; font-size: 11px; padding: 20px; border-top: 1px solid #ddd;">
-            <p>Digi Mitra is a professional Digital Service Portal for Agents. <br>
-            All tools and services are designed for educational and utility purposes.</p>
+    <div class="profile-sidebar">
+        <div class="profile-img" id="avatarInitial">D</div>
+        <div class="profile-info">
+            <h3 id="sideName">Loading...</h3>
+            <p style="font-size: 12px; color: #2ecc71; font-weight: bold;"><i class="fas fa-check-circle"></i> Verified Agent</p>
         </div>
+        <div class="detail-row"><b>Full Name</b> <span id="pName">...</span></div>
+        <div class="detail-row"><b>Email ID</b> <span id="pEmail">...</span></div>
+        <div class="detail-row"><b>Mobile Number</b> <span id="pPhone">...</span></div>
+        <div class="detail-row"><b>Address</b> <span id="pAddress">...</span></div>
+        
+        <button class="btn-logout" onclick="handleLogout()">Logout <i class="fas fa-sign-out-alt"></i></button>
     </div>
 
 <script type="module">
@@ -106,22 +103,39 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    window.toggleProfile = () => { document.getElementById('pDropdown').classList.toggle('active'); };
+    window.closePopup = () => { document.getElementById('welcomePopup').style.display = 'none'; };
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
             get(ref(db, 'agents/' + user.uid)).then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    document.getElementById('dropName').innerText = data.name;
+                    // Set Profile Details
+                    document.getElementById('topAgentName').innerText = data.name;
+                    document.getElementById('sideName').innerText = data.name;
+                    document.getElementById('pName').innerText = data.name;
                     document.getElementById('pEmail').innerText = data.email;
+                    document.getElementById('pPhone').innerText = data.phone || 'Not Set';
+                    document.getElementById('pAddress').innerText = data.address || 'Not Set';
                     document.getElementById('avatarInitial').innerText = data.name.charAt(0).toUpperCase();
+                    
+                    // Welcome Popup only if fresh login
+                    if(!sessionStorage.getItem('welcomeShown')) {
+                        document.getElementById('welcomeMsg').innerText = "Namaste, " + data.name + "!";
+                        document.getElementById('welcomePopup').style.display = 'flex';
+                        sessionStorage.setItem('welcomeShown', 'true');
+                    }
                 }
             });
         } else { window.location.href = "login.html"; }
     });
 
-    window.handleLogout = () => { signOut(auth).then(() => { window.location.href = "login.html"; }); };
+    window.handleLogout = () => { 
+        signOut(auth).then(() => { 
+            sessionStorage.removeItem('welcomeShown');
+            window.location.href = "login.html"; 
+        }); 
+    };
 </script>
 </body>
 </html>
