@@ -3,111 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo & Sign Resizer - Form Mitra</title>
+    <title>Advanced Photo Resizer - Form Mitra Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #002e5d; --accent: #3498db; --bg: #f4f7fa; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .header { display: flex; align-items: center; background: white; padding: 15px 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        .back-btn { background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; text-decoration: none; font-size: 14px; margin-right: 20px; }
-        .ad-banner { background: #fff; border: 1px dashed #bbb; margin-bottom: 20px; padding: 15px; text-align: center; font-size: 12px; color: #999; border-radius: 8px; }
+        :root { --primary: #2563eb; --secondary: #1e40af; --accent: #f59e0b; --bg-light: #f8fafc; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
         
-        .tool-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); text-align: center; border-bottom: 5px solid var(--accent); }
-        .upload-area { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 10px; cursor: pointer; margin-bottom: 20px; transition: 0.3s; }
-        .upload-area:hover { background: #f8fafc; border-color: var(--accent); }
-        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; text-align: left; }
-        label { display: block; font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 5px; }
-        input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; box-sizing: border-box; }
-        .btn-action { background: #27ae60; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; transition: 0.3s; }
-        .btn-action:hover { background: #219150; }
-        #preview { max-width: 200px; margin-top: 20px; border-radius: 4px; display: none; margin-left: auto; margin-right: auto; }
-        canvas { display: none; }
-        .theory-section { background: white; padding: 30px; border-radius: 12px; margin-top: 30px; line-height: 1.8; font-size: 14px; }
+        /* Navbar */
+        .navbar { background: #1e3a8a; color: white; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .nav-brand { display: flex; align-items: center; gap: 10px; }
+        .navbar h1 { margin: 0; font-size: 1.3rem; }
+        .back-btn { background: var(--accent); color: #000; text-decoration: none; padding: 6px 15px; border-radius: 4px; font-weight: 600; font-size: 13px; transition: 0.3s; }
+        .back-btn:hover { background: #fff; }
+
+        /* AdSense Placeholder Slots */
+        .ad-space { background: #fff; border: 1px dashed #bbb; margin: 15px auto; padding: 10px; text-align: center; font-size: 11px; color: #999; border-radius: 4px; max-width: 900px; width: 90%; }
+
+        /* Layout */
+        .main-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 20px 40px; }
+        .editor-card { background: white; width: 100%; max-width: 1000px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
+
+        /* Content Sections */
+        .controls-panel { padding: 25px; background: #fff; flex: 1; border-right: 1px solid #e5e7eb; }
+        .panel-title { font-size: 1.1rem; color: var(--secondary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-weight: 700; }
+        
+        .upload-btn-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; margin-bottom: 25px; }
+        .btn-upload { border: 2px dashed var(--primary); color: var(--primary); background-color: #eff6ff; padding: 15px; border-radius: 8px; font-size: 15px; font-weight: bold; width: 100%; cursor: pointer; text-align: center; transition: 0.3s; }
+        .btn-upload:hover { background-color: #dbeafe; }
+        .upload-btn-wrapper input[type=file] { position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; width: 100%; }
+
+        .control-group { margin-bottom: 15px; background: var(--bg-light); padding: 12px; border-radius: 8px; }
+        .control-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 5px; }
+        .slider-range { width: 100%; cursor: pointer; accent-color: var(--primary); }
+
+        .dimension-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .input-box input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-family: 'Poppins'; }
+
+        .size-estimate-box { background: #e0f2fe; padding: 8px; border-radius: 6px; text-align: center; color: #0369a1; font-weight: 700; margin-bottom: 15px; font-size: 14px; border: 1px solid #bae6fd; }
+
+        .btn-download { background: linear-gradient(135deg, #059669, #047857); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
+        .btn-download:disabled { background: #ccc; cursor: not-allowed; }
+
+        /* Right Side - Canvas Editor */
+        .editor-panel { flex: 1.5; background: #e2e8f0; display: flex; justify-content: center; align-items: center; padding: 20px; position: relative; min-height: 400px; }
+        .canvas-container { box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 4px solid white; background: repeating-conic-gradient(#ccc 0% 25%, white 0% 50%) 50% / 20px 20px; }
+        #editorCanvas { cursor: grab; display: block; max-width: 100%; }
+
+        /* AdSense Friendly Theory Section */
+        .seo-content { max-width: 1000px; width: 100%; margin-top: 30px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); line-height: 1.7; }
+        .seo-content h2 { color: var(--secondary); font-size: 1.4rem; margin-top: 25px; border-left: 5px solid var(--accent); padding-left: 15px; }
+        .seo-content p { color: #555; font-size: 14px; }
+
+        @media (min-width: 768px) { .editor-card { flex-direction: row; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
-        <h2 style="margin:0; font-size: 20px;">Image & Signature Resizer</h2>
+    <div class="navbar">
+        <div class="nav-brand">
+            <i class="fas fa-wand-magic-sparkles fa-lg"></i>
+            <h1>Form Mitra Pro Editor</h1>
+        </div>
+        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>
     </div>
 
-    <div class="ad-banner">Google AdSense Space (Top Ad)</div>
+    <div class="ad-space">Google AdSense Space (Banner Ad)</div>
 
-    <div class="tool-box">
-        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-            <i class="fas fa-image" style="font-size: 50px; color: var(--accent); margin-bottom: 15px;"></i>
-            <p style="margin:0; font-weight: 500;">Click to Upload Photo or Signature</p>
-            <input type="file" id="fileInput" accept="image/*" style="display:none">
+    <div class="main-container">
+        <div class="editor-card">
+            <div class="controls-panel">
+                <div class="panel-title"><i class="fas fa-sliders-h"></i> Photo Settings</div>
+
+                <div class="upload-btn-wrapper">
+                    <button class="btn-upload"><i class="fas fa-cloud-upload-alt"></i> Upload New Photo</button>
+                    <input type="file" id="imageInput" accept="image/*">
+                </div>
+
+                <div class="dimension-inputs">
+                    <div class="input-box">
+                        <label class="control-label">Width (px)</label>
+                        <input type="number" id="targetWidth" value="350">
+                    </div>
+                    <div class="input-box">
+                        <label class="control-label">Height (px)</label>
+                        <input type="number" id="targetHeight" value="450">
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">🔍 Zoom <span id="zoomValue">100%</span></label>
+                    <input type="range" id="zoomSlider" class="slider-range" min="0.1" max="3" step="0.1" value="1">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">☀️ Brightness <span id="brightValue">100%</span></label>
+                    <input type="range" id="brightnessSlider" class="slider-range" min="0" max="200" value="100">
+                </div>
+
+                <div class="control-group">
+                    <label class="control-label">🌗 Contrast <span id="contrastValue">100%</span></label>
+                    <input type="range" id="contrastSlider" class="slider-range" min="0" max="200" value="100">
+                </div>
+
+                <div class="control-group" style="background: #fffbeb; border: 1px solid #fde68a;">
+                     <label class="control-label" style="color:#b45309;">💾 Size Control (Quality)</label>
+                    <input type="range" id="qualitySlider" class="slider-range" min="0.1" max="1.0" step="0.05" value="0.9">
+                     <div class="size-estimate-box" id="sizeEstimate">Size: - KB</div>
+                </div>
+
+                <button id="downloadBtn" class="btn-download" disabled>
+                    <i class="fas fa-download"></i> Download Result
+                </button>
+            </div>
+
+            <div class="editor-panel">
+                <div class="canvas-container">
+                    <canvas id="editorCanvas" width="350" height="450"></canvas>
+                </div>
+            </div>
         </div>
 
-        <img id="preview" alt="Preview">
+        <div class="ad-space" style="margin-top: 30px;">Google AdSense Space (Middle Content Ad)</div>
 
-        <div class="controls">
-            <div>
-                <label>Target Width (px)</label>
-                <input type="number" id="width" value="212">
-            </div>
-            <div>
-                <label>Target Height (px)</label>
-                <input type="number" id="height" value="212">
-            </div>
+        <div class="seo-content">
+            <h2 style="margin-top:0;">Advanced Image Resizing Guide for Online Forms</h2>
+            <p>Form Mitra Pro Editor ek aisi utility hai jo Cyber Cafe aur Agents ko bina software install kiye kisi bhi photo ya signature ko sahi pixels aur size (KB) mein lane ki suvidha deti hai. Bihar Board, SSC, ya Voter ID jaise portals par photo resize karna ab bahut asan hai.</p>
+            
+            <h2>How to Resize Photo to 20KB to 50KB?</h2>
+            <p>Adhiktar sarkari portals par photo ka size 50KB se kam manga jata hai. Aap hamare "Size Control" slider ka use karke quality ko thoda kam karein, isse aapka file size turant kam ho jayega aur aap 20KB ke niche bhi photo la sakte hain.</p>
+            
+            <h2>Editing Features</h2>
+            <ul>
+                <li><b>Smart Zoom:</b> Photo ko frame ke hisaab se set karein.</li>
+                <li><b>Brightness & Contrast:</b> Dark photos ko ek click mein saaf karein.</li>
+                <li><b>Custom Pixels:</b> Width aur Height ko manually enter karein jaise 212x212 ya 350x450.</li>
+            </ul>
         </div>
-
-        <button class="btn-action" onclick="resizeImage()"><i class="fas fa-download"></i> Resize & Download</button>
     </div>
 
-    <div class="ad-banner" style="margin-top:20px;">Google AdSense Space (Middle Ad)</div>
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const canvas = document.getElementById('editorCanvas');
+        const ctx = canvas.getContext('2d');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const sizeEstimateDisplay = document.getElementById('sizeEstimate');
+        const targetWidthInput = document.getElementById('targetWidth');
+        const targetHeightInput = document.getElementById('targetHeight');
+        const zoomSlider = document.getElementById('zoomSlider');
+        const brightnessSlider = document.getElementById('brightnessSlider');
+        const contrastSlider = document.getElementById('contrastSlider');
+        const qualitySlider = document.getElementById('qualitySlider');
+        const zoomValue = document.getElementById('zoomValue');
+        const brightValue = document.getElementById('brightValue');
+        const contrastValue = document.getElementById('contrastValue');
 
-    <div class="theory-section">
-        <h3 style="color: var(--primary); border-left: 4px solid var(--accent); padding-left: 10px;">Why use Form Mitra Image Resizer?</h3>
-        <p>Online forms jaise SSC, UPSC, ya Banking exams mein photo aur signature ka ek fixed size (Pixels) manga jata hai. Humara tool aapko bina quality kharab kiye sahi size mein image convert karne mein madad karta hai.</p>
-        <ul>
-            <li><b>Safe & Secure:</b> Aapki photos server par upload nahi hoti, sab kuch aapke browser mein process hota hai.</li>
-            <li><b>Custom Size:</b> Aap apni zaroorat ke hisaab se Width aur Height set kar sakte hain.</li>
-            <li><b>Instant Download:</b> Ek click mein resized image download karein.</li>
-        </ul>
-    </div>
-</div>
+        let uploadedImage = new Image();
+        let isImageLoaded = false;
+        let scale = 1;
+        let panning = false;
+        let startCoords = { x: 0, y: 0 };
+        let offset = { x: 0, y: 0 };
 
-<canvas id="canvas"></canvas>
-
-<script>
-    const fileInput = document.getElementById('fileInput');
-    const preview = document.getElementById('preview');
-    const canvas = document.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-
-    fileInput.onchange = function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(event) {
-                preview.src = event.target.result;
-                preview.style.display = 'block';
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    uploadedImage.src = event.target.result;
+                    uploadedImage.onload = () => {
+                        isImageLoaded = true;
+                        scale = 1; offset = { x: 0, y: 0 };
+                        zoomSlider.value = 1; brightnessSlider.value = 100; contrastSlider.value = 100;
+                        updateCanvasDimensions();
+                        updateLabels();
+                        drawImage();
+                        downloadBtn.disabled = false;
+                        updateSizeEstimate();
+                    }
+                }
+                reader.readAsDataURL(file);
             }
-            reader.readAsDataURL(file);
-        }
-    };
+        });
 
-    function resizeImage() {
-        if (!preview.src) { alert("Please upload a file first!"); return; }
-        const w = document.getElementById('width').value;
-        const h = document.getElementById('height').value;
-        canvas.width = w; canvas.height = h;
-        const img = new Image();
-        img.src = preview.src;
-        img.onload = function() {
-            ctx.drawImage(img, 0, 0, w, h);
-            const link = document.createElement('a');
-            link.download = 'form-mitra-resized.jpg';
-            link.href = canvas.toDataURL('image/jpeg', 0.9);
-            link.click();
-        };
-    }
-</script>
+        [zoomSlider, brightnessSlider, contrastSlider].forEach(slider => {
+            slider.addEventListener('input', () => { updateLabels(); drawImage(); });
+        });
+        
+        qualitySlider.addEventListener('input', updateSizeEstimate);
+
+        [targetWidthInput, targetHeightInput].forEach(input => {
+            input.addEventListener('change', () => { updateCanvasDimensions(); drawImage(); updateSizeEstimate(); });
+        });
+
+        canvas.addEventListener('mousedown', startPan);
+        canvas.addEventListener('touchstart', startPan, {passive: false});
+        canvas.addEventListener('mousemove', doPan);
+        canvas.addEventListener('touchmove', doPan, {passive: false});
+        window.addEventListener('mouseup', endPan);
+        window.addEventListener('touchend', endPan);
+
+        function updateLabels() {
+            zoomValue.innerText = Math.round(zoomSlider.value * 100) + "%";
+            brightValue.innerText = brightnessSlider.value + "%";
+            contrastValue.innerText = contrastSlider.value + "%";
+        }
+
+        function updateCanvasDimensions() {
+            canvas.width = parseInt(targetWidthInput.value) || 350;
+            canvas.height = parseInt(targetHeightInput.value) || 450;
+        }
+
+        function drawImage() {
+            if (!isImageLoaded) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.save();
+            const brightness = brightnessSlider.value;
+            const contrast = contrastSlider.value;
+            ctx.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.translate(offset.x, offset.y);
+            scale = parseFloat(zoomSlider.value);
+            ctx.scale(scale, scale);
+            ctx.drawImage(uploadedImage, -uploadedImage.width / 2, -uploadedImage.height / 2);
+            ctx.restore();
+        }
+
+        function getClientCoords(e) {
+            if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            return { x: e.clientX, y: e.clientY };
+        }
+
+        function startPan(e) { if(e.type === 'touchstart') e.preventDefault(); panning = true; startCoords = getClientCoords(e); }
+
+        function doPan(e) {
+            if (!panning || !isImageLoaded) return;
+            const currentCoords = getClientCoords(e);
+            offset.x += currentCoords.x - startCoords.x;
+            offset.y += currentCoords.y - startCoords.y;
+            startCoords = currentCoords;
+            drawImage();
+        }
+
+        function endPan() { panning = false; }
+
+        function updateSizeEstimate() {
+            if (!isImageLoaded) return;
+            const quality = parseFloat(qualitySlider.value);
+            const dataURL = canvas.toDataURL('image/jpeg', quality);
+            const head = 'data:image/jpeg;base64,';
+            const imageSizeInKB = ((dataURL.length - head.length)*3/4/1024).toFixed(1);
+            sizeEstimateDisplay.innerHTML = `Estimated Size: ≈ ${imageSizeInKB} KB`;
+        }
+
+        downloadBtn.addEventListener('click', function() {
+             if (!isImageLoaded) return;
+             const link = document.createElement('a');
+             link.download = 'form-mitra-edited.jpg';
+             link.href = canvas.toDataURL('image/jpeg', parseFloat(qualitySlider.value));
+             link.click();
+        });
+
+        updateLabels();
+    </script>
 </body>
 </html>
