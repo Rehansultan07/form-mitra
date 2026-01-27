@@ -3,30 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent Dashboard - Form Mitra Portal</title>
+    <title>Digi Mitra - Agent Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #002e5d; --accent: #3b82f6; --bg: #e9ecef; }
-        body { font-family: 'Poppins', sans-serif; margin: 0; background: var(--bg); display: flex; overflow-x: hidden; }
-        
-        /* Sidebar */
+        body { font-family: 'Poppins', sans-serif; margin: 0; background: var(--bg); display: flex; }
         .sidebar { width: 70px; height: 100vh; background: #fff; border-right: 1px solid #ddd; position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 20px; z-index: 1000; }
         .sidebar-item { margin-bottom: 25px; color: #555; font-size: 22px; cursor: pointer; transition: 0.3s; }
         .sidebar-item:hover { color: var(--primary); }
-
-        /* Main Content */
         .main-content { margin-left: 70px; width: calc(100% - 70px); padding: 20px; }
-        
-        /* Top Header */
         .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; background: #fff; padding: 10px 25px; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
         .profile-corner { position: relative; cursor: pointer; display: flex; align-items: center; gap: 10px; }
         .user-avatar { width: 35px; height: 35px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-        
-        /* AdSense Placeholder */
-        .ad-space { background: #fff; border: 1px dashed #bbb; margin-bottom: 20px; padding: 10px; text-align: center; font-size: 12px; color: #999; border-radius: 4px; }
-
-        /* CSC Style Cards */
+        .ad-space { background: #fff; border: 1px dashed #bbb; margin-bottom: 20px; padding: 10px; text-align: center; font-size: 11px; color: #999; border-radius: 4px; }
         .section-title { grid-column: 1 / -1; font-size: 14px; font-weight: 600; color: var(--primary); margin: 15px 0 10px; border-left: 4px solid var(--primary); padding-left: 10px; text-transform: uppercase; }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
         .s-card { background: white; border-radius: 4px; text-align: center; border: 1px solid #ddd; transition: 0.3s; cursor: pointer; position: relative; overflow: hidden; height: 130px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -34,96 +24,69 @@
         .s-card i { font-size: 30px; margin-bottom: 8px; }
         .s-card h3 { margin: 0; font-size: 12px; color: #444; font-weight: 500; text-transform: uppercase; }
         .card-strip { position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; }
-        
-        /* Colors */
         .bg-blue { background: #3498db; } .bg-green { background: #27ae60; } .bg-orange { background: #f39c12; }
-        .bg-purple { background: #9b59b6; } .bg-red { background: #e74c3c; } .bg-cyan { background: #17a2b8; }
-
-        /* Profile Dropdown */
+        .bg-purple { background: #9b59b6; } .bg-red { background: #e74c3c; }
         .profile-dropdown { display: none; position: absolute; right: 0; top: 45px; width: 260px; background: white; border-radius: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 2000; padding: 15px; border: 1px solid #ddd; }
         .profile-dropdown.active { display: block; }
-        .profile-info-line { border-bottom: 1px solid #f1f1f1; padding: 8px 0; font-size: 12px; color: #666; }
-        .profile-info-line b { color: #333; display: block; font-size: 10px; text-transform: uppercase; }
         .btn-logout { width: 100%; background: #d9534f; color: white; border: none; padding: 10px; border-radius: 3px; margin-top: 10px; cursor: pointer; font-weight: 600; }
     </style>
 </head>
 <body>
-
     <div class="sidebar">
         <div class="sidebar-item" onclick="location.href='dashboard.html'"><i class="fas fa-th-large"></i></div>
         <div class="sidebar-item" onclick="location.reload()"><i class="fas fa-sync"></i></div>
     </div>
-
     <div class="main-content">
         <div class="header">
-            <div style="font-weight: bold; color: var(--primary); font-size: 18px;">FORM MITRA PORTAL</div>
+            <div style="font-weight: bold; color: var(--primary); font-size: 18px;">DIGI MITRA PORTAL</div>
             <div class="profile-corner" onclick="toggleProfile()">
-                <div class="user-avatar" id="avatarInitial">A</div>
+                <div class="user-avatar" id="avatarInitial">D</div>
                 <div class="profile-dropdown" id="pDropdown">
                     <div style="text-align: center; border-bottom: 1px solid #eee; padding-bottom: 10px;">
-                        <h4 id="dropName" style="margin: 0; color: var(--primary);">Agent Name</h4>
+                        <h4 id="dropName" style="margin: 0; color: var(--primary);">Agent</h4>
                     </div>
-                    <div class="profile-info-line"><b>Email</b> <span id="pEmail">Loading...</span></div>
-                    <div class="profile-info-line"><b>Mobile</b> <span id="pPhone">Loading...</span></div>
-                    <div class="profile-info-line"><b>Address</b> <span id="pAddress">Loading...</span></div>
+                    <div id="pEmail" style="font-size: 12px; padding: 10px 0;">Loading...</div>
                     <button class="btn-logout" onclick="handleLogout()">Logout</button>
                 </div>
             </div>
         </div>
 
-        <div class="ad-space">Google AdSense Space (Header)</div>
+        <div class="ad-space">Google AdSense Space (Header Ad)</div>
 
         <div class="services-grid">
             <div class="section-title">Government & Utility Services</div>
-            
             <div class="s-card" onclick="location.href='photo-resizer.html'">
                 <i class="fas fa-crop-alt" style="color: #3498db;"></i>
-                <h3>Photo Resizer</h3>
+                <h3>Photo Resizer Pro</h3>
                 <div class="card-strip bg-blue"></div>
             </div>
-
             <div class="s-card" onclick="location.href='voter.html'">
                 <i class="fas fa-id-card" style="color: #27ae60;"></i>
                 <h3>Voter Services</h3>
                 <div class="card-strip bg-green"></div>
             </div>
-
             <div class="s-card" onclick="location.href='aadhaar.html'">
                 <i class="fas fa-fingerprint" style="color: #e74c3c;"></i>
                 <h3>Aadhaar Services</h3>
                 <div class="card-strip bg-red"></div>
             </div>
-
             <div class="s-card" onclick="location.href='pan.html'">
                 <i class="fas fa-address-card" style="color: #f39c12;"></i>
                 <h3>PAN Card Seva</h3>
                 <div class="card-strip bg-orange"></div>
             </div>
-
-            <div class="s-card" onclick="location.href='results.html'">
-                <i class="fas fa-graduation-cap" style="color: #9b59b6;"></i>
-                <h3>All Results</h3>
-                <div class="card-strip bg-purple"></div>
-            </div>
-
-            <div class="section-title">Affiliate & Financial Services (Earn Commission)</div>
-
+            
+            <div class="section-title">Financial Services (Affiliate)</div>
             <div class="s-card" onclick="location.href='credit-card.html'">
                 <i class="fas fa-credit-card" style="color: #e74c3c;"></i>
                 <h3>Credit Cards</h3>
                 <div class="card-strip bg-red"></div>
             </div>
-
-            <div class="s-card" onclick="location.href='loan.html'">
-                <i class="fas fa-hand-holding-usd" style="color: #27ae60;"></i>
-                <h3>Personal Loan</h3>
-                <div class="card-strip bg-green"></div>
-            </div>
         </div>
 
         <div style="margin-top: 40px; text-align: center; color: #777; font-size: 11px; padding: 20px; border-top: 1px solid #ddd;">
-            <p>Form Mitra is India's leading Digital Service Portal providing Voter ID, PAN, and Aadhaar related tools. <br>
-            Designed for Agents and Cyber Cafes to simplify online forms and financial applications.</p>
+            <p>Digi Mitra is a professional Digital Service Portal for Agents. <br>
+            All tools and services are designed for educational and utility purposes.</p>
         </div>
     </div>
 
@@ -152,8 +115,6 @@
                     const data = snapshot.val();
                     document.getElementById('dropName').innerText = data.name;
                     document.getElementById('pEmail').innerText = data.email;
-                    document.getElementById('pPhone').innerText = data.phone || 'N/A';
-                    document.getElementById('pAddress').innerText = data.address || 'N/A';
                     document.getElementById('avatarInitial').innerText = data.name.charAt(0).toUpperCase();
                 }
             });
