@@ -1,257 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Form Mitra – Trusted Digital Service Platform</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Seva Portal - Form Mitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --mitra-blue: #223d5d; --mitra-orange: #f39c12; --mitra-red: #d32f2f; --mitra-bg: #f4f7f9; }
+        body { font-family: 'Open Sans', sans-serif; margin: 0; background: var(--mitra-bg); color: #333; }
+        
+        /* Navigation */
+        .header { background: #fff; padding: 12px 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--mitra-blue); }
+        .logo-box b { font-size: 28px; color: var(--mitra-blue); border-left: 6px solid var(--mitra-orange); padding-left: 15px; letter-spacing: 1px; }
+        .nav-btns a { text-decoration: none; padding: 10px 22px; font-weight: bold; border-radius: 4px; font-size: 14px; margin-left: 8px; }
+        .btn-login { background: var(--mitra-blue); color: white; }
+        .btn-join { background: var(--mitra-red); color: white; }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        /* News Ticker */
+        .ticker { background: #fff8e1; color: #b7791f; padding: 12px 10%; font-size: 14px; font-weight: 600; border-bottom: 1px solid #ffe082; }
 
-<style>
-:root{
-  --p1:#1e3c72;
-  --p2:#2a5298;
-  --accent:#38bdf8;
-  --dark:#0f172a;
-}
+        /* Hero Banner (Exactly like Video) */
+        .hero { background: #fff; padding: 50px 10%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; flex-wrap: wrap; }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero-text h1 { color: var(--mitra-blue); font-size: 38px; margin: 0 0 20px 0; line-height: 1.2; }
+        .hero-text p { font-size: 17px; color: #555; max-width: 500px; line-height: 1.6; }
+        .hero-img { flex: 0.8; text-align: right; min-width: 300px; }
+        .hero-img img { width: 100%; max-width: 450px; }
 
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,Segoe UI,sans-serif;
-  background:#f8fafc;
-  color:#0f172a;
-}
+        /* Colorful Service Grid */
+        .services-container { padding: 60px 10%; text-align: center; }
+        .section-head { font-size: 24px; color: #444; border-bottom: 2px solid #ddd; padding-bottom: 15px; margin-bottom: 40px; text-align: left; position: relative; }
+        .section-head::after { content: ''; width: 100px; height: 2px; background: var(--mitra-orange); position: absolute; bottom: -2px; left: 0; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
+        .s-box { background: white; border: 1px solid #e0e0e0; padding: 30px 10px; border-radius: 4px; transition: 0.3s; cursor: pointer; text-align: center; }
+        .s-box:hover { border-color: var(--mitra-orange); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .s-box i { font-size: 35px; margin-bottom: 15px; display: block; }
+        .s-box span { font-size: 12px; font-weight: 700; color: #444; text-transform: uppercase; }
 
-a{text-decoration:none}
-
-/* NAV */
-nav{
-  position:fixed;
-  top:0;
-  width:100%;
-  padding:18px 32px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  background:rgba(255,255,255,.75);
-  backdrop-filter:blur(12px);
-  z-index:100;
-}
-
-.brand{
-  font-size:22px;
-  font-weight:900;
-  color:var(--p1);
-}
-
-.nav-btn{
-  margin-left:14px;
-  padding:10px 18px;
-  border-radius:999px;
-  font-weight:700;
-}
-
-.primary{
-  background:linear-gradient(135deg,var(--p1),var(--p2));
-  color:white;
-}
-
-.ghost{
-  border:2px solid var(--p1);
-  color:var(--p1);
-}
-
-/* HERO */
-.hero{
-  min-height:100vh;
-  padding:140px 20px 80px;
-  background:
-    radial-gradient(circle at 20% 20%,#93c5fd33,transparent 40%),
-    linear-gradient(135deg,#e0f2fe,#ffffff);
-  text-align:center;
-}
-
-.hero h1{
-  font-size:48px;
-  max-width:900px;
-  margin:auto;
-  background:linear-gradient(135deg,var(--p1),var(--p2));
-  -webkit-background-clip:text;
-  color:transparent;
-}
-
-.hero p{
-  max-width:720px;
-  margin:26px auto;
-  font-size:20px;
-  color:#475569;
-}
-
-.hero-actions{
-  margin-top:36px;
-}
-
-.hero-actions a{
-  margin:0 8px;
-}
-
-/* FLOATING TRUST */
-.trust-bar{
-  margin-top:60px;
-  display:flex;
-  gap:20px;
-  justify-content:center;
-  flex-wrap:wrap;
-}
-
-.trust-item{
-  background:white;
-  padding:16px 22px;
-  border-radius:14px;
-  box-shadow:0 20px 40px rgba(0,0,0,.08);
-  font-weight:600;
-}
-
-/* SECTION */
-section{
-  padding:100px 20px;
-  max-width:1200px;
-  margin:auto;
-}
-
-.title{
-  text-align:center;
-  font-size:36px;
-  margin-bottom:60px;
-}
-
-/* SERVICES */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:28px;
-}
-
-.service{
-  background:white;
-  padding:34px;
-  border-radius:22px;
-  box-shadow:0 30px 60px rgba(0,0,0,.08);
-  transition:.3s;
-}
-
-.service:hover{
-  transform:translateY(-8px);
-}
-
-.service i{
-  font-size:36px;
-  color:var(--accent);
-}
-
-/* STORY */
-.story{
-  background:linear-gradient(135deg,var(--p1),var(--p2));
-  color:white;
-  border-radius:28px;
-  padding:80px 30px;
-  text-align:center;
-}
-
-/* CTA */
-.final{
-  text-align:center;
-  padding:120px 20px;
-}
-
-.final h2{
-  font-size:40px;
-}
-
-.final p{
-  font-size:20px;
-  color:#475569;
-  max-width:600px;
-  margin:20px auto 40px;
-}
-
-footer{
-  background:#020617;
-  color:#94a3b8;
-  text-align:center;
-  padding:30px;
-}
-
-/* MOBILE */
-@media(max-width:600px){
-  .hero h1{font-size:34px}
-}
-</style>
+        /* CSC Style Footer */
+        .footer-top { background: #223d5d; color: white; padding: 60px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        .f-col h4 { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; margin-bottom: 20px; font-size: 17px; }
+        .f-col a, .f-col p { color: #bdc3c7; text-decoration: none; font-size: 13px; margin-bottom: 10px; display: block; }
+        
+        .bottom-strip { background: #1a2e46; color: #95a5a6; text-align: center; padding: 15px; font-size: 11px; }
+    </style>
 </head>
-
 <body>
 
-<nav>
-  <div class="brand">Form Mitra</div>
-  <div>
-    <a href="login.html" class="nav-btn ghost">Login</a>
-    <a href="register.html" class="nav-btn primary">Register Free</a>
-  </div>
-</nav>
+    <header class="header">
+        <div class="logo-box"><b>FORM MITRA</b></div>
+        <div class="nav-btns">
+            <a href="signup.html" class="btn-join">JOIN AS AGENT</a>
+            <a href="login.html" class="btn-login">LOGIN</a>
+        </div>
+    </header>
 
-<div class="hero">
-  <h1>Build Your Digital Service Business With Confidence</h1>
-  <p>
-    Form Mitra is a secure, agent-first digital platform designed
-    for real-world service providers — fast, transparent and reliable.
-  </p>
+    <div class="ticker">
+        <marquee behavior="scroll" direction="left">Form Mitra Digital Seva Portal par aapka swagat hai. Voter ID correction, results aur document tools ab live hain.</marquee>
+    </div>
 
-  <div class="hero-actions">
-    <a href="register.html" class="nav-btn primary">Start Free</a>
-    <a href="login.html" class="nav-btn ghost">Login</a>
-  </div>
+    <section class="hero">
+        <div class="hero-text">
+            <h1>Your Trusted Neighbourhood <br>Kiosk for All Digital Services</h1>
+            <p>Form Mitra is the primary access point for delivery of essential Digital Services and Government tools to every citizen.</p>
+        </div>
+        <div class="hero-img">
+            <img src="https://digitalseva.csc.gov.in/assets/images/banner-img.png" alt="Digital Seva Tree" onerror="this.src='https://via.placeholder.com/450x300?text=Digital+Seva+Banner'">
+        </div>
+    </section>
 
-  <div class="trust-bar">
-    <div class="trust-item">🔐 Secure Auth</div>
-    <div class="trust-item">🇮🇳 Made for India</div>
-    <div class="trust-item">⚡ Fast Support</div>
-    <div class="trust-item">💼 Agent Friendly</div>
-  </div>
-</div>
+    <div class="services-container">
+        <h3 class="section-head">Our Services</h3>
+        <div class="grid">
+            <div class="s-box"><i class="fas fa-id-card" style="color: #27ae60;"></i><span>Voter Card</span></div>
+            <div class="s-box"><i class="fas fa-file-invoice" style="color: #3498db;"></i><span>Results</span></div>
+            <div class="s-box"><i class="fas fa-crop-alt" style="color: #9b59b6;"></i><span>Resizer</span></div>
+            <div class="s-box"><i class="fas fa-address-card" style="color: #e67e22;"></i><span>PAN Card</span></div>
+            <div class="s-box"><i class="fas fa-university" style="color: #e74c3c;"></i><span>Banking</span></div>
+            <div class="s-box"><i class="fas fa-vote-yea" style="color: #16a085;"></i><span>Elections</span></div>
+            <div class="s-box"><i class="fas fa-id-badge" style="color: #2c3e50;"></i><span>E-Shram</span></div>
+            <div class="s-box"><i class="fas fa-print" style="color: #7f8c8d;"></i><span>PVC Print</span></div>
+        </div>
+    </div>
 
-<section>
-  <h2 class="title">Everything You Need, One Platform</h2>
-  <div class="grid">
-    <div class="service"><i class="fa fa-file"></i><h3>Online Forms</h3><p>Handle customer applications efficiently.</p></div>
-    <div class="service"><i class="fa fa-building-columns"></i><h3>Govt Services</h3><p>Support government related services.</p></div>
-    <div class="service"><i class="fa fa-gauge"></i><h3>Agent Dashboard</h3><p>Track status, earnings and activity.</p></div>
-    <div class="service"><i class="fa fa-headset"></i><h3>Support System</h3><p>Get help when you need it.</p></div>
-  </div>
-</section>
+    <footer class="footer-top">
+        <div class="f-col">
+            <h4>Information</h4>
+            <p>Team Mitra is dedicated to providing easy access to digital services across the country.</p>
+        </div>
+        <div class="f-col">
+            <h4>Quick Links</h4>
+            <a href="signup.html">Registration</a>
+            <a href="login.html">Login</a>
+        </div>
+        <div class="f-col">
+            <h4>Support</h4>
+            <p>Email: mitraform@gmail.com</p>
+            <p>Minimal email support only.</p>
+        </div>
+    </footer>
 
-<section class="story">
-  <h2>Why Form Mitra Exists</h2>
-  <p>
-    We understand the real challenges faced by agents in small towns
-    and local markets. Form Mitra is built to simplify work, build trust
-    with customers, and help agents grow sustainably.
-  </p>
-</section>
-
-<div class="final">
-  <h2>Start Without Risk</h2>
-  <p>
-    Registration is free. No hidden charges.
-    Secure authentication and full control from day one.
-  </p>
-  <a href="register.html" class="nav-btn primary">Register Free</a>
-  <a href="login.html" class="nav-btn ghost">Login</a>
-</div>
-
-<footer>
-  © 2026 Form Mitra · Built for Agents
-</footer>
+    <div class="bottom-strip">
+        &copy; 2026 Form Mitra. All Rights Reserved. | <b>Made by Team Mitra for you</b>
+    </div>
 
 </body>
 </html>
