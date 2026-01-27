@@ -3,51 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digi Mitra | Empowering Digital Agents</title>
+    <title>Digi Mitra | Professional B2B Digital Service Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --blue: #0074D9; --silver: #F4F7F6; }
-        body { font-family: 'Inter', sans-serif; margin: 0; color: #333; line-height: 1.6; }
+        :root { --navy: #001f3f; --blue: #0074D9; --light-blue: #e1f5fe; --gradient: linear-gradient(135deg, #001f3f 0%, #0074D9 100%); }
+        body { font-family: 'Inter', sans-serif; margin: 0; color: #333; line-height: 1.6; background-color: #fff; }
         
         /* Navbar */
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 22px; font-weight: 800; color: var(--navy); text-transform: uppercase; letter-spacing: 1px; }
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .logo { font-size: 24px; font-weight: 800; color: var(--navy); text-transform: uppercase; }
         .logo span { color: var(--blue); }
-        .nav-links a { text-decoration: none; color: #555; font-weight: 600; margin-left: 25px; font-size: 14px; }
+        .nav-links a { text-decoration: none; color: var(--navy); font-weight: 600; margin-left: 25px; font-size: 14px; }
+
+        /* AdSense Master Template Slots */
+        .ad-slot { background: #f9f9f9; border: 1px dashed #ccc; margin: 20px auto; padding: 10px; text-align: center; color: #999; font-size: 12px; max-width: 900px; border-radius: 5px; }
 
         /* Hero Section */
-        .hero { padding: 100px 5%; background: var(--silver); display: flex; flex-direction: column; align-items: center; text-align: center; }
-        .hero h1 { font-size: 3.5rem; color: var(--navy); margin: 0; max-width: 900px; line-height: 1.2; }
-        .hero p { font-size: 1.2rem; color: #666; margin: 25px 0 40px; max-width: 650px; }
-        .cta-btn { background: var(--blue); color: #fff; padding: 18px 45px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 18px; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,116,217,0.3); }
-        .cta-btn:hover { background: var(--navy); transform: translateY(-3px); }
+        .hero { padding: 80px 8%; background: var(--gradient); color: white; text-align: center; }
+        .hero h1 { font-size: 3.5rem; margin: 0; line-height: 1.1; font-weight: 800; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; margin: 25px 0 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        .cta-btn { background: #ff9900; color: #fff; padding: 18px 45px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-block; transition: 0.3s; }
+        .cta-btn:hover { background: #fff; color: var(--navy); transform: translateY(-3px); }
 
-        /* Problem Section */
-        .why-us { padding: 80px 5%; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-        .why-us h2 { font-size: 2.2rem; color: var(--navy); }
+        /* Why Us Section */
+        .why-us { padding: 80px 8%; display: flex; align-items: center; gap: 50px; flex-wrap: wrap; }
+        .why-us-text { flex: 1; min-width: 300px; }
+        .why-us-img { flex: 1; min-width: 300px; background: var(--light-blue); padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+        .why-us-img i { font-size: 200px; color: var(--blue); }
         .check-list { list-style: none; padding: 0; }
-        .check-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-weight: 500; }
-        .check-list i { color: #2ECC40; font-size: 20px; }
+        .check-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-weight: 600; }
+        .check-list i { color: #2ECC40; }
+
+        /* Extra Section for Length: Problems & Solutions */
+        .problems { padding: 80px 8%; background: #f4f7f6; }
+        .problems h2 { text-align: center; color: var(--navy); margin-bottom: 50px; }
+        .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .p-card { background: #fff; padding: 30px; border-radius: 10px; border-top: 5px solid var(--blue); }
+        .p-card h3 { color: var(--blue); margin-top: 0; }
 
         /* How it Works */
-        .how-it-works { background: var(--navy); color: #fff; padding: 80px 5%; text-align: center; }
+        .how-it-works { background: var(--navy); color: #fff; padding: 80px 8%; text-align: center; }
         .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 50px; }
-        .step-card { padding: 20px; }
-        .step-number { width: 50px; height: 50px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: bold; font-size: 20px; }
+        .step-number { width: 50px; height: 50px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: bold; }
 
-        /* Services Preview */
-        .services-preview { padding: 80px 5%; text-align: center; }
-        .service-tags { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
-        .tag { background: #eee; padding: 10px 25px; border-radius: 50px; font-size: 14px; font-weight: 600; color: #555; }
+        footer { padding: 40px 8%; text-align: center; background: #fff; border-top: 1px solid #eee; }
 
-        footer { padding: 40px 5%; text-align: center; border-top: 1px solid #eee; background: #fff; }
-        
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2rem; }
-            .why-us { grid-template-columns: 1fr; text-align: center; }
-            .check-list li { justify-content: center; }
-        }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } }
     </style>
 </head>
 <body>
@@ -55,70 +57,87 @@
     <nav>
         <div class="logo">DIGI<span>MITRA</span></div>
         <div class="nav-links">
-            <a href="login.html">LOGIN</a>
-            <a href="signup.html" style="color: var(--blue);">REGISTER</a>
+            <a href="login.html">AGENT LOGIN</a>
+            <a href="signup.html" style="color: var(--blue);">JOIN US</a>
         </div>
     </nav>
 
+    <div class="ad-slot">Google AdSense Space (Header)</div>
+
     <section class="hero">
-        <h1>Ab Har Digital Service Hogi Aapke Cafe Se.</h1>
-        <p>Aadhaar, Voter, PAN Card aur advanced Image Editing tools—sab kuch ek hi portal mein. Agents ke liye banaya gaya sabse aasaan platform.</p>
-        <a href="signup.html" class="cta-btn">Create Free Account <i class="fas fa-arrow-right" style="margin-left:10px;"></i></a>
+        <h1>Digital Services Ab Har Agent Ki Pahunch Mein.</h1>
+        <p>Aadhaar, Voter ID, PAN aur Photo Resizing tools ka sabse bharosemand sangam. Apne Cyber Cafe ko aaj hi Digi Mitra se jodein.</p>
+        <a href="signup.html" class="cta-btn">Register as Agent <i class="fas fa-chevron-right" style="margin-left:10px;"></i></a>
     </section>
 
     <section class="why-us">
-        <div>
-            <img src="https://img.icons8.com/illustrations/external-interface-business-and-industry-fauzidea/512/external-dashboard-business-and-industry-fauzidea.png" alt="Dashboard Preview" style="max-width: 100%; border-radius: 10px;">
-        </div>
-        <div>
-            <h2>Digi Mitra Kyun Choose Karein?</h2>
-            <p>Hum koi badi baatein nahi karte, hum sirf wahi tools dete hain jo aapke daily kaam ko fast banate hain.</p>
+        <div class="why-us-text">
+            <h2 style="color: var(--navy); font-size: 2.2rem;">Digi Mitra Portal Kyun?</h2>
+            <p>Humne un agents ki mushkilon ko samjha hai jo har kaam ke liye alag-alag websites par bhatakte hain.</p>
             <ul class="check-list">
-                <li><i class="fas fa-check-circle"></i> Bina kisi monthly fee ke access</li>
-                <li><i class="fas fa-check-circle"></i> Mobile aur Desktop dono par fast loading</li>
-                <li><i class="fas fa-check-circle"></i> Sarkari website ke direct aur safe links</li>
-                <li><i class="fas fa-check-circle"></i> Photo & Sign resizer specialized for Indian forms</li>
+                <li><i class="fas fa-check-circle"></i> Ek hi Dashboard par saari Sarkari links</li>
+                <li><i class="fas fa-check-circle"></i> Advanced AI Photo & Sign Resizer</li>
+                <li><i class="fas fa-check-circle"></i> Mobile friendly interface for quick work</li>
+                <li><i class="fas fa-check-circle"></i> Safe aur Secure portal for agents</li>
             </ul>
+        </div>
+        <div class="why-us-img">
+            <i class="fas fa-desktop"></i>
+            <p style="color: var(--navy); font-weight: bold;">Modern Agent Dashboard</p>
+        </div>
+    </section>
+
+    <div class="ad-slot">Google AdSense Space (Middle)</div>
+
+    <section class="problems">
+        <h2>Common Challenges We Solve</h2>
+        <div class="problem-grid">
+            <div class="p-card">
+                <h3>Problem: Image Size</h3>
+                <p>Forms par 20KB ya 50KB ki photo banana mushkil hota hai? Digi Mitra ka resizer ye kaam seconds mein kar deta hai.</p>
+            </div>
+            <div class="p-card">
+                <h3>Problem: Link Finding</h3>
+                <p>Voter ya Aadhaar ki sahi link nahi milti? Humare dashboard par saari verified links update rehti hain.</p>
+            </div>
+            <div class="p-card">
+                <h3>Problem: Slow Work</h3>
+                <p>Purane portals slow hote hain? Digi Mitra ko lightweight banaya gaya hai taaki aapka kaam fast ho sake.</p>
+            </div>
         </div>
     </section>
 
     <section class="how-it-works">
-        <h2>Sirf 3 Steps Mein Shuru Karein</h2>
+        <h2>Process Kaise Kaam Karta Hai?</h2>
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-number">1</div>
-                <h3>Sign Up</h3>
-                <p>Apni basic details dalkar turant account banayein.</p>
+                <h3>Quick Signup</h3>
+                <p>Basic details ke saath apna account banayein.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">2</div>
-                <h3>Explore Tools</h3>
-                <p>Dashboard par sabhi services aur editors ko check karein.</p>
+                <h3>Access Tools</h3>
+                <p>Dashboard se manchahi service ko select karein.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">3</div>
-                <h3>Start Working</h3>
-                <p>Apne customers ko digital services dena shuru karein.</p>
+                <h3>Serve Clients</h3>
+                <p>Apne customers ko fast aur quality service dein.</p>
             </div>
         </div>
     </section>
 
-    <section class="services-preview">
-        <h2>Available Services</h2>
-        <div class="service-tags">
-            <span class="tag">Voter Registration</span>
-            <span class="tag">Aadhaar Update Status</span>
-            <span class="tag">PAN Correction</span>
-            <span class="tag">Photo & Signature Resizer</span>
-            <span class="tag">PVC Card Printing</span>
-            <span class="tag">All Board Results</span>
-        </div>
-    </section>
+    <div class="ad-slot">Google AdSense Space (Footer)</div>
 
     <footer>
-        <p style="font-weight: 800; color: var(--navy);">DIGI MITRA PORTAL</p>
-        <p style="color: #999; font-size: 13px;">Bihar, India | Contact: support@digimitra.in</p>
-        <p style="color: #ccc; font-size: 12px; margin-top: 20px;">&copy; 2026 Digi Mitra. Built with honesty for Digital India.</p>
+        <p style="font-weight: 800; color: var(--navy); font-size: 1.5rem;">DIGI MITRA</p>
+        <p style="color: #666;">India's Smartest Agent Utility Portal</p>
+        <div style="margin: 20px 0;">
+            <a href="#" style="color: var(--blue); text-decoration: none; margin: 0 10px;">Privacy Policy</a> | 
+            <a href="#" style="color: var(--blue); text-decoration: none; margin: 0 10px;">Terms of Use</a>
+        </div>
+        <p style="color: #bbb; font-size: 12px; margin-top: 20px;">&copy; 2026 Digi Mitra. Sabhi Adhikari Surakshit.</p>
     </footer>
 
 </body>
