@@ -3,317 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Photo Resizer - Form Mitra</title>
+    <title>Photo & Sign Resizer - Form Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2563eb; --secondary: #1e40af; --accent: #f59e0b; --bg-light: #f8fafc; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f3f4f6; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        :root { --primary: #002e5d; --accent: #3498db; --bg: #f4f7fa; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { display: flex; align-items: center; background: white; padding: 15px 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .back-btn { background: var(--primary); color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; text-decoration: none; font-size: 14px; margin-right: 20px; }
+        .ad-banner { background: #fff; border: 1px dashed #bbb; margin-bottom: 20px; padding: 15px; text-align: center; font-size: 12px; color: #999; border-radius: 8px; }
         
-        /* Navbar */
-        .navbar { background: #1e3a8a; color: white; padding: 1rem 2rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-        .navbar h1 { margin: 0; font-size: 1.5rem; }
-        .navbar i { color: var(--accent); }
-
-        /* Layout */
-        .main-container { flex: 1; display: flex; justify-content: center; padding: 30px 20px; }
-        .editor-card { background: white; width: 100%; max-width: 900px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; md:flex-row; }
-
-        /* Left Side - Controls */
-        .controls-panel { padding: 25px; background: #fff; flex: 1; border-right: 1px solid #e5e7eb; overflow-y: auto; }
-        .panel-title { font-size: 1.2rem; color: var(--secondary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        
-        /* Upload Section */
-        .upload-btn-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; margin-bottom: 25px; }
-        .btn-upload { border: 2px dashed var(--primary); color: var(--primary); background-color: #eff6ff; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: bold; width: 100%; cursor: pointer; text-align: center; transition: 0.3s; }
-        .btn-upload:hover { background-color: #dbeafe; }
-        .upload-btn-wrapper input[type=file] { font-size: 100px; position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; width: 100%; }
-
-        /* Sliders & Inputs */
-        .control-group { margin-bottom: 20px; background: var(--bg-light); padding: 15px; border-radius: 10px; }
-        .control-label { display: flex; justify-content: space-between; font-size: 0.9rem; font-weight: 600; color: #475569; margin-bottom: 8px; }
-        .slider-range { width: 100%; cursor: pointer; accent-color: var(--primary); height: 6px; background: #cbd5e1; border-radius: 5px; outline: none; -webkit-appearance: none; }
-        .slider-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: var(--primary); border-radius: 50%; cursor: pointer; border: 2px solid white; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
-
-        .dimension-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .input-box input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; }
-
-        /* Size Estimation */
-        .size-estimate-box { background: #e0f2fe; padding: 10px; border-radius: 8px; text-align: center; color: #0369a1; font-weight: 600; margin-bottom: 20px; border: 1px solid #bae6fd; }
-
-        /* Download Button */
-        .btn-download { background: linear-gradient(135deg, #059669, #047857); color: white; width: 100%; padding: 15px; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(5, 150, 105, 0.3); display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .btn-download:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(5, 150, 105, 0.4); }
-        .btn-download:disabled { background: #ccc; cursor: not-allowed; box-shadow: none; transform: none; }
-
-        /* Right Side - Canvas Editor */
-        .editor-panel { flex: 1.5; background: #e2e8f0; display: flex; justify-content: center; align-items: center; padding: 30px; position: relative; overflow: hidden; min-height: 400px; }
-        .canvas-container { box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-radius: 4px; overflow: hidden; border: 2px solid white; background: repeating-conic-gradient(#ccc 0% 25%, white 0% 50%) 50% / 20px 20px; }
-        #editorCanvas { cursor: grab; touch-action: none; display: block; max-width: 100%; }
-        #editorCanvas:active { cursor: grabbing; }
-        .canvas-overlay-hint { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.6); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; pointer-events: none; opacity: 0.8; }
-
-        @media (min-width: 768px) { .editor-card { flex-direction: row; } }
-        .back-link { display: block; text-align: center; margin-top: 15px; color: #64748b; text-decoration: none; }
+        .tool-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.05); text-align: center; border-bottom: 5px solid var(--accent); }
+        .upload-area { border: 2px dashed #cbd5e1; padding: 40px; border-radius: 10px; cursor: pointer; margin-bottom: 20px; transition: 0.3s; }
+        .upload-area:hover { background: #f8fafc; border-color: var(--accent); }
+        .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; text-align: left; }
+        label { display: block; font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 5px; }
+        input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; box-sizing: border-box; }
+        .btn-action { background: #27ae60; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; font-size: 16px; transition: 0.3s; }
+        .btn-action:hover { background: #219150; }
+        #preview { max-width: 200px; margin-top: 20px; border-radius: 4px; display: none; margin-left: auto; margin-right: auto; }
+        canvas { display: none; }
+        .theory-section { background: white; padding: 30px; border-radius: 12px; margin-top: 30px; line-height: 1.8; font-size: 14px; }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <i class="fas fa-wand-magic-sparkles fa-lg"></i>
-        <h1>Form Mitra Pro Editor</h1>
+<div class="container">
+    <div class="header">
+        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back</a>
+        <h2 style="margin:0; font-size: 20px;">Image & Signature Resizer</h2>
     </div>
 
-    <div class="main-container">
-        <div class="editor-card">
-            <div class="controls-panel">
-                <div class="panel-title"><i class="fas fa-sliders-h"></i> Photo Settings</div>
+    <div class="ad-banner">Google AdSense Space (Top Ad)</div>
 
-                <div class="upload-btn-wrapper">
-                    <button class="btn-upload"><i class="fas fa-cloud-upload-alt"></i> Upload New Photo</button>
-                    <input type="file" id="imageInput" accept="image/*">
-                </div>
+    <div class="tool-box">
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+            <i class="fas fa-image" style="font-size: 50px; color: var(--accent); margin-bottom: 15px;"></i>
+            <p style="margin:0; font-weight: 500;">Click to Upload Photo or Signature</p>
+            <input type="file" id="fileInput" accept="image/*" style="display:none">
+        </div>
 
-                <div class="dimension-inputs">
-                    <div class="input-box">
-                        <label class="control-label">Width (px)</label>
-                        <input type="number" id="targetWidth" value="350">
-                    </div>
-                    <div class="input-box">
-                        <label class="control-label">Height (px)</label>
-                        <input type="number" id="targetHeight" value="450">
-                    </div>
-                </div>
+        <img id="preview" alt="Preview">
 
-                <div class="control-group">
-                    <label class="control-label">🔍 Zoom <span id="zoomValue">100%</span></label>
-                    <input type="range" id="zoomSlider" class="slider-range" min="0.1" max="3" step="0.1" value="1">
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">☀️ Brightness <span id="brightValue">100%</span></label>
-                    <input type="range" id="brightnessSlider" class="slider-range" min="0" max="200" value="100">
-                </div>
-
-                <div class="control-group">
-                    <label class="control-label">🌗 Contrast <span id="contrastValue">100%</span></label>
-                    <input type="range" id="contrastSlider" class="slider-range" min="0" max="200" value="100">
-                </div>
-                
-                <div class="control-group" style="background: #f0f9ff; border: 1px solid #bae6fd;">
-                     <label class="control-label" style="color:#0284c7;">💾 Quality (File Size Control)</label>
-                    <input type="range" id="qualitySlider" class="slider-range" min="0.1" max="1.0" step="0.05" value="0.9">
-                     <div class="size-estimate-box" id="sizeEstimate">Estimated Size: - KB</div>
-                    <small style="display:block; color:#666; font-size:0.75rem; text-align:center;">Low Quality = Smaller Size (near 10KB)<br>High Quality = Larger Size (up to 5MB)</small>
-                </div>
-
-                <button id="downloadBtn" class="btn-download" disabled>
-                    <i class="fas fa-download"></i> Download Result
-                </button>
-                <a href="/" class="back-link">← Back to Dashboard</a>
+        <div class="controls">
+            <div>
+                <label>Target Width (px)</label>
+                <input type="number" id="width" value="212">
             </div>
-
-            <div class="editor-panel">
-                <div class="canvas-overlay-hint"><i class="fas fa-hand-pointer"></i> Drag to move photo</div>
-                <div class="canvas-container">
-                    <canvas id="editorCanvas" width="350" height="450"></canvas>
-                </div>
+            <div>
+                <label>Target Height (px)</label>
+                <input type="number" id="height" value="212">
             </div>
         </div>
+
+        <button class="btn-action" onclick="resizeImage()"><i class="fas fa-download"></i> Resize & Download</button>
     </div>
 
-    <script>
-        // Elements
-        const imageInput = document.getElementById('imageInput');
-        const canvas = document.getElementById('editorCanvas');
-        const ctx = canvas.getContext('2d');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const sizeEstimateDisplay = document.getElementById('sizeEstimate');
+    <div class="ad-banner" style="margin-top:20px;">Google AdSense Space (Middle Ad)</div>
 
-        // Inputs & Sliders
-        const targetWidthInput = document.getElementById('targetWidth');
-        const targetHeightInput = document.getElementById('targetHeight');
-        const zoomSlider = document.getElementById('zoomSlider');
-        const brightnessSlider = document.getElementById('brightnessSlider');
-        const contrastSlider = document.getElementById('contrastSlider');
-        const qualitySlider = document.getElementById('qualitySlider');
+    <div class="theory-section">
+        <h3 style="color: var(--primary); border-left: 4px solid var(--accent); padding-left: 10px;">Why use Form Mitra Image Resizer?</h3>
+        <p>Online forms jaise SSC, UPSC, ya Banking exams mein photo aur signature ka ek fixed size (Pixels) manga jata hai. Humara tool aapko bina quality kharab kiye sahi size mein image convert karne mein madad karta hai.</p>
+        <ul>
+            <li><b>Safe & Secure:</b> Aapki photos server par upload nahi hoti, sab kuch aapke browser mein process hota hai.</li>
+            <li><b>Custom Size:</b> Aap apni zaroorat ke hisaab se Width aur Height set kar sakte hain.</li>
+            <li><b>Instant Download:</b> Ek click mein resized image download karein.</li>
+        </ul>
+    </div>
+</div>
 
-        // Value Displays
-        const zoomValue = document.getElementById('zoomValue');
-        const brightValue = document.getElementById('brightValue');
-        const contrastValue = document.getElementById('contrastValue');
+<canvas id="canvas"></canvas>
 
-        let uploadedImage = new Image();
-        let isImageLoaded = false;
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
 
-        // Editor State Variables (for panning and zooming)
-        let scale = 1;
-        let panning = false;
-        let startCoords = { x: 0, y: 0 };
-        let offset = { x: 0, y: 0 };
-
-        // --- Event Listeners ---
-
-        // 1. Image Upload
-        imageInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    uploadedImage.src = event.target.result;
-                    uploadedImage.onload = () => {
-                        isImageLoaded = true;
-                        resetEditorState();
-                        updateCanvasDimensions();
-                        drawImage();
-                        downloadBtn.disabled = false;
-                        updateSizeEstimate();
-                    }
-                }
-                reader.readAsDataURL(file);
+    fileInput.onchange = function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                preview.src = event.target.result;
+                preview.style.display = 'block';
             }
-        });
-
-        // 2. Controls & Sliders Change
-        [zoomSlider, brightnessSlider, contrastSlider].forEach(slider => {
-            slider.addEventListener('input', () => {
-                updateLabels();
-                drawImage();
-            });
-        });
-        
-        qualitySlider.addEventListener('input', updateSizeEstimate);
-
-        [targetWidthInput, targetHeightInput].forEach(input => {
-            input.addEventListener('change', () => {
-                updateCanvasDimensions();
-                drawImage();
-                updateSizeEstimate();
-            });
-        });
-
-        // 3. Canvas Panning (Mouse & Touch)
-        canvas.addEventListener('mousedown', startPan);
-        canvas.addEventListener('touchstart', startPan, {passive: false});
-
-        canvas.addEventListener('mousemove', doPan);
-        canvas.addEventListener('touchmove', doPan, {passive: false});
-
-        canvas.addEventListener('mouseup', endPan);
-        canvas.addEventListener('mouseleave', endPan);
-        canvas.addEventListener('touchend', endPan);
-
-
-        // --- Core Functions ---
-
-        function resetEditorState() {
-            // Reset sliders and internal state when new image loads
-            scale = 1; offset = { x: 0, y: 0 };
-            zoomSlider.value = 1; brightnessSlider.value = 100; contrastSlider.value = 100;
-            updateLabels();
+            reader.readAsDataURL(file);
         }
+    };
 
-        function updateLabels() {
-            zoomValue.innerText = Math.round(zoomSlider.value * 100) + "%";
-            brightValue.innerText = brightnessSlider.value + "%";
-            contrastValue.innerText = contrastSlider.value + "%";
-        }
-
-        function updateCanvasDimensions() {
-            canvas.width = parseInt(targetWidthInput.value) || 350;
-            canvas.height = parseInt(targetHeightInput.value) || 450;
-        }
-
-        // The Main Drawing Function (Handles Zoom, Pan, Filters)
-        function drawImage() {
-            if (!isImageLoaded) return;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.save(); // Save current state
-
-            // 1. Apply Filters (Brightness/Contrast)
-            const brightness = brightnessSlider.value;
-            const contrast = contrastSlider.value;
-            ctx.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
-
-            // 2. Apply Translation (Panning) & Scale (Zoom) from center
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.translate(offset.x, offset.y);
-            scale = parseFloat(zoomSlider.value);
-            ctx.scale(scale, scale);
-
-            // 3. Draw Image centered
-            ctx.drawImage(uploadedImage, -uploadedImage.width / 2, -uploadedImage.height / 2);
-
-            ctx.restore(); // Restore state
-        }
-
-        // --- Panning Logic ---
-        function getClientCoords(e) {
-            // Handles both mouse and touch coordinates
-            if (e.touches && e.touches.length > 0) {
-                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            }
-            return { x: e.clientX, y: e.clientY };
-        }
-
-        function startPan(e) {
-            if(e.type === 'touchstart') e.preventDefault();
-            panning = true;
-            startCoords = getClientCoords(e);
-        }
-
-        function doPan(e) {
-             if(e.type === 'touchmove') e.preventDefault();
-            if (!panning || !isImageLoaded) return;
-            const currentCoords = getClientCoords(e);
-            // Calculate movement delta
-            const dx = currentCoords.x - startCoords.x;
-            const dy = currentCoords.y - startCoords.y;
-            
-            // Update offset
-            offset.x += dx;
-            offset.y += dy;
-            
-            // Reset start coords for next frame
-            startCoords = currentCoords;
-            drawImage();
-        }
-
-        function endPan() {
-            panning = false;
-        }
-
-        // --- File Size Estimation & Download ---
-        function updateSizeEstimate() {
-            if (!isImageLoaded) return;
-            const quality = parseFloat(qualitySlider.value);
-            // Get Base64 data URL
-            const dataURL = canvas.toDataURL('image/jpeg', quality);
-            // Estimate size based on base64 string length based on formula: (length * (3/4)) / 1024 bytes
-            const head = 'data:image/jpeg;base64,';
-            const imageSizeInBytes = Math.round((dataURL.length - head.length)*3/4);
-            const imageSizeInKB = (imageSizeInBytes / 1024).toFixed(1);
-
-            let color = "#0369a1"; // Blue (Good)
-            if (imageSizeInKB < 10) color = "#d97706"; // Orange (Too small)
-            if (imageSizeInKB > 5120) color = "#dc2626"; // Red (Too big > 5MB)
-
-            sizeEstimateDisplay.style.color = color;
-            sizeEstimateDisplay.innerHTML = `Estimated Size: ≈ ${imageSizeInKB} KB`;
-        }
-
-        downloadBtn.addEventListener('click', function() {
-             if (!isImageLoaded) return;
-             // Create a temporary link to trigger download
-             const quality = parseFloat(qualitySlider.value);
-             const link = document.createElement('a');
-             link.download = 'form-mitra-edited.jpg';
-             link.href = canvas.toDataURL('image/jpeg', quality);
-             link.click();
-        });
-
-        // Initial setup
-        updateLabels();
-    </script>
+    function resizeImage() {
+        if (!preview.src) { alert("Please upload a file first!"); return; }
+        const w = document.getElementById('width').value;
+        const h = document.getElementById('height').value;
+        canvas.width = w; canvas.height = h;
+        const img = new Image();
+        img.src = preview.src;
+        img.onload = function() {
+            ctx.drawImage(img, 0, 0, w, h);
+            const link = document.createElement('a');
+            link.download = 'form-mitra-resized.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.click();
+        };
+    }
+</script>
 </body>
 </html>
