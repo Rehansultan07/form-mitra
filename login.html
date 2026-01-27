@@ -1,11 +1,18 @@
-// login.html ke handleLogin mein ye check add hoga
+// login.html ke handleLogin function mein ye update karein
 signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         const user = userCredential.user;
-        if(user.emailVerified) {
-            // Agar email verified hai toh hi dashboard khulega
+        
+        // Check if Email is Verified
+        if (user.emailVerified) {
+            // Agar verified hai toh status "Approved" kar do aur dashboard bhej do
             window.location.href = "dashboard.html";
         } else {
-            alert("Pehle apna email verify karein! Check your inbox.");
+            alert("Account verify nahi hai! Pehle apni email inbox check karein aur link par click karein.");
+            // Optional: logout user taaki wo bin verification andar na jaye
+            signOut(auth); 
         }
+    })
+    .catch((error) => {
+        alert("Login failed: " + error.message);
     });
