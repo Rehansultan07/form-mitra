@@ -13,7 +13,7 @@
         .card { background: white; width: 100%; max-width: 450px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; }
         .header { background: var(--primary); color: white; padding: 30px; text-align: center; }
         .form-body { padding: 30px; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
         .btn { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .btn-blue { background: var(--primary); color: white; }
         .btn-green { background: #27ae60; color: white; }
@@ -26,7 +26,7 @@
 <div class="card">
     <div class="header">
         <h2 style="margin:0;">Agent Registration</h2>
-        <p style="margin:5px 0 0; font-size:13px; opacity:0.8;">Verified by Team Mitra</p>
+        <p style="margin:5px 0 0; font-size:13px; opacity:0.8;">Secure OTP Verification</p>
     </div>
     
     <div class="form-body">
@@ -40,8 +40,8 @@
         </div>
 
         <div id="otpSection">
-            <p style="text-align:center; font-size:14px; color:#555;">Enter OTP sent to your email.</p>
-            <input type="number" id="otpInput" placeholder="6-Digit OTP">
+            <p style="text-align:center; font-size:14px; color:#555;">Enter 6-digit OTP sent to your email.</p>
+            <input type="number" id="otpInput" placeholder="Enter OTP Here">
             <button class="btn btn-green" onclick="verifyOTP()">VERIFY & REGISTER</button>
         </div>
     </div>
@@ -63,7 +63,8 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    emailjs.init("5l39e6HclV_oN_q0-"); // Public Key
+    // Initializing with your NEW Public Key
+    emailjs.init("vfjPT3DX3Psmx98md"); 
 
     let generatedOTP;
 
@@ -84,9 +85,10 @@
             user_name: name
         };
 
+        // Using your Service and Template IDs
         emailjs.send('service_5z4z3v9', 'template_6p3j0m4', templateParams)
             .then(() => {
-                alert("OTP Sent Successfully! Apna email check karein.");
+                alert("OTP Sent! Check your email inbox.");
                 document.getElementById('loadingMsg').style.display = "none";
                 document.getElementById('detailsSection').style.display = "none";
                 document.getElementById('otpSection').style.display = "block";
@@ -94,7 +96,8 @@
             .catch((error) => {
                 document.getElementById('loadingMsg').style.display = "none";
                 document.getElementById('sendBtn').disabled = false;
-                alert("EmailJS Error: " + error.text);
+                alert("OTP Error: " + error.text);
+                console.log("Full Error:", error);
             });
     };
 
@@ -103,7 +106,7 @@
         if(userOTP == generatedOTP) {
             registerUser();
         } else {
-            alert("Galat OTP!");
+            alert("Galat OTP! Koshish fir se karein.");
         }
     };
 
@@ -116,14 +119,15 @@
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
+                // Auto-Approved after OTP success
                 set(ref(db, 'agents/' + user.uid), {
                     name, email, phone, status: "Approved", joinedOn: new Date().toISOString()
                 }).then(() => {
-                    alert("Account Created & Approved!");
+                    alert("Account Activated! Now you can Login.");
                     window.location.href = "login.html";
                 });
             })
-            .catch(err => alert("Firebase Error: " + err.message));
+            .catch(err => alert("Registration Error: " + err.message));
     }
 </script>
 </body>
