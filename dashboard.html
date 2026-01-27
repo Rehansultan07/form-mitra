@@ -3,91 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digi Mitra - Agent Dashboard</title>
+    <title>Agent Dashboard - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f8fafc; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); }
         
-        /* Top Navigation Header */
+        /* Master Header */
         .header { background: #fff; padding: 12px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
-        .logo-text { font-weight: 800; color: var(--navy); font-size: 22px; letter-spacing: 1px; }
+        .logo-text { font-weight: 800; color: var(--navy); font-size: 22px; }
         .logo-text span { color: var(--blue); }
 
-        /* Profile Section in Header */
-        .profile-container { position: relative; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 5px 10px; border-radius: 50px; transition: 0.3s; }
-        .profile-container:hover { background: #f1f5f9; }
-        .profile-img { width: 35px; height: 35px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; }
-        .agent-name { font-size: 14px; font-weight: 700; color: #333; }
+        /* AdSense Master Template Slots */
+        .ad-container { background: #f9f9f9; border: 1px dashed #ccc; margin: 20px auto; padding: 15px; text-align: center; color: #aaa; font-size: 11px; max-width: 1000px; border-radius: 8px; }
 
-        /* Dropdown Menu */
-        .profile-dropdown { display: none; position: absolute; top: 55px; right: 0; width: 250px; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border: 1px solid #eee; padding: 20px; z-index: 2000; animation: slideDown 0.3s ease; }
+        /* Profile System */
+        .profile-container { position: relative; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        .profile-icon { width: 35px; height: 35px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; overflow: hidden; }
+        .profile-dropdown { display: none; position: absolute; top: 50px; right: 0; width: 250px; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); padding: 20px; z-index: 2000; }
         .profile-dropdown.active { display: block; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .dropdown-header { border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px; }
-        .detail-item { margin-bottom: 10px; }
+        .detail-item { margin-bottom: 12px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
         .detail-item b { display: block; font-size: 10px; color: #999; text-transform: uppercase; }
-        .detail-item span { font-size: 13px; color: #333; font-weight: 500; }
-        
-        .btn-logout { width: 100%; background: #ff4757; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
+        .detail-item span { font-size: 13px; color: #333; }
 
-        /* Welcome Popup */
-        #welcomePopup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
-        .popup-card { background: white; padding: 35px; border-radius: 15px; text-align: center; max-width: 350px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        /* Dashboard Grid */
+        .main-content { padding: 20px 5%; max-width: 1200px; margin: 0 auto; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
+        .s-card { background: #fff; padding: 25px; border-radius: 12px; text-align: center; border: 1px solid #eee; text-decoration: none; transition: 0.3s; }
+        .s-card:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .s-card i { font-size: 35px; color: var(--blue); margin-bottom: 15px; }
+        .s-card h3 { font-size: 13px; margin: 0; color: #333; font-weight: 700; text-transform: uppercase; }
 
-        /* Main Dashboard Content */
-        .main-content { padding: 40px 8%; }
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 25px; }
-        .s-card { background: #fff; padding: 35px 20px; border-radius: 15px; text-align: center; border: 1px solid #eee; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .s-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-color: var(--blue); }
-        .s-card i { font-size: 45px; color: var(--blue); margin-bottom: 20px; }
-        .s-card h3 { font-size: 14px; margin: 0; color: #333; font-weight: 800; text-transform: uppercase; }
-
-        @media (max-width: 600px) { .agent-name { display: none; } .main-content { padding: 20px; } }
+        .btn-logout { width: 100%; background: #ff4757; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 700; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="welcomePopup">
-        <div class="popup-card">
-            <i class="fas fa-user-circle" style="font-size: 50px; color: var(--blue); margin-bottom: 15px;"></i>
-            <h2 id="welcomeMsg" style="margin:0; color:var(--navy); font-size: 1.4rem;">Welcome!</h2>
-            <p style="color: #777; font-size: 14px; margin-top: 10px;">Select a service to start your digital work.</p>
-            <button onclick="closePopup()" style="background: var(--navy); color: white; border: none; padding: 12px 40px; border-radius: 6px; cursor: pointer; margin-top: 20px; font-weight: 600;">Let's Start</button>
-        </div>
-    </div>
-
     <header class="header">
         <div class="logo-text">DIGI<span>MITRA</span></div>
-        
         <div class="profile-container" onclick="toggleDropdown()">
-            <div class="profile-img" id="avatarInitial">D</div>
-            <div class="agent-name" id="topName">Agent Name</div>
-            <i class="fas fa-chevron-down" style="font-size: 10px; color: #aaa;"></i>
+            <div class="profile-icon" id="topInitial">D</div>
+            <div style="font-size: 14px; font-weight: 600;" id="topName">Agent</div>
+            <i class="fas fa-chevron-down" style="font-size: 10px; color: #ccc;"></i>
             
             <div class="profile-dropdown" id="profileDropdown">
-                <div class="dropdown-header">
-                    <h4 id="dropAgentName" style="margin:0; color:var(--navy);">Agent Name</h4>
-                    <span style="font-size: 11px; color: #2ecc71; font-weight: 700;">Verified Partner</span>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <h4 id="dropName" style="margin:0; color:var(--navy);">Agent Name</h4>
+                    <span style="font-size: 10px; color: #2ecc71; font-weight: 700;">VERIFIED PARTNER</span>
                 </div>
-                <div class="detail-item"><b>Email</b><span id="pEmail">...</span></div>
+                <div class="detail-item"><b>Email ID</b><span id="pEmail">...</span></div>
                 <div class="detail-item"><b>Mobile</b><span id="pPhone">...</span></div>
-                <div class="detail-item"><b>Address</b><span id="pAddress">...</span></div>
                 <button class="btn-logout" onclick="handleLogout()">Logout <i class="fas fa-power-off"></i></button>
             </div>
         </div>
     </header>
 
+    <div class="ad-container">Google AdSense - Dashboard Top Banner</div>
+
     <div class="main-content">
+        <h2 style="font-size: 18px; color: var(--navy); margin-bottom: 20px;">Available Services</h2>
+        
         <div class="services-grid">
-            <a href="photo-resizer.html" class="s-card"><i class="fas fa-camera-retro"></i><h3>Photo Resizer</h3></a>
+            <a href="photo-resizer.html" class="s-card"><i class="fas fa-camera"></i><h3>Photo Resizer</h3></a>
             <a href="voter.html" class="s-card"><i class="fas fa-id-card" style="color:#2ecc71;"></i><h3>Voter Seva</h3></a>
-            <a href="aadhaar.html" class="s-card"><i class="fas fa-fingerprint" style="color:#e74c3c;"></i><h3>Aadhaar Seva</h3></a>
+            <a href="aadhaar.html" class="s-card"><i class="fas fa-fingerprint" style="color:#e74c3c;"></i><h3>Aadhaar</h3></a>
             <a href="pan.html" class="s-card"><i class="fas fa-address-card" style="color:#f39c12;"></i><h3>PAN Card</h3></a>
         </div>
+
+        <div class="ad-container" style="margin: 40px 0;">Google AdSense - In-Feed Native Ad</div>
+
+        <h2 style="font-size: 18px; color: var(--navy); margin-bottom: 20px;">Coming Soon</h2>
+        <div class="services-grid" style="opacity: 0.6;">
+            <div class="s-card"><i class="fas fa-graduation-cap"></i><h3>Board Results</h3></div>
+            <div class="s-card"><i class="fas fa-file-invoice"></i><h3>Ration Card</h3></div>
+        </div>
     </div>
+
+    <div class="ad-container" style="margin-top: 50px;">Google AdSense - Footer Responsive Ad</div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -105,12 +98,7 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // Dropdown Toggle
-    window.toggleDropdown = (e) => {
-        document.getElementById('profileDropdown').classList.toggle('active');
-    };
-
-    window.closePopup = () => { document.getElementById('welcomePopup').style.display = 'none'; };
+    window.toggleDropdown = () => document.getElementById('profileDropdown').classList.toggle('active');
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -118,35 +106,16 @@
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     document.getElementById('topName').innerText = data.name;
-                    document.getElementById('dropAgentName').innerText = data.name;
+                    document.getElementById('dropName').innerText = data.name;
                     document.getElementById('pEmail').innerText = data.email;
                     document.getElementById('pPhone').innerText = data.phone || 'Not Shared';
-                    document.getElementById('pAddress').innerText = data.address || 'Address not set';
-                    document.getElementById('avatarInitial').innerText = data.name.charAt(0).toUpperCase();
-                    
-                    if(!sessionStorage.getItem('welcomeShown')) {
-                        document.getElementById('welcomeMsg').innerText = "Welcome to Dashboard, " + data.name;
-                        document.getElementById('welcomePopup').style.display = 'flex';
-                        sessionStorage.setItem('welcomeShown', 'true');
-                    }
+                    document.getElementById('topInitial').innerText = data.name.charAt(0).toUpperCase();
                 }
             });
         } else { window.location.href = "login.html"; }
     });
 
-    window.handleLogout = () => { 
-        signOut(auth).then(() => { 
-            sessionStorage.removeItem('welcomeShown');
-            window.location.href = "login.html"; 
-        }); 
-    };
-
-    // Close dropdown on outside click
-    window.onclick = function(event) {
-        if (!event.target.closest('.profile-container')) {
-            document.getElementById('profileDropdown').classList.remove('active');
-        }
-    }
+    window.handleLogout = () => signOut(auth).then(() => window.location.href = "login.html");
 </script>
 </body>
 </html>
