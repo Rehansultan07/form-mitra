@@ -8,24 +8,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #002e5d; --accent: #3b82f6; --bg: #f8fafc; }
-        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; padding: 20px; }
         .login-card { background: white; width: 100%; max-width: 400px; padding: 40px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 30px; }
+        .logo { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
         .logo span { color: #ff9900; }
         .input-group { text-align: left; margin-bottom: 20px; }
         .input-group label { display: block; font-size: 14px; font-weight: 600; color: #64748b; margin-bottom: 8px; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
         .btn-login { background: var(--primary); color: white; border: none; width: 100%; padding: 14px; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-login:hover { background: var(--accent); }
-        .footer-link { margin-top: 20px; font-size: 14px; color: #64748b; }
+        .btn-login:hover { background: var(--accent); transform: translateY(-2px); }
+        .footer-link { margin-top: 25px; font-size: 14px; color: #64748b; }
         .footer-link a { color: var(--accent); text-decoration: none; font-weight: 600; }
+        .loader { display: none; margin-bottom: 15px; color: var(--accent); font-size: 14px; }
     </style>
 </head>
 <body>
 
 <div class="login-card">
     <div class="logo">FORM <span>MITRA</span></div>
-    <h3 style="margin-bottom: 25px;">Agent Login</h3>
+    <p style="color: #64748b; margin-bottom: 30px; font-size: 14px;">Welcome back! Please enter your details.</p>
     
     <div class="input-group">
         <label>Email ID</label>
@@ -37,17 +38,19 @@
         <input type="password" id="password" placeholder="••••••••">
     </div>
 
-    <button class="btn-login" onclick="handleLogin()">LOGIN TO PORTAL</button>
+    <p id="loginLoader" class="loader"><i class="fas fa-spinner fa-spin"></i> Checking Credentials...</p>
+    <button class="btn-login" onclick="handleLogin()">LOGIN TO DASHBOARD</button>
 
     <div class="footer-link">
-        Naye Agent hain? <a href="signup.html">Register Karein</a>
+        Naye Agent hain? <a href="signup.html">Registration Karein</a>
     </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
         authDomain: "formmitra-auth.firebaseapp.com",
@@ -62,23 +65,18 @@
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
 
-        if(!email || !password) return alert("Email aur Password bharna zaroori hai!");
+        if(!email || !password) return alert("Email aur Password dono bhariye!");
+
+        document.getElementById('loginLoader').style.display = "block";
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
-
-                // Step 1: Check if Email is Verified
-                if (user.emailVerified) {
-                    // Agar email verified hai toh hi dashboard bhejenge
-                    window.location.href = "dashboard.html";
-                } else {
-                    alert("Account verify nahi hai! Pehle apna email check karein aur verification link par click karein.");
-                    signOut(auth); // Bin verification ke session allow nahi karenge
-                }
+                // Successful Login
+                window.location.href = "dashboard.html";
             })
             .catch((error) => {
-                alert("Login Error: " + error.message);
+                document.getElementById('loginLoader').style.display = "none";
+                alert("Login Failed: " + error.message);
             });
     };
 </script>
