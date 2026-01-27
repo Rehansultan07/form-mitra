@@ -1,229 +1,247 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agent Registration - Form Mitra</title>
+<title>Form Mitra – Digital Service Platform</title>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <style>
-body {
-  font-family: Inter, Segoe UI, sans-serif;
-  background: linear-gradient(135deg,#e3ecf5,#f9fbff);
-  margin: 0; padding: 20px;
+:root{
+  --primary:#223d5d;
+  --accent:#3498db;
+  --bg:#f5f8fc;
 }
 
-.card {
-  max-width: 560px;
-  margin: auto;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 15px 40px rgba(0,0,0,.12);
-  overflow: hidden;
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,Segoe UI,sans-serif;
+  background:var(--bg);
+  color:#333;
 }
 
-.header {
-  background: #223d5d;
-  color: white;
-  padding: 22px;
-  text-align: center;
-  font-weight: 700;
+a{text-decoration:none}
+
+header{
+  background:white;
+  padding:16px 28px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 4px 20px rgba(0,0,0,.05);
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
-.progress {
-  height: 6px;
-  background: #eaeaea;
-}
-.bar {
-  height: 100%;
-  width: 33%;
-  background: #3498db;
-  transition: .3s;
+.logo{
+  font-size:22px;
+  font-weight:800;
+  color:var(--primary);
 }
 
-.content {
-  padding: 26px;
+.nav a{
+  margin-left:20px;
+  color:#555;
+  font-weight:600;
 }
 
-.step { display: none; }
-.step.active { display: block; animation: fade .3s; }
-
-@keyframes fade { from {opacity:.3; transform:translateY(10px);} to {opacity:1;} }
-
-.input-group {
-  position: relative;
-  margin-bottom: 16px;
+.btn{
+  padding:10px 18px;
+  border-radius:8px;
+  font-weight:700;
+  border:none;
+  cursor:pointer;
 }
 
-.input-group i {
-  position: absolute;
-  left: 12px;
-  top: 14px;
-  color: #777;
+.btn-primary{
+  background:var(--primary);
+  color:white;
 }
 
-input {
-  width: 100%;
-  padding: 12px 12px 12px 38px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  outline: none;
-  font-size: 15px;
+.btn-outline{
+  background:none;
+  border:2px solid var(--primary);
+  color:var(--primary);
 }
 
-input:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52,152,219,.15);
+/* HERO */
+.hero{
+  padding:80px 20px;
+  text-align:center;
+  background:linear-gradient(135deg,#e8f1fb,#ffffff);
 }
 
-.btn {
-  width: 100%;
-  padding: 14px;
-  border-radius: 8px;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
+.hero h1{
+  font-size:40px;
+  color:var(--primary);
+  max-width:800px;
+  margin:auto;
 }
 
-.btn-blue { background:#223d5d; color:white; }
-.btn-green { background:#27ae60; color:white; }
-
-.qr-box {
-  text-align: center;
-  padding: 20px;
-  border: 2px dashed #3498db;
-  border-radius: 10px;
+.hero p{
+  font-size:18px;
+  max-width:700px;
+  margin:20px auto;
+  color:#555;
 }
 
-.qr-box img { width: 180px; }
+.hero .actions{
+  margin-top:30px;
+}
 
-.loading {
-  opacity: .6;
-  pointer-events: none;
+/* SECTIONS */
+section{
+  padding:70px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+
+.section-title{
+  text-align:center;
+  font-size:32px;
+  color:var(--primary);
+  margin-bottom:40px;
+}
+
+/* SERVICES */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:white;
+  padding:26px;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+  text-align:center;
+}
+
+.card i{
+  font-size:34px;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+
+/* TRUST */
+.trust{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:20px;
+}
+
+/* HOW */
+.steps{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.step{
+  background:white;
+  padding:24px;
+  border-radius:14px;
+  text-align:center;
+  box-shadow:0 8px 25px rgba(0,0,0,.07);
+}
+
+.step span{
+  font-size:28px;
+  font-weight:800;
+  color:var(--accent);
+}
+
+/* CTA */
+.cta{
+  background:var(--primary);
+  color:white;
+  text-align:center;
+  border-radius:16px;
+}
+
+.cta h2{font-size:32px}
+.cta p{opacity:.9}
+
+/* FOOTER */
+footer{
+  background:#0f2238;
+  color:#ccc;
+  padding:30px;
+  text-align:center;
+}
+
+@media(max-width:600px){
+  .hero h1{font-size:30px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-  <div class="header">Agent Registration</div>
-  <div class="progress"><div class="bar" id="bar"></div></div>
+<header>
+  <div class="logo">Form Mitra</div>
+  <div class="nav">
+    <a href="login.html">Login</a>
+    <a href="register.html" class="btn btn-primary">Register Free</a>
+  </div>
+</header>
 
-  <div class="content">
-
-    <div id="step1" class="step active">
-      <div class="input-group">
-        <i class="fa fa-user"></i>
-        <input id="name" placeholder="Full Name">
-      </div>
-
-      <div class="input-group">
-        <i class="fa fa-envelope"></i>
-        <input id="email" type="email" placeholder="Email Address">
-      </div>
-
-      <div class="input-group">
-        <i class="fa fa-phone"></i>
-        <input id="phone" placeholder="Mobile Number">
-      </div>
-
-      <button class="btn btn-blue" onclick="goStep(2)">Next</button>
-    </div>
-
-    <div id="step2" class="step">
-      <div class="input-group">
-        <i class="fa fa-location-dot"></i>
-        <input id="address" placeholder="Shop Address">
-      </div>
-
-      <div class="input-group">
-        <i class="fa fa-lock"></i>
-        <input id="password" type="password" placeholder="Min 6 characters">
-      </div>
-
-      <button class="btn btn-blue" onclick="goStep(3)">Next</button>
-    </div>
-
-    <div id="step3" class="step">
-      <div class="qr-box">
-        <h4>Registration Fee ₹999</h4>
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=REHAN@UPI&pn=FormMitra&am=999">
-        <small style="color:#e74c3c">Scan & Pay using UPI</small>
-      </div>
-
-      <div class="input-group">
-        <i class="fa fa-receipt"></i>
-        <input id="utr" placeholder="Enter UTR / Transaction ID">
-      </div>
-
-      <button class="btn btn-green" onclick="handleSignup()" id="submitBtn">
-        Finish Registration
-      </button>
-    </div>
-
+<div class="hero">
+  <h1>India’s Smart Digital Service Platform for Agents</h1>
+  <p>
+    Form Mitra helps agents manage digital services, online forms,
+    and customer work — fast, secure and reliable.
+  </p>
+  <div class="actions">
+    <a href="register.html" class="btn btn-primary">Get Started Free</a>
+    <a href="login.html" class="btn btn-outline">Login</a>
   </div>
 </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+<section>
+  <h2 class="section-title">Our Services</h2>
+  <div class="services">
+    <div class="card"><i class="fa fa-file-lines"></i><h3>Online Forms</h3></div>
+    <div class="card"><i class="fa fa-building-columns"></i><h3>Govt Services</h3></div>
+    <div class="card"><i class="fa fa-credit-card"></i><h3>Bill & Payments</h3></div>
+    <div class="card"><i class="fa fa-user-gear"></i><h3>Agent Dashboard</h3></div>
+  </div>
+</section>
 
-const firebaseConfig = {
- apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
- authDomain: "formmitra-auth.firebaseapp.com",
- databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
-};
+<section>
+  <h2 class="section-title">Why Trust Form Mitra</h2>
+  <div class="trust">
+    <div class="card">🔐 Secure Authentication</div>
+    <div class="card">📊 Transparent Process</div>
+    <div class="card">🏘 Built for Small Towns</div>
+    <div class="card">⚡ Fast Support</div>
+  </div>
+</section>
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getDatabase(app);
+<section>
+  <h2 class="section-title">How It Works</h2>
+  <div class="steps">
+    <div class="step"><span>1</span><p>Register for Free</p></div>
+    <div class="step"><span>2</span><p>Login to Dashboard</p></div>
+    <div class="step"><span>3</span><p>Access Services</p></div>
+    <div class="step"><span>4</span><p>Grow Your Business</p></div>
+  </div>
+</section>
 
-window.goStep = (n) => {
- document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
- document.getElementById("step"+n).classList.add("active");
- document.getElementById("bar").style.width = (n*33)+"%";
-};
+<section class="cta">
+  <h2>Ready to Start?</h2>
+  <p>No setup cost. Secure authentication.</p><br>
+  <a href="register.html" class="btn btn-outline">Register Free</a>
+  <a href="login.html" class="btn btn-primary">Login</a>
+</section>
 
-window.handleSignup = async () => {
- const btn = document.getElementById("submitBtn");
- btn.innerText = "Processing...";
- btn.classList.add("loading");
-
- const name = name.value.trim();
- const email = email.value.trim();
- const password = password.value;
- const phone = phone.value.trim();
- const address = address.value.trim();
- const utr = utr.value.trim();
-
- if(!name || !email || !password || !utr) {
-   alert("Please fill all required fields!");
-   btn.innerText = "Finish Registration";
-   return;
- }
-
- try {
-   const userCredential = await createUserWithEmailAndPassword(auth,email,password);
-   const user = userCredential.user;
-
-   await set(ref(db,'agents/'+user.uid),{
-     name,email,phone,address,utr,status:"Pending",createdAt:Date.now()
-   });
-
-   alert("Success! Admin approval ke baad account active hoga.");
-   location.href = "login.html";
-
- } catch(e){
-   alert(e.message);
- }
-
- btn.innerText = "Finish Registration";
- btn.classList.remove("loading");
-};
-</script>
+<footer>
+  © 2026 Form Mitra · All Rights Reserved
+</footer>
 
 </body>
 </html>
