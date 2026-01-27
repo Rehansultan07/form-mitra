@@ -13,13 +13,12 @@
         .card { background: white; width: 100%; max-width: 450px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; }
         .header { background: var(--primary); color: white; padding: 30px; text-align: center; }
         .form-body { padding: 30px; }
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; font-size: 13px; font-weight: 600; color: #64748b; margin-bottom: 5px; }
-        input { width: 100%; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 8px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .btn-blue { background: var(--primary); color: white; }
         .btn-green { background: #27ae60; color: white; }
         #otpSection { display: none; margin-top: 20px; padding-top: 20px; border-top: 2px dashed #eee; }
+        .loading-text { font-size: 13px; color: var(--accent); display: none; text-align: center; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -27,34 +26,23 @@
 <div class="card">
     <div class="header">
         <h2 style="margin:0;">Agent Registration</h2>
-        <p style="margin:5px 0 0; font-size:13px; opacity:0.8;">Secure Signup with OTP Verification</p>
+        <p style="margin:5px 0 0; font-size:13px; opacity:0.8;">Verified by Team Mitra</p>
     </div>
     
     <div class="form-body">
         <div id="detailsSection">
-            <div class="input-group">
-                <label>Full Name</label>
-                <input type="text" id="name" placeholder="Enter name">
-            </div>
-            <div class="input-group">
-                <label>Email Address</label>
-                <input type="email" id="email" placeholder="example@mail.com">
-            </div>
-            <div class="input-group">
-                <label>Mobile Number</label>
-                <input type="number" id="phone" placeholder="9876543210">
-            </div>
-            <div class="input-group">
-                <label>Password</label>
-                <input type="password" id="password" placeholder="Min 6 characters">
-            </div>
-            <button class="btn btn-blue" onclick="sendOTP()">SEND VERIFICATION OTP</button>
+            <input type="text" id="name" placeholder="Full Name">
+            <input type="email" id="email" placeholder="Email Address">
+            <input type="number" id="phone" placeholder="Mobile Number">
+            <input type="password" id="password" placeholder="Password (Min 6)">
+            <p id="loadingMsg" class="loading-text"><i class="fas fa-spinner fa-spin"></i> Sending OTP, Please Wait...</p>
+            <button class="btn btn-blue" id="sendBtn" onclick="sendOTP()">SEND OTP</button>
         </div>
 
         <div id="otpSection">
-            <p style="text-align:center; font-size:14px; color:#555;">Enter 6-digit OTP sent to your email.</p>
-            <input type="number" id="otpInput" placeholder="Enter OTP Here">
-            <button class="btn btn-green" onclick="verifyOTP()">VERIFY & COMPLETE SIGNUP</button>
+            <p style="text-align:center; font-size:14px; color:#555;">Enter OTP sent to your email.</p>
+            <input type="number" id="otpInput" placeholder="6-Digit OTP">
+            <button class="btn btn-green" onclick="verifyOTP()">VERIFY & REGISTER</button>
         </div>
     </div>
 </div>
@@ -62,21 +50,20 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    // Firebase Configuration
     const firebaseConfig = {
         apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
         authDomain: "formmitra-auth.firebaseapp.com",
         projectId: "formmitra-auth",
         databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
     };
+
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // Email.js Initialized with your Public Key
-    emailjs.init("5l39e6HclV_oN_q0-");
+    emailjs.init("5l39e6HclV_oN_q0-"); // Public Key
 
     let generatedOTP;
 
@@ -84,11 +71,13 @@
         const email = document.getElementById('email').value;
         const name = document.getElementById('name').value;
         
-        if(!email || !name) return alert("Pehle Name aur Email bhariye!");
+        if(!email || !name) return alert("Please enter Name and Email!");
+
+        document.getElementById('loadingMsg').style.display = "block";
+        document.getElementById('sendBtn').disabled = true;
 
         generatedOTP = Math.floor(100000 + Math.random() * 900000);
 
-        // Your Configured IDs
         const templateParams = {
             to_email: email,
             otp_code: generatedOTP,
@@ -97,11 +86,15 @@
 
         emailjs.send('service_5z4z3v9', 'template_6p3j0m4', templateParams)
             .then(() => {
-                alert("OTP bhej diya gaya hai! Email check karein.");
+                alert("OTP Sent Successfully! Apna email check karein.");
+                document.getElementById('loadingMsg').style.display = "none";
                 document.getElementById('detailsSection').style.display = "none";
                 document.getElementById('otpSection').style.display = "block";
-            }, (error) => {
-                alert("Email.js Error: " + error.text);
+            })
+            .catch((error) => {
+                document.getElementById('loadingMsg').style.display = "none";
+                document.getElementById('sendBtn').disabled = false;
+                alert("EmailJS Error: " + error.text);
             });
     };
 
@@ -110,7 +103,7 @@
         if(userOTP == generatedOTP) {
             registerUser();
         } else {
-            alert("Galat OTP! Sahi code dalein.");
+            alert("Galat OTP!");
         }
     };
 
@@ -123,13 +116,10 @@
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                // Instant Auto-Approve after OTP success
                 set(ref(db, 'agents/' + user.uid), {
-                    name, email, phone, 
-                    status: "Approved", 
-                    joinedOn: new Date().toISOString()
+                    name, email, phone, status: "Approved", joinedOn: new Date().toISOString()
                 }).then(() => {
-                    alert("Verification Successful! Aapka account activate ho gaya hai.");
+                    alert("Account Created & Approved!");
                     window.location.href = "login.html";
                 });
             })
