@@ -3,57 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Photo Resizer - Form Mitra Pro</title>
+    <title>Digi Mitra Pro Editor - Photo Resizer & BG Remover</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2563eb; --secondary: #1e40af; --accent: #f59e0b; --bg-light: #f8fafc; }
+        :root { --primary: #002e5d; --accent: #3b82f6; --bg-light: #f8fafc; }
         body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; margin: 0; display: flex; flex-direction: column; min-height: 100vh; }
-        
-        /* Navbar */
-        .navbar { background: #1e3a8a; color: white; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .navbar { background: var(--primary); color: white; padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
         .nav-brand { display: flex; align-items: center; gap: 10px; }
-        .navbar h1 { margin: 0; font-size: 1.3rem; }
-        .back-btn { background: var(--accent); color: #000; text-decoration: none; padding: 6px 15px; border-radius: 4px; font-weight: 600; font-size: 13px; transition: 0.3s; }
-        .back-btn:hover { background: #fff; }
-
-        /* AdSense Placeholder Slots */
-        .ad-space { background: #fff; border: 1px dashed #bbb; margin: 15px auto; padding: 10px; text-align: center; font-size: 11px; color: #999; border-radius: 4px; max-width: 900px; width: 90%; }
-
-        /* Layout */
-        .main-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 10px 20px 40px; }
-        .editor-card { background: white; width: 100%; max-width: 1000px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
-
-        /* Content Sections */
-        .controls-panel { padding: 25px; background: #fff; flex: 1; border-right: 1px solid #e5e7eb; }
-        .panel-title { font-size: 1.1rem; color: var(--secondary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-weight: 700; }
+        .nav-brand h1 { font-size: 20px; margin: 0; letter-spacing: 1px; }
+        .back-btn { background: #f59e0b; color: #000; text-decoration: none; padding: 8px 18px; border-radius: 4px; font-weight: 600; font-size: 13px; }
         
-        .upload-btn-wrapper { position: relative; overflow: hidden; display: inline-block; width: 100%; margin-bottom: 25px; }
-        .btn-upload { border: 2px dashed var(--primary); color: var(--primary); background-color: #eff6ff; padding: 15px; border-radius: 8px; font-size: 15px; font-weight: bold; width: 100%; cursor: pointer; text-align: center; transition: 0.3s; }
-        .btn-upload:hover { background-color: #dbeafe; }
-        .upload-btn-wrapper input[type=file] { position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; width: 100%; }
-
-        .control-group { margin-bottom: 15px; background: var(--bg-light); padding: 12px; border-radius: 8px; }
-        .control-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 5px; }
-        .slider-range { width: 100%; cursor: pointer; accent-color: var(--primary); }
-
-        .dimension-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
-        .input-box input { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; text-align: center; font-family: 'Poppins'; }
-
-        .size-estimate-box { background: #e0f2fe; padding: 8px; border-radius: 6px; text-align: center; color: #0369a1; font-weight: 700; margin-bottom: 15px; font-size: 14px; border: 1px solid #bae6fd; }
-
-        .btn-download { background: linear-gradient(135deg, #059669, #047857); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; gap: 10px; }
-        .btn-download:disabled { background: #ccc; cursor: not-allowed; }
-
-        /* Right Side - Canvas Editor */
-        .editor-panel { flex: 1.5; background: #e2e8f0; display: flex; justify-content: center; align-items: center; padding: 20px; position: relative; min-height: 400px; }
-        .canvas-container { box-shadow: 0 10px 30px rgba(0,0,0,0.15); border: 4px solid white; background: repeating-conic-gradient(#ccc 0% 25%, white 0% 50%) 50% / 20px 20px; }
-        #editorCanvas { cursor: grab; display: block; max-width: 100%; }
-
-        /* AdSense Friendly Theory Section */
-        .seo-content { max-width: 1000px; width: 100%; margin-top: 30px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); line-height: 1.7; }
-        .seo-content h2 { color: var(--secondary); font-size: 1.4rem; margin-top: 25px; border-left: 5px solid var(--accent); padding-left: 15px; }
-        .seo-content p { color: #555; font-size: 14px; }
+        .main-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .editor-card { background: white; width: 100%; max-width: 1150px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
+        
+        .controls-panel { padding: 20px; background: #fff; flex: 1; border-right: 1px solid #e5e7eb; max-height: 85vh; overflow-y: auto; }
+        .upload-btn-wrapper { margin-bottom: 20px; position: relative; }
+        .btn-upload { border: 2px dashed var(--accent); color: var(--accent); background: #eff6ff; padding: 15px; border-radius: 8px; width: 100%; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .btn-upload:hover { background: #dbeafe; }
+        
+        .tool-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tool-btn { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; cursor: pointer; background: white; font-size: 13px; font-weight: 600; transition: 0.3s; }
+        .tool-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+        
+        .control-group { margin-bottom: 15px; background: var(--bg-light); padding: 12px; border-radius: 8px; border: 1px solid #edf2f7; }
+        .control-label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 8px; }
+        .slider-range { width: 100%; cursor: pointer; }
+        
+        .editor-panel { flex: 2; background: #cbd5e1; display: flex; justify-content: center; align-items: center; padding: 30px; position: relative; min-height: 500px; }
+        .canvas-container { box-shadow: 0 20px 50px rgba(0,0,0,0.2); border: 8px solid white; border-radius: 4px; position: relative; background: white; }
+        #editorCanvas { display: block; max-width: 100%; cursor: crosshair; }
+        
+        .btn-download { background: linear-gradient(135deg, #059669, #047857); color: white; width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        
+        .ad-space { width: 100%; max-width: 1150px; height: 90px; background: #fff; border: 1px dashed #bbb; margin: 15px 0; display: flex; align-items: center; justify-content: center; color: #999; font-size: 12px; border-radius: 8px; }
 
         @media (min-width: 768px) { .editor-card { flex-direction: row; } }
     </style>
@@ -61,60 +44,53 @@
 <body>
 
     <div class="navbar">
-        <div class="nav-brand">
-            <i class="fas fa-wand-magic-sparkles fa-lg"></i>
-            <h1>Form Mitra Pro Editor</h1>
-        </div>
-        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Dashboard</a>
+        <div class="nav-brand"><i class="fas fa-bolt"></i> <h1>DIGI MITRA PRO EDITOR</h1></div>
+        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
     </div>
 
-    <div class="ad-space">Google AdSense Space (Banner Ad)</div>
-
     <div class="main-container">
+        <div class="ad-space">Google AdSense - Top Banner</div>
+
         <div class="editor-card">
             <div class="controls-panel">
-                <div class="panel-title"><i class="fas fa-sliders-h"></i> Photo Settings</div>
-
                 <div class="upload-btn-wrapper">
-                    <button class="btn-upload"><i class="fas fa-cloud-upload-alt"></i> Upload New Photo</button>
-                    <input type="file" id="imageInput" accept="image/*">
+                    <button class="btn-upload"><i class="fas fa-cloud-upload-alt"></i> Upload Photo</button>
+                    <input type="file" id="imageInput" accept="image/*" style="position:absolute; left:0; top:0; opacity:0; width:100%; height:100%; cursor:pointer;">
                 </div>
 
-                <div class="dimension-inputs">
-                    <div class="input-box">
-                        <label class="control-label">Width (px)</label>
-                        <input type="number" id="targetWidth" value="350">
-                    </div>
-                    <div class="input-box">
-                        <label class="control-label">Height (px)</label>
-                        <input type="number" id="targetHeight" value="450">
-                    </div>
+                <div class="tool-bar">
+                    <button class="tool-btn active" id="moveMode"><i class="fas fa-mouse-pointer"></i> Zoom/Move</button>
+                    <button class="tool-btn" id="eraseMode"><i class="fas fa-eraser"></i> Erase BG</button>
                 </div>
 
-                <div class="control-group">
-                    <label class="control-label">🔍 Zoom <span id="zoomValue">100%</span></label>
-                    <input type="range" id="zoomSlider" class="slider-range" min="0.1" max="3" step="0.1" value="1">
+                <div class="control-group" id="brushSettings" style="display:none; border-left: 4px solid #3b82f6;">
+                    <label class="control-label">Brush Size: <span id="brushVal">25</span></label>
+                    <input type="range" id="brushSize" class="slider-range" min="5" max="80" value="25">
+                    <p style="font-size:10px; color:#64748b; margin-top:5px;">Tip: Use brush to remove background edges.</p>
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">☀️ Brightness <span id="brightValue">100%</span></label>
-                    <input type="range" id="brightnessSlider" class="slider-range" min="0" max="200" value="100">
+                    <label class="control-label">Set Background Color</label>
+                    <input type="color" id="bgColor" value="#ffffff" style="width:100%; height:35px; border:none; border-radius:4px; cursor:pointer;">
                 </div>
 
                 <div class="control-group">
-                    <label class="control-label">🌗 Contrast <span id="contrastValue">100%</span></label>
-                    <input type="range" id="contrastSlider" class="slider-range" min="0" max="200" value="100">
+                    <label class="control-label">Zoom Level <span id="zoomValue">100%</span></label>
+                    <input type="range" id="zoomSlider" class="slider-range" min="0.1" max="2.5" step="0.05" value="1">
                 </div>
 
-                <div class="control-group" style="background: #fffbeb; border: 1px solid #fde68a;">
-                     <label class="control-label" style="color:#b45309;">💾 Size Control (Quality)</label>
-                    <input type="range" id="qualitySlider" class="slider-range" min="0.1" max="1.0" step="0.05" value="0.9">
-                     <div class="size-estimate-box" id="sizeEstimate">Size: - KB</div>
+                <div class="control-group">
+                    <label class="control-label">Brightness <span id="brightValue">100%</span></label>
+                    <input type="range" id="brightnessSlider" class="slider-range" min="50" max="150" value="100">
                 </div>
 
-                <button id="downloadBtn" class="btn-download" disabled>
-                    <i class="fas fa-download"></i> Download Result
-                </button>
+                <div class="control-group" style="background: #fff7ed; border-color: #fed7aa;">
+                    <label class="control-label" style="color:#9a3412;">File Quality (KB Control)</label>
+                    <input type="range" id="qualitySlider" class="slider-range" min="0.1" max="1.0" step="0.05" value="0.8">
+                    <div id="sizeEstimate" style="font-weight:700; text-align:center; color:#c2410c; font-size:14px; margin-top:5px;">Size: - KB</div>
+                </div>
+
+                <button id="downloadBtn" class="btn-download" disabled><i class="fas fa-file-download"></i> Download Image</button>
             </div>
 
             <div class="editor-panel">
@@ -124,147 +100,131 @@
             </div>
         </div>
 
-        <div class="ad-space" style="margin-top: 30px;">Google AdSense Space (Middle Content Ad)</div>
-
-        <div class="seo-content">
-            <h2 style="margin-top:0;">Advanced Image Resizing Guide for Online Forms</h2>
-            <p>Form Mitra Pro Editor ek aisi utility hai jo Cyber Cafe aur Agents ko bina software install kiye kisi bhi photo ya signature ko sahi pixels aur size (KB) mein lane ki suvidha deti hai. Bihar Board, SSC, ya Voter ID jaise portals par photo resize karna ab bahut asan hai.</p>
-            
-            <h2>How to Resize Photo to 20KB to 50KB?</h2>
-            <p>Adhiktar sarkari portals par photo ka size 50KB se kam manga jata hai. Aap hamare "Size Control" slider ka use karke quality ko thoda kam karein, isse aapka file size turant kam ho jayega aur aap 20KB ke niche bhi photo la sakte hain.</p>
-            
-            <h2>Editing Features</h2>
-            <ul>
-                <li><b>Smart Zoom:</b> Photo ko frame ke hisaab se set karein.</li>
-                <li><b>Brightness & Contrast:</b> Dark photos ko ek click mein saaf karein.</li>
-                <li><b>Custom Pixels:</b> Width aur Height ko manually enter karein jaise 212x212 ya 350x450.</li>
-            </ul>
-        </div>
+        <div class="ad-space">Google AdSense - Bottom Banner</div>
     </div>
 
     <script>
-        const imageInput = document.getElementById('imageInput');
         const canvas = document.getElementById('editorCanvas');
         const ctx = canvas.getContext('2d');
-        const downloadBtn = document.getElementById('downloadBtn');
-        const sizeEstimateDisplay = document.getElementById('sizeEstimate');
-        const targetWidthInput = document.getElementById('targetWidth');
-        const targetHeightInput = document.getElementById('targetHeight');
+        const imgInput = document.getElementById('imageInput');
         const zoomSlider = document.getElementById('zoomSlider');
-        const brightnessSlider = document.getElementById('brightnessSlider');
-        const contrastSlider = document.getElementById('contrastSlider');
-        const qualitySlider = document.getElementById('qualitySlider');
-        const zoomValue = document.getElementById('zoomValue');
-        const brightValue = document.getElementById('brightValue');
-        const contrastValue = document.getElementById('contrastValue');
-
-        let uploadedImage = new Image();
-        let isImageLoaded = false;
-        let scale = 1;
-        let panning = false;
-        let startCoords = { x: 0, y: 0 };
-        let offset = { x: 0, y: 0 };
-
-        imageInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    uploadedImage.src = event.target.result;
-                    uploadedImage.onload = () => {
-                        isImageLoaded = true;
-                        scale = 1; offset = { x: 0, y: 0 };
-                        zoomSlider.value = 1; brightnessSlider.value = 100; contrastSlider.value = 100;
-                        updateCanvasDimensions();
-                        updateLabels();
-                        drawImage();
-                        downloadBtn.disabled = false;
-                        updateSizeEstimate();
-                    }
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        [zoomSlider, brightnessSlider, contrastSlider].forEach(slider => {
-            slider.addEventListener('input', () => { updateLabels(); drawImage(); });
-        });
+        const bgColorInput = document.getElementById('bgColor');
+        const brushSlider = document.getElementById('brushSize');
         
-        qualitySlider.addEventListener('input', updateSizeEstimate);
+        let img = new Image();
+        let maskCanvas = document.createElement('canvas');
+        let maskCtx = maskCanvas.getContext('2d');
+        
+        let isLoaded = false;
+        let scale = 1, offsetX = 0, offsetY = 0;
+        let mode = 'move';
+        let isDrawing = false;
 
-        [targetWidthInput, targetHeightInput].forEach(input => {
-            input.addEventListener('change', () => { updateCanvasDimensions(); drawImage(); updateSizeEstimate(); });
-        });
+        imgInput.onchange = (e) => {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                img.onload = () => {
+                    isLoaded = true;
+                    maskCanvas.width = img.width;
+                    maskCanvas.height = img.height;
+                    maskCtx.fillStyle = 'black';
+                    maskCtx.fillRect(0,0, maskCanvas.width, maskCanvas.height);
+                    document.getElementById('downloadBtn').disabled = false;
+                    resetView();
+                    render();
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        };
 
-        canvas.addEventListener('mousedown', startPan);
-        canvas.addEventListener('touchstart', startPan, {passive: false});
-        canvas.addEventListener('mousemove', doPan);
-        canvas.addEventListener('touchmove', doPan, {passive: false});
-        window.addEventListener('mouseup', endPan);
-        window.addEventListener('touchend', endPan);
-
-        function updateLabels() {
-            zoomValue.innerText = Math.round(zoomSlider.value * 100) + "%";
-            brightValue.innerText = brightnessSlider.value + "%";
-            contrastValue.innerText = contrastSlider.value + "%";
+        function resetView() {
+            scale = 1; offsetX = 0; offsetY = 0;
+            zoomSlider.value = 1;
+            document.getElementById('zoomValue').innerText = "100%";
         }
 
-        function updateCanvasDimensions() {
-            canvas.width = parseInt(targetWidthInput.value) || 350;
-            canvas.height = parseInt(targetHeightInput.value) || 450;
-        }
-
-        function drawImage() {
-            if (!isImageLoaded) return;
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function render() {
+            if(!isLoaded) return;
+            ctx.clearRect(0,0, canvas.width, canvas.height);
+            
+            // 1. Draw Background Color
+            ctx.fillStyle = bgColorInput.value;
+            ctx.fillRect(0,0, canvas.width, canvas.height);
+            
             ctx.save();
-            const brightness = brightnessSlider.value;
-            const contrast = contrastSlider.value;
-            ctx.filter = `brightness(${brightness}%) contrast(${contrast}%)`;
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.translate(offset.x, offset.y);
-            scale = parseFloat(zoomSlider.value);
+            ctx.translate(canvas.width/2 + offsetX, canvas.height/2 + offsetY);
             ctx.scale(scale, scale);
-            ctx.drawImage(uploadedImage, -uploadedImage.width / 2, -uploadedImage.height / 2);
+            
+            // 2. Create Temp Canvas for Masking
+            let tempCanvas = document.createElement('canvas');
+            tempCanvas.width = img.width;
+            tempCanvas.height = img.height;
+            let tCtx = tempCanvas.getContext('2d');
+            
+            tCtx.drawImage(img, 0, 0);
+            tCtx.globalCompositeOperation = 'destination-in';
+            tCtx.drawImage(maskCanvas, 0, 0);
+            
+            // 3. Draw Masked Image
+            ctx.filter = `brightness(${document.getElementById('brightnessSlider').value}%)`;
+            ctx.drawImage(tempCanvas, -img.width/2, -img.height/2);
             ctx.restore();
+            
+            updateSize();
         }
 
-        function getClientCoords(e) {
-            if (e.touches && e.touches.length > 0) return { x: e.touches[0].clientX, y: e.touches[0].clientY };
-            return { x: e.clientX, y: e.clientY };
+        canvas.onmousedown = (e) => { isDrawing = true; if(mode === 'erase') paint(e); };
+        window.onmousemove = (e) => { if(!isDrawing) return; if(mode === 'erase') paint(e); };
+        window.onmouseup = () => isDrawing = false;
+
+        function paint(e) {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            const brushSize = brushSlider.value / scale;
+            const imgX = (mouseX - canvas.width/2 - offsetX) / scale + img.width/2;
+            const imgY = (mouseY - canvas.height/2 - offsetY) / scale + img.height/2;
+
+            maskCtx.globalCompositeOperation = 'destination-out';
+            maskCtx.beginPath();
+            maskCtx.arc(imgX, imgY, brushSize, 0, Math.PI*2);
+            maskCtx.fill();
+            render();
         }
 
-        function startPan(e) { if(e.type === 'touchstart') e.preventDefault(); panning = true; startCoords = getClientCoords(e); }
+        document.getElementById('eraseMode').onclick = () => {
+            mode = 'erase';
+            document.getElementById('eraseMode').classList.add('active');
+            document.getElementById('moveMode').classList.remove('active');
+            document.getElementById('brushSettings').style.display = 'block';
+        };
 
-        function doPan(e) {
-            if (!panning || !isImageLoaded) return;
-            const currentCoords = getClientCoords(e);
-            offset.x += currentCoords.x - startCoords.x;
-            offset.y += currentCoords.y - startCoords.y;
-            startCoords = currentCoords;
-            drawImage();
+        document.getElementById('moveMode').onclick = () => {
+            mode = 'move';
+            document.getElementById('moveMode').classList.add('active');
+            document.getElementById('eraseMode').classList.remove('active');
+            document.getElementById('brushSettings').style.display = 'none';
+        };
+
+        zoomSlider.oninput = () => { scale = zoomSlider.value; document.getElementById('zoomValue').innerText = Math.round(scale*100)+'%'; render(); };
+        document.getElementById('brightnessSlider').oninput = render;
+        bgColorInput.oninput = render;
+        brushSlider.oninput = () => document.getElementById('brushVal').innerText = brushSlider.value;
+
+        function updateSize() {
+            const q = parseFloat(document.getElementById('qualitySlider').value);
+            const kb = Math.round((canvas.toDataURL('image/jpeg', q).length) * 3 / 4 / 1024);
+            document.getElementById('sizeEstimate').innerText = `Est. Size: ${kb} KB`;
         }
 
-        function endPan() { panning = false; }
-
-        function updateSizeEstimate() {
-            if (!isImageLoaded) return;
-            const quality = parseFloat(qualitySlider.value);
-            const dataURL = canvas.toDataURL('image/jpeg', quality);
-            const head = 'data:image/jpeg;base64,';
-            const imageSizeInKB = ((dataURL.length - head.length)*3/4/1024).toFixed(1);
-            sizeEstimateDisplay.innerHTML = `Estimated Size: ≈ ${imageSizeInKB} KB`;
-        }
-
-        downloadBtn.addEventListener('click', function() {
-             if (!isImageLoaded) return;
-             const link = document.createElement('a');
-             link.download = 'form-mitra-edited.jpg';
-             link.href = canvas.toDataURL('image/jpeg', parseFloat(qualitySlider.value));
-             link.click();
-        });
-
-        updateLabels();
+        document.getElementById('downloadBtn').onclick = () => {
+            const link = document.createElement('a');
+            link.download = 'DigiMitra_Photo.jpg';
+            link.href = canvas.toDataURL('image/jpeg', parseFloat(document.getElementById('qualitySlider').value));
+            link.click();
+        };
     </script>
 </body>
 </html>
