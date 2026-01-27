@@ -7,84 +7,93 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f8fafc; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); display: flex; }
         
-        /* Main Layout */
-        .sidebar-nav { width: 70px; height: 100vh; background: #fff; border-right: 1px solid #ddd; position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 20px; }
-        .main-content { margin-left: 70px; margin-right: 300px; width: calc(100% - 370px); padding: 25px; }
+        .sidebar-nav { width: 70px; height: 100vh; background: #fff; border-right: 1px solid #ddd; position: fixed; display: flex; flex-direction: column; align-items: center; padding-top: 20px; z-index: 100; }
+        .main-content { margin-left: 70px; margin-right: 280px; width: calc(100% - 350px); padding: 30px; transition: 0.3s; }
         
-        /* Header */
-        .header { background: #fff; padding: 15px 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .logo-text { font-weight: 800; color: var(--navy); font-size: 20px; }
+        .header { background: #fff; padding: 15px 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .logo-text { font-weight: 800; color: var(--navy); font-size: 20px; letter-spacing: 1px; }
 
-        /* Profile Sidebar (Right) */
-        .profile-sidebar { width: 300px; height: 100vh; background: #fff; border-left: 1px solid #ddd; position: fixed; right: 0; padding: 30px 20px; box-sizing: border-box; text-align: center; }
-        .profile-img { width: 80px; height: 80px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; margin: 0 auto 15px; border: 4px solid var(--light-blue); }
-        .profile-info { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        .profile-info h3 { margin: 0; color: var(--navy); font-size: 18px; }
-        .detail-row { text-align: left; margin-bottom: 15px; font-size: 13px; }
-        .detail-row b { display: block; color: #888; margin-bottom: 2px; }
-        .btn-logout { width: 100%; background: #e74c3c; color: white; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 20px; transition: 0.3s; }
-        .btn-logout:hover { background: #c0392b; }
+        /* Compact Profile Sidebar */
+        .profile-sidebar { width: 280px; height: 100vh; background: #fff; border-left: 1px solid #ddd; position: fixed; right: 0; padding: 25px 15px; box-sizing: border-box; overflow-y: auto; z-index: 100; }
+        
+        .profile-trigger { cursor: pointer; text-align: center; padding: 15px; border-radius: 12px; transition: 0.3s; border: 1px solid transparent; }
+        .profile-trigger:hover { background: #f8fafc; border-color: #eee; }
+        
+        .profile-img { width: 70px; height: 70px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: bold; margin: 0 auto 10px; border: 3px solid #e1f5fe; }
+        .agent-name-main { margin: 0; color: var(--navy); font-size: 16px; font-weight: 700; }
+        
+        /* Hidden Details */
+        .details-container { display: none; margin-top: 25px; padding: 20px 10px; background: #fafafa; border-radius: 10px; text-align: left; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .detail-item { margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
+        .detail-item b { display: block; font-size: 11px; color: #999; text-transform: uppercase; margin-bottom: 3px; }
+        .detail-item span { font-size: 13px; color: #333; font-weight: 500; word-break: break-all; }
+        
+        .btn-logout { width: 100%; background: #ff4757; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 700; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: 0.3s; }
+        .btn-logout:hover { background: #e040fb; transform: scale(0.98); }
 
-        /* Welcome Popup */
-        #welcomePopup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center; }
-        .popup-card { background: white; padding: 40px; border-radius: 15px; text-align: center; max-width: 400px; animation: slideUp 0.5s ease; }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-        /* Service Cards */
+        /* Popup & Cards */
+        #welcomePopup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
+        .popup-card { background: white; padding: 35px; border-radius: 15px; text-align: center; max-width: 350px; }
+        
         .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
-        .s-card { background: #fff; padding: 25px; border-radius: 10px; text-align: center; border: 1px solid #eee; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; }
-        .s-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .s-card i { font-size: 35px; color: var(--blue); margin-bottom: 15px; }
-        .s-card h3 { font-size: 14px; margin: 0; color: #333; text-transform: uppercase; }
+        .s-card { background: #fff; padding: 30px; border-radius: 12px; text-align: center; border: 1px solid #eee; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; }
+        .s-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); border-color: var(--blue); }
+        .s-card i { font-size: 40px; color: var(--blue); margin-bottom: 15px; }
+        .s-card h3 { font-size: 13px; margin: 0; color: #444; font-weight: 700; }
 
-        @media (max-width: 900px) { .profile-sidebar { display: none; } .main-content { margin-right: 0; width: calc(100% - 70px); } }
+        @media (max-width: 1024px) { .profile-sidebar { display: none; } .main-content { margin-right: 0; width: calc(100% - 70px); } }
     </style>
 </head>
 <body>
 
     <div id="welcomePopup">
         <div class="popup-card">
-            <i class="fas fa-check-circle" style="font-size: 50px; color: #2ecc71; margin-bottom: 20px;"></i>
-            <h2 id="welcomeMsg">Welcome, Agent!</h2>
-            <p style="color: #666;">Digi Mitra Portal par aapka swagat hai. Aaj ka kaam shuru karein!</p>
-            <button onclick="closePopup()" style="background: var(--navy); color: white; border: none; padding: 10px 30px; border-radius: 5px; cursor: pointer; margin-top: 20px;">Let's Start</button>
+            <i class="fas fa-certificate" style="font-size: 50px; color: #f1c40f; margin-bottom: 15px;"></i>
+            <h2 id="welcomeMsg" style="margin:0; color:var(--navy);">Hello!</h2>
+            <p style="color: #777; font-size: 14px; margin-top: 10px;">Aaj ki services Digi Mitra ke saath shuru karein.</p>
+            <button onclick="closePopup()" style="background: var(--navy); color: white; border: none; padding: 12px 40px; border-radius: 6px; cursor: pointer; margin-top: 20px; font-weight: 600;">Let's Go</button>
         </div>
     </div>
 
     <div class="sidebar-nav">
-        <div style="margin-bottom: 30px; color: var(--navy);"><i class="fas fa-th-large fa-lg"></i></div>
-        <div onclick="location.reload()" style="cursor:pointer;"><i class="fas fa-sync"></i></div>
+        <div style="margin-bottom: 30px; color: var(--navy);"><i class="fas fa-shield-alt fa-lg"></i></div>
+        <div onclick="location.reload()" style="cursor:pointer; color:#bbb;"><i class="fas fa-sync-alt"></i></div>
     </div>
 
     <div class="main-content">
         <div class="header">
-            <div class="logo-text">DIGI MITRA DASHBOARD</div>
-            <div style="font-size: 14px; font-weight: 600;">Welcome, <span id="topAgentName">...</span></div>
+            <div class="logo-text">DIGI<span>MITRA</span></div>
+            <div style="font-size: 13px; color:#666;">Verified Portal &bull; <span id="currentTime" style="color:var(--blue); font-weight:700;"></span></div>
         </div>
 
         <div class="services-grid">
-            <a href="photo-resizer.html" class="s-card"><i class="fas fa-crop-alt"></i><h3>Photo Resizer</h3></a>
-            <a href="voter.html" class="s-card"><i class="fas fa-id-card" style="color:#27ae60;"></i><h3>Voter Seva</h3></a>
+            <a href="photo-resizer.html" class="s-card"><i class="fas fa-camera-retro"></i><h3>Photo Resizer</h3></a>
+            <a href="voter.html" class="s-card"><i class="fas fa-id-card" style="color:#2ecc71;"></i><h3>Voter Seva</h3></a>
             <a href="aadhaar.html" class="s-card"><i class="fas fa-fingerprint" style="color:#e74c3c;"></i><h3>Aadhaar</h3></a>
             <a href="pan.html" class="s-card"><i class="fas fa-address-card" style="color:#f39c12;"></i><h3>PAN Card</h3></a>
         </div>
     </div>
 
     <div class="profile-sidebar">
-        <div class="profile-img" id="avatarInitial">D</div>
-        <div class="profile-info">
-            <h3 id="sideName">Loading...</h3>
-            <p style="font-size: 12px; color: #2ecc71; font-weight: bold;"><i class="fas fa-check-circle"></i> Verified Agent</p>
+        <div class="profile-trigger" onclick="toggleDetails()">
+            <div class="profile-img" id="avatarInitial">D</div>
+            <h3 class="agent-name-main" id="sideNameMain">Agent Name</h3>
+            <span style="font-size: 10px; color: #aaa; text-transform: uppercase; font-weight: 700;">Click for Details <i class="fas fa-chevron-down"></i></span>
         </div>
-        <div class="detail-row"><b>Full Name</b> <span id="pName">...</span></div>
-        <div class="detail-row"><b>Email ID</b> <span id="pEmail">...</span></div>
-        <div class="detail-row"><b>Mobile Number</b> <span id="pPhone">...</span></div>
-        <div class="detail-row"><b>Address</b> <span id="pAddress">...</span></div>
-        
-        <button class="btn-logout" onclick="handleLogout()">Logout <i class="fas fa-sign-out-alt"></i></button>
+
+        <div class="details-container" id="detailsBox">
+            <div class="detail-item"><b>Agent Email</b><span id="pEmail">...</span></div>
+            <div class="detail-item"><b>Mobile Number</b><span id="pPhone">...</span></div>
+            <div class="detail-item"><b>Shop Address</b><span id="pAddress">...</span></div>
+            <div class="detail-item"><b>Role</b><span style="color:#2ecc71;">Verified Partner</span></div>
+            
+            <button class="btn-logout" onclick="handleLogout()">Logout <i class="fas fa-power-off"></i></button>
+        </div>
     </div>
 
 <script type="module">
@@ -103,25 +112,33 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
+    // Toggle Details
+    window.toggleDetails = () => {
+        const box = document.getElementById('detailsBox');
+        box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+    };
+
     window.closePopup = () => { document.getElementById('welcomePopup').style.display = 'none'; };
+
+    // Set Live Time
+    setInterval(() => {
+        const now = new Date();
+        document.getElementById('currentTime').innerText = now.toLocaleTimeString();
+    }, 1000);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
             get(ref(db, 'agents/' + user.uid)).then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    // Set Profile Details
-                    document.getElementById('topAgentName').innerText = data.name;
-                    document.getElementById('sideName').innerText = data.name;
-                    document.getElementById('pName').innerText = data.name;
+                    document.getElementById('sideNameMain').innerText = data.name;
                     document.getElementById('pEmail').innerText = data.email;
-                    document.getElementById('pPhone').innerText = data.phone || 'Not Set';
-                    document.getElementById('pAddress').innerText = data.address || 'Not Set';
+                    document.getElementById('pPhone').innerText = data.phone || 'Not Shared';
+                    document.getElementById('pAddress').innerText = data.address || 'Address not set';
                     document.getElementById('avatarInitial').innerText = data.name.charAt(0).toUpperCase();
                     
-                    // Welcome Popup only if fresh login
                     if(!sessionStorage.getItem('welcomeShown')) {
-                        document.getElementById('welcomeMsg').innerText = "Namaste, " + data.name + "!";
+                        document.getElementById('welcomeMsg').innerText = "Hello, " + data.name + "!";
                         document.getElementById('welcomePopup').style.display = 'flex';
                         sessionStorage.setItem('welcomeShown', 'true');
                     }
