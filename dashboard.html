@@ -31,22 +31,22 @@
         .profile-info-line b { color: #333; display: block; font-size: 10px; text-transform: uppercase; }
         .btn-logout { width: 100%; background: #d9534f; color: white; border: none; padding: 10px; border-radius: 3px; margin-top: 10px; cursor: pointer; font-weight: 600; }
 
-        /* CSC Style Cards Arrangement */
+        /* CSC Style Services Grid */
         .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
         .s-card { background: white; border-radius: 4px; text-align: center; border: 1px solid #ddd; transition: 0.3s; cursor: pointer; position: relative; overflow: hidden; height: 140px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .s-card:hover { transform: translateY(-3px); box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-        
-        /* Icon Colors */
         .s-card i { font-size: 32px; margin-bottom: 10px; }
-        .s-card h3 { margin: 0; font-size: 13px; color: #444; font-weight: 500; padding: 0 10px; }
+        .s-card h3 { margin: 0; font-size: 12px; color: #444; font-weight: 500; padding: 0 5px; text-transform: uppercase; }
         
-        /* Bottom Strip like CSC */
+        /* Colored Strips */
         .card-strip { position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; }
         .bg-blue { background: #3498db; }
         .bg-green { background: #27ae60; }
         .bg-orange { background: #f39c12; }
         .bg-purple { background: #9b59b6; }
         .bg-red { background: #e74c3c; }
+        .bg-cyan { background: #17a2b8; }
+        .bg-teal { background: #20c997; }
     </style>
 </head>
 <body>
@@ -77,32 +77,62 @@
 
         <div class="services-grid">
             <div class="s-card" onclick="location.href='photo-resizer.html'">
-                <i class="fas fa-camera-retro" style="color: #3498db;"></i>
+                <i class="fas fa-crop-alt" style="color: #3498db;"></i>
                 <h3>Photo Resizer</h3>
                 <div class="card-strip bg-blue"></div>
             </div>
 
             <div class="s-card" onclick="location.href='voter.html'">
                 <i class="fas fa-id-card" style="color: #27ae60;"></i>
-                <h3>Voter Service</h3>
+                <h3>Voter Services</h3>
                 <div class="card-strip bg-green"></div>
             </div>
 
+            <div class="s-card" onclick="location.href='aadhaar.html'">
+                <i class="fas fa-fingerprint" style="color: #e74c3c;"></i>
+                <h3>Aadhaar Services</h3>
+                <div class="card-strip bg-red"></div>
+            </div>
+
             <div class="s-card" onclick="location.href='pan.html'">
-                <i class="fas fa-file-alt" style="color: #f39c12;"></i>
-                <h3>PAN Card</h3>
+                <i class="fas fa-address-card" style="color: #f39c12;"></i>
+                <h3>PAN Card Seva</h3>
                 <div class="card-strip bg-orange"></div>
             </div>
 
-            <div class="s-card" onclick="location.href='pvc.html'">
-                <i class="fas fa-print" style="color: #9b59b6;"></i>
-                <h3>PVC Print</h3>
+            <div class="s-card" onclick="location.href='ration.html'">
+                <i class="fas fa-utensils" style="color: #20c997;"></i>
+                <h3>Ration Card</h3>
+                <div class="card-strip bg-teal"></div>
+            </div>
+
+            <div class="s-card" onclick="location.href='caste.html'">
+                <i class="fas fa-file-signature" style="color: #9b59b6;"></i>
+                <h3>Caste/Income/Res.</h3>
                 <div class="card-strip bg-purple"></div>
+            </div>
+
+            <div class="s-card" onclick="location.href='driving.html'">
+                <i class="fas fa-car" style="color: #17a2b8;"></i>
+                <h3>Driving License</h3>
+                <div class="card-strip bg-cyan"></div>
+            </div>
+
+            <div class="s-card" onclick="location.href='pension.html'">
+                <i class="fas fa-user-friends" style="color: #3498db;"></i>
+                <h3>Social Pension</h3>
+                <div class="card-strip bg-blue"></div>
+            </div>
+
+            <div class="s-card" onclick="location.href='pvc.html'">
+                <i class="fas fa-print" style="color: #27ae60;"></i>
+                <h3>PVC Print</h3>
+                <div class="card-strip bg-green"></div>
             </div>
 
             <div class="s-card" onclick="location.href='results.html'">
                 <i class="fas fa-graduation-cap" style="color: #e74c3c;"></i>
-                <h3>Exam Results</h3>
+                <h3>All Results</h3>
                 <div class="card-strip bg-red"></div>
             </div>
         </div>
@@ -131,7 +161,7 @@
             get(ref(db, 'agents/' + user.uid)).then((snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    document.getElementById('pName')?.innerText || (document.getElementById('topName').innerText = data.name);
+                    document.getElementById('topName').innerText = data.name;
                     document.getElementById('dropName').innerText = data.name;
                     document.getElementById('pEmail').innerText = data.email;
                     document.getElementById('pPhone').innerText = data.phone || 'N/A';
