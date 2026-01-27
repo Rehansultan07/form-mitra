@@ -6,44 +6,43 @@
     <title>Digital Seva Portal - Form Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        :root { --mitra-blue: #223d5d; --mitra-orange: #f39c12; --mitra-red: #d32f2f; --mitra-bg: #f4f7f9; }
+        :root { --mitra-blue: #223d5d; --mitra-orange: #f39c12; --mitra-red: #d32f2f; --mitra-bg: #f5f5f5; }
         body { font-family: 'Open Sans', sans-serif; margin: 0; background: var(--mitra-bg); color: #333; }
         
-        /* Navigation */
-        .header { background: #fff; padding: 12px 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--mitra-blue); }
-        .logo-box b { font-size: 28px; color: var(--mitra-blue); border-left: 6px solid var(--mitra-orange); padding-left: 15px; letter-spacing: 1px; }
-        .nav-btns a { text-decoration: none; padding: 10px 22px; font-weight: bold; border-radius: 4px; font-size: 14px; margin-left: 8px; }
+        /* Exact CSC Header Style */
+        .header { background: #fff; padding: 12px 10%; display: flex; justify-content: space-between; align-items: center; border-bottom: 3.5px solid var(--mitra-blue); }
+        .logo-box b { font-size: 26px; color: var(--mitra-blue); border-left: 5px solid var(--mitra-orange); padding-left: 15px; text-transform: uppercase; }
+        .nav-btns a { text-decoration: none; padding: 10px 22px; font-weight: bold; border-radius: 2px; font-size: 13px; margin-left: 5px; }
         .btn-login { background: var(--mitra-blue); color: white; }
         .btn-join { background: var(--mitra-red); color: white; }
 
         /* News Ticker */
-        .ticker { background: #fff8e1; color: #b7791f; padding: 12px 10%; font-size: 14px; font-weight: 600; border-bottom: 1px solid #ffe082; }
+        .ticker { background: #fff8e1; color: #b7791f; padding: 10px 10%; font-size: 13px; font-weight: bold; border-bottom: 1px solid #ffe082; }
 
-        /* Hero Banner (Exactly like Video) */
-        .hero { background: #fff; padding: 50px 10%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; flex-wrap: wrap; }
-        .hero-text { flex: 1; min-width: 300px; }
-        .hero-text h1 { color: var(--mitra-blue); font-size: 38px; margin: 0 0 20px 0; line-height: 1.2; }
-        .hero-text p { font-size: 17px; color: #555; max-width: 500px; line-height: 1.6; }
+        /* Exact Video Banner */
+        .hero { background: #fff; padding: 50px 10%; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #ddd; flex-wrap: wrap; }
+        .hero-text { flex: 1.2; min-width: 300px; }
+        .hero-text h1 { color: var(--mitra-blue); font-size: 34px; margin: 0 0 15px 0; }
+        .hero-text p { font-size: 16px; color: #666; max-width: 550px; line-height: 1.7; }
         .hero-img { flex: 0.8; text-align: right; min-width: 300px; }
         .hero-img img { width: 100%; max-width: 450px; }
 
         /* Colorful Service Grid */
-        .services-container { padding: 60px 10%; text-align: center; }
-        .section-head { font-size: 24px; color: #444; border-bottom: 2px solid #ddd; padding-bottom: 15px; margin-bottom: 40px; text-align: left; position: relative; }
-        .section-head::after { content: ''; width: 100px; height: 2px; background: var(--mitra-orange); position: absolute; bottom: -2px; left: 0; }
+        .services-section { padding: 60px 10%; text-align: center; }
+        .section-header { font-size: 24px; color: #444; border-bottom: 2px solid #ddd; padding-bottom: 15px; margin-bottom: 40px; text-align: left; text-transform: uppercase; }
         
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; }
-        .s-box { background: white; border: 1px solid #e0e0e0; padding: 30px 10px; border-radius: 4px; transition: 0.3s; cursor: pointer; text-align: center; }
-        .s-box:hover { border-color: var(--mitra-orange); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .s-box i { font-size: 35px; margin-bottom: 15px; display: block; }
-        .s-box span { font-size: 12px; font-weight: 700; color: #444; text-transform: uppercase; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .s-box { background: white; border: 1px solid #ddd; padding: 30px 10px; border-radius: 4px; transition: 0.2s; cursor: pointer; text-align: center; }
+        .s-box:hover { border-color: var(--mitra-orange); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .s-box i { font-size: 40px; margin-bottom: 15px; display: block; }
+        .s-box span { font-size: 11px; font-weight: 800; color: #444; text-transform: uppercase; display: block; }
 
-        /* CSC Style Footer */
-        .footer-top { background: #223d5d; color: white; padding: 60px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .f-col h4 { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px; margin-bottom: 20px; font-size: 17px; }
+        /* Footer */
+        footer { background: #223d5d; color: white; padding: 50px 10%; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .f-col h4 { border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 12px; margin-bottom: 20px; text-transform: uppercase; font-size: 16px; }
         .f-col a, .f-col p { color: #bdc3c7; text-decoration: none; font-size: 13px; margin-bottom: 10px; display: block; }
         
-        .bottom-strip { background: #1a2e46; color: #95a5a6; text-align: center; padding: 15px; font-size: 11px; }
+        .copy-strip { background: #1a2e46; color: #95a5a6; text-align: center; padding: 18px; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -57,51 +56,51 @@
     </header>
 
     <div class="ticker">
-        <marquee behavior="scroll" direction="left">Form Mitra Digital Seva Portal par aapka swagat hai. Voter ID correction, results aur document tools ab live hain.</marquee>
+        <marquee behavior="scroll" direction="left">Welcome to Form Mitra Digital Portal | Voter ID Services, Results aur Photo Resizing tools ab Agents ke liye live hain. Support ke liye email karein.</marquee>
     </div>
 
     <section class="hero">
         <div class="hero-text">
             <h1>Your Trusted Neighbourhood <br>Kiosk for All Digital Services</h1>
-            <p>Form Mitra is the primary access point for delivery of essential Digital Services and Government tools to every citizen.</p>
+            <p>Form Mitra is the primary access point for delivery of essential Digital Services and Government notifications to every citizen.</p>
         </div>
         <div class="hero-img">
-            <img src="https://digitalseva.csc.gov.in/assets/images/banner-img.png" alt="Digital Seva Tree" onerror="this.src='https://via.placeholder.com/450x300?text=Digital+Seva+Banner'">
+            <img src="https://digitalseva.csc.gov.in/assets/images/banner-img.png" alt="Portal Banner" onerror="this.src='https://via.placeholder.com/400x300?text=Digital+Seva+Banner'">
         </div>
     </section>
 
-    <div class="services-container">
-        <h3 class="section-head">Our Services</h3>
+    <div class="services-section">
+        <h3 class="section-header">Our Services</h3>
         <div class="grid">
-            <div class="s-box"><i class="fas fa-id-card" style="color: #27ae60;"></i><span>Voter Card</span></div>
+            <div class="s-box"><i class="fas fa-id-card" style="color: #27ae60;"></i><span>Voter Seva</span></div>
             <div class="s-box"><i class="fas fa-file-invoice" style="color: #3498db;"></i><span>Results</span></div>
             <div class="s-box"><i class="fas fa-crop-alt" style="color: #9b59b6;"></i><span>Resizer</span></div>
             <div class="s-box"><i class="fas fa-address-card" style="color: #e67e22;"></i><span>PAN Card</span></div>
             <div class="s-box"><i class="fas fa-university" style="color: #e74c3c;"></i><span>Banking</span></div>
-            <div class="s-box"><i class="fas fa-vote-yea" style="color: #16a085;"></i><span>Elections</span></div>
-            <div class="s-box"><i class="fas fa-id-badge" style="color: #2c3e50;"></i><span>E-Shram</span></div>
-            <div class="s-box"><i class="fas fa-print" style="color: #7f8c8d;"></i><span>PVC Print</span></div>
+            <div class="s-box"><i class="fas fa-print" style="color: #2c3e50;"></i><span>PVC Print</span></div>
+            <div class="s-box"><i class="fas fa-id-badge" style="color: #16a085;"></i><span>E-Shram</span></div>
+            <div class="s-box"><i class="fas fa-passport" style="color: #2980b9;"></i><span>Passport</span></div>
         </div>
     </div>
 
-    <footer class="footer-top">
+    <footer>
         <div class="f-col">
-            <h4>Information</h4>
-            <p>Team Mitra is dedicated to providing easy access to digital services across the country.</p>
+            <h4>About Form Mitra</h4>
+            <p>Team Mitra is a dedicated platform for agents to provide unified digital services across the country.</p>
         </div>
         <div class="f-col">
             <h4>Quick Links</h4>
             <a href="signup.html">Registration</a>
-            <a href="login.html">Login</a>
+            <a href="login.html">Agent Login</a>
         </div>
         <div class="f-col">
-            <h4>Support</h4>
-            <p>Email: mitraform@gmail.com</p>
-            <p>Minimal email support only.</p>
+            <h4>Help & Support</h4>
+            <p><i class="fas fa-envelope"></i> mitraform@gmail.com</p>
+            <p>Minimal support via email only.</p>
         </div>
     </footer>
 
-    <div class="bottom-strip">
+    <div class="copy-strip">
         &copy; 2026 Form Mitra. All Rights Reserved. | <b>Made by Team Mitra for you</b>
     </div>
 
