@@ -23,12 +23,11 @@
         .result-item.show { display: flex; }
         .result-item:hover { background: #f8fbff; color: var(--blue); }
         .status-tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
-        .tag-active { background: #dcfce7; color: #166534; }
         .tag-central { background: #e0f2fe; color: #0369a1; }
+        .tag-active { background: #dcfce7; color: #166534; }
     </style>
 </head>
 <body>
-
     <header class="header">
         <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
         <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA ADMIT CARDS</div>
@@ -38,48 +37,29 @@
 
     <div class="main-container">
         <div class="filter-section">
-            <input type="text" class="search-input" id="admSearch" placeholder="Search SSC, Railway, UPSC or Board Admit Cards..." onkeyup="filterByText()">
+            <input type="text" class="search-input" id="admSearch" placeholder="Search SSC, UPSC, Army or Board Admit Cards..." onkeyup="filterByText()">
             <div class="state-grid">
                 <div class="state-btn active" onclick="filterByState('ALL', this)">All India</div>
                 <div class="state-btn" onclick="filterByState('Central', this)">Central Govt</div>
                 <div class="state-btn" onclick="filterByState('Bihar', this)">Bihar</div>
                 <div class="state-btn" onclick="filterByState('UP', this)">Uttar Pradesh</div>
                 <div class="state-btn" onclick="filterByState('Jharkhand', this)">Jharkhand</div>
-                <div class="state-btn" onclick="filterByState('Rajasthan', this)">Rajasthan</div>
-                <div class="state-btn" onclick="filterByState('MP', this)">Madhya Pradesh</div>
                 <div class="state-btn" onclick="filterByState('Delhi', this)">Delhi</div>
-                <div class="state-btn" onclick="filterByState('Maharashtra', this)">Maharashtra</div>
-                <div class="state-btn" onclick="filterByState('WestBengal', this)">West Bengal</div>
-                <div class="state-btn" onclick="filterByState('Haryana', this)">Haryana</div>
                 <div class="state-btn" onclick="filterByState('Others', this)">More States...</div>
             </div>
         </div>
 
         <div class="results-box" id="admitCardList">
             <a href="https://ssc.nic.in/Portal/AdmitCard" target="_blank" class="result-item show" data-state="Central"><b>SSC Admit Card (All Regions)</b> <span class="status-tag tag-central">SSC</span></a>
-            <a href="https://upsc.gov.in/admit-cards" target="_blank" class="result-item show" data-state="Central"><b>UPSC Admit Card Portal</b> <span class="status-tag tag-central">UPSC</span></a>
-            <a href="https://www.rrcb.gov.in/" target="_blank" class="result-item show" data-state="Central"><b>Railway (RRB) Admit Card Portal</b> <span class="status-tag tag-central">RAILWAY</span></a>
-            <a href="https://ibps.in/" target="_blank" class="result-item show" data-state="Central"><b>IBPS Bank Exam Admit Card</b> <span class="status-tag tag-central">BANK</span></a>
+            <a href="https://upsc.gov.in/admit-cards" target="_blank" class="result-item show" data-state="Central"><b>UPSC (IAS, NDA, CDS) Admit Cards</b> <span class="status-tag tag-central">UPSC</span></a>
+            <a href="https://www.rrcb.gov.in/" target="_blank" class="result-item show" data-state="Central"><b>Railway (RRB/RRC) Admit Card Portal</b> <span class="status-tag tag-central">RAILWAY</span></a>
+            <a href="https://ibps.in/" target="_blank" class="result-item show" data-state="Central"><b>IBPS Bank Exam Hall Tickets</b> <span class="status-tag tag-central">BANKING</span></a>
+            <a href="https://exams.nta.ac.in/" target="_blank" class="result-item show" data-state="Central"><b>NTA Exam (NEET, JEE) Admit Cards</b> <span class="status-tag tag-central">NTA</span></a>
 
             <a href="http://secondary.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar Board Matric/Inter Admit Card</b> <span class="status-tag tag-active">BSEB</span></a>
-            <a href="https://csbc.bih.nic.in/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar Police Admit Card (CSBC)</b> <span class="status-tag tag-active">POLICE</span></a>
             <a href="https://bpsc.bih.nic.in/" target="_blank" class="result-item show" data-state="Bihar"><b>BPSC Exam Admit Card Portal</b> <span class="status-tag tag-active">BPSC</span></a>
 
             <a href="https://upmsp.edu.in/" target="_blank" class="result-item show" data-state="UP"><b>UP Board High School/Inter Admit Card</b> <span class="status-tag tag-active">UPMSP</span></a>
-            <a href="https://uppbpb.gov.in/" target="_blank" class="result-item show" data-state="UP"><b>UP Police Admit Card Portal</b> <span class="status-tag tag-active">POLICE</span></a>
-
-            <a href="https://jac.jharkhand.gov.in/jac/" target="_blank" class="result-item show" data-state="Jharkhand"><b>JAC Board Matric/Inter Admit Card</b> <span class="status-tag tag-active">JAC</span></a>
-            <a href="https://jssc.nic.in/" target="_blank" class="result-item show" data-state="Jharkhand"><b>JSSC Exam Admit Card</b> <span class="status-tag tag-active">JSSC</span></a>
-
-            <a href="https://sso.rajasthan.gov.in/" target="_blank" class="result-item show" data-state="Rajasthan"><b>Rajasthan All Admit Cards (SSO ID)</b> <span class="status-tag tag-active">SSO</span></a>
-            <a href="https://rajeduboard.rajasthan.gov.in/" target="_blank" class="result-item show" data-state="Rajasthan"><b>RBSE Board Admit Card</b> <span class="status-tag tag-active">RBSE</span></a>
-
-            <a href="https://esb.mp.gov.in/" target="_blank" class="result-item show" data-state="MP"><b>MP ESB (Vyapam) Admit Card</b> <span class="status-tag tag-active">ESB</span></a>
-
-            <a href="https://mahahsscboard.in/" target="_blank" class="result-item show" data-state="Maharashtra"><b>Maharashtra SSC/HSC Admit Card</b> <span class="status-tag tag-active">BOARD</span></a>
-
-            <a href="https://bseh.org.in/" target="_blank" class="result-item show" data-state="Haryana"><b>Haryana Board Admit Card</b> <span class="status-tag tag-active">BSEH</span></a>
-            <a href="https://wbchse.wb.gov.in/" target="_blank" class="result-item show" data-state="WestBengal"><b>WB Board Admit Card Portal</b> <span class="status-tag tag-active">WB</span></a>
         </div>
 
         <div class="ad-container">Google AdSense Space - Footer</div>

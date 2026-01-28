@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All India Verified Results - Digi Mitra</title>
+    <title>All India Results Portal - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -19,136 +19,56 @@
         .state-btn { background: #f8fafc; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #e2e8f0; cursor: pointer; font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; }
         .state-btn:hover, .state-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
         .results-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
-        .result-item { display: none; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; }
+        .result-item { display: none; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; transition: 0.2s; }
         .result-item.show { display: flex; }
         .result-item:hover { background: #f8fbff; color: var(--blue); }
         .status-tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
+        .tag-central { background: #e0f2fe; color: #0369a1; }
         .tag-active { background: #dcfce7; color: #166534; }
         .tag-soon { background: #fef3c7; color: #92400e; }
     </style>
 </head>
 <body>
-
     <header class="header">
         <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
-        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA AUTHENTIC RESULTS</div>
+        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA VERIFIED RESULTS</div>
     </header>
 
     <div class="ad-container">Google AdSense Space - Top</div>
 
     <div class="main-container">
         <div class="filter-section">
-            <input type="text" class="search-input" id="resSearch" placeholder="Search by State or Board Name..." onkeyup="filterByText()">
-            <div class="state-grid" id="stateButtons">
+            <input type="text" class="search-input" id="resSearch" placeholder="Search Central or State Board Results..." onkeyup="filterByText()">
+            <div class="state-grid">
                 <div class="state-btn active" onclick="filterByState('ALL', this)">All India</div>
-                <div class="state-btn" onclick="filterByState('Andaman', this)">Andaman & Nicobar</div>
-                <div class="state-btn" onclick="filterByState('Andhra', this)">Andhra Pradesh</div>
-                <div class="state-btn" onclick="filterByState('Arunachal', this)">Arunachal</div>
-                <div class="state-btn" onclick="filterByState('Assam', this)">Assam</div>
+                <div class="state-btn" onclick="filterByState('Central', this)">Central Govt</div>
                 <div class="state-btn" onclick="filterByState('Bihar', this)">Bihar</div>
-                <div class="state-btn" onclick="filterByState('Chandigarh', this)">Chandigarh</div>
-                <div class="state-btn" onclick="filterByState('Chhattisgarh', this)">Chhattisgarh</div>
-                <div class="state-btn" onclick="filterByState('Dadra', this)">Dadra & Nagar Haveli</div>
-                <div class="state-btn" onclick="filterByState('Delhi', this)">Delhi / CBSE</div>
-                <div class="state-btn" onclick="filterByState('Goa', this)">Goa</div>
-                <div class="state-btn" onclick="filterByState('Gujarat', this)">Gujarat</div>
-                <div class="state-btn" onclick="filterByState('Haryana', this)">Haryana</div>
-                <div class="state-btn" onclick="filterByState('Himachal', this)">Himachal Pradesh</div>
-                <div class="state-btn" onclick="filterByState('JK', this)">Jammu & Kashmir</div>
-                <div class="state-btn" onclick="filterByState('Jharkhand', this)">Jharkhand</div>
-                <div class="state-btn" onclick="filterByState('Karnataka', this)">Karnataka</div>
-                <div class="state-btn" onclick="filterByState('Kerala', this)">Kerala</div>
-                <div class="state-btn" onclick="filterByState('Ladakh', this)">Ladakh</div>
-                <div class="state-btn" onclick="filterByState('Lakshadweep', this)">Lakshadweep</div>
-                <div class="state-btn" onclick="filterByState('MP', this)">Madhya Pradesh</div>
-                <div class="state-btn" onclick="filterByState('Maharashtra', this)">Maharashtra</div>
-                <div class="state-btn" onclick="filterByState('Manipur', this)">Manipur</div>
-                <div class="state-btn" onclick="filterByState('Meghalaya', this)">Meghalaya</div>
-                <div class="state-btn" onclick="filterByState('Mizoram', this)">Mizoram</div>
-                <div class="state-btn" onclick="filterByState('Nagaland', this)">Nagaland</div>
-                <div class="state-btn" onclick="filterByState('Odisha', this)">Odisha</div>
-                <div class="state-btn" onclick="filterByState('Puducherry', this)">Puducherry</div>
-                <div class="state-btn" onclick="filterByState('Punjab', this)">Punjab</div>
-                <div class="state-btn" onclick="filterByState('Rajasthan', this)">Rajasthan</div>
-                <div class="state-btn" onclick="filterByState('Sikkim', this)">Sikkim</div>
-                <div class="state-btn" onclick="filterByState('TamilNadu', this)">Tamil Nadu</div>
-                <div class="state-btn" onclick="filterByState('Telangana', this)">Telangana</div>
-                <div class="state-btn" onclick="filterByState('Tripura', this)">Tripura</div>
                 <div class="state-btn" onclick="filterByState('UP', this)">Uttar Pradesh</div>
-                <div class="state-btn" onclick="filterByState('Uttarakhand', this)">Uttarakhand</div>
-                <div class="state-btn" onclick="filterByState('WestBengal', this)">West Bengal</div>
+                <div class="state-btn" onclick="filterByState('Jharkhand', this)">Jharkhand</div>
+                <div class="state-btn" onclick="filterByState('Delhi', this)">Delhi / CBSE</div>
+                <div class="state-btn" onclick="filterByState('Rajasthan', this)">Rajasthan</div>
+                <div class="state-btn" onclick="filterByState('MP', this)">Madhya Pradesh</div>
+                <div class="state-btn" onclick="filterByState('Haryana', this)">Haryana</div>
+                <div class="state-btn" onclick="filterByState('Punjab', this)">Punjab</div>
+                <div class="state-btn" onclick="filterByState('Others', this)">Other States</div>
             </div>
         </div>
 
         <div class="results-box" id="mainResultsList">
-            <a href="http://results.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>BSEB Matric (10th) Result Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
-            <a href="https://secondary.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar STET Result Portal</b> <span class="status-tag tag-active">LIVE</span></a>
-            <a href="https://bceceboard.bihar.gov.in/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar ITI/Polytechnic Result</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://results.cbse.nic.in/" target="_blank" class="result-item show" data-state="Central"><b>CBSE Board Class 10th & 12th Result</b> <span class="status-tag tag-central">CBSE</span></a>
+            <a href="https://ssc.nic.in/Portal/Results" target="_blank" class="result-item show" data-state="Central"><b>SSC (CGL, CHSL, MTS, GD) Result Portal</b> <span class="status-tag tag-central">SSC</span></a>
+            <a href="https://www.upsc.gov.in/examinations/final-results" target="_blank" class="result-item show" data-state="Central"><b>UPSC Civil Services Final Results</b> <span class="status-tag tag-central">UPSC</span></a>
+            <a href="https://www.rrcb.gov.in/" target="_blank" class="result-item show" data-state="Central"><b>Railway (RRB) All Exam Results</b> <span class="status-tag tag-central">RAILWAY</span></a>
+            <a href="https://ibps.in/" target="_blank" class="result-item show" data-state="Central"><b>IBPS Bank Exam (PO, Clerk) Result</b> <span class="status-tag tag-central">BANKING</span></a>
+            <a href="https://nta.ac.in/Result" target="_blank" class="result-item show" data-state="Central"><b>NTA (JEE, NEET, CUET) Results</b> <span class="status-tag tag-central">NTA</span></a>
 
-            <a href="https://upresults.nic.in/" target="_blank" class="result-item show" data-state="UP"><b>UP Board High School & Inter Result</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="http://results.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>BSEB Matric (10th) Result Portal</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <div class="result-item show" data-state="Bihar"><b>BSEB Inter (12th) Annual Result 2026</b> <span class="status-tag tag-soon">AWAITED</span></div>
+            <a href="https://secondary.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar STET Teacher Result</b> <span class="status-tag tag-active">LIVE</span></a>
 
-            <a href="https://results.cbse.nic.in/" target="_blank" class="result-item show" data-state="Delhi"><b>CBSE Board (X/XII) Results</b> <span class="status-tag tag-active">CENTRAL</span></a>
+            <a href="https://upresults.nic.in/" target="_blank" class="result-item show" data-state="UP"><b>UP Board High School & Inter Result</b> <span class="status-tag tag-active">UPMSP</span></a>
 
-            <a href="https://mpresults.nic.in/" target="_blank" class="result-item show" data-state="MP"><b>MP Board Exam Results Portal</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://rajresults.nic.in/" target="_blank" class="result-item show" data-state="Rajasthan"><b>RBSE Board Examination Results</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="https://bseh.org.in/all-results" target="_blank" class="result-item show" data-state="Haryana"><b>HBSE All Result Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
-
-            <a href="https://mahresult.nic.in/" target="_blank" class="result-item show" data-state="Maharashtra"><b>Maharashtra SSC & HSC Result</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://wbresults.nic.in/" target="_blank" class="result-item show" data-state="WestBengal"><b>WB Madhyamik & HS Result</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="http://orissaresults.nic.in/" target="_blank" class="result-item show" data-state="Odisha"><b>Odisha Board All Results</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://jacresults.com/" target="_blank" class="result-item show" data-state="Jharkhand"><b>JAC Matric & Inter Results</b> <span class="status-tag tag-active">ACTIVE</span></a>
-
-            <a href="https://results.bse.ap.gov.in/" target="_blank" class="result-item show" data-state="Andhra"><b>Andhra Pradesh Board Results</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://results.cgg.gov.in/" target="_blank" class="result-item show" data-state="Telangana"><b>Telangana Board (TSBIE) Result</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="https://tnresults.nic.in/" target="_blank" class="result-item show" data-state="TamilNadu"><b>Tamil Nadu HSE & SSLC Result</b> <span class="status-tag tag-active">ACTIVE</span></a>
-
-            <a href="https://keralaresults.nic.in/" target="_blank" class="result-item show" data-state="Kerala"><b>Kerala DHSE & SSLC Result</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://karresults.nic.in/" target="_blank" class="result-item show" data-state="Karnataka"><b>Karnataka SSLC & PUC Result</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="https://www.gseb.org/" target="_blank" class="result-item show" data-state="Gujarat"><b>GSEB Board Result Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
-
-            <a href="https://www.pseb.ac.in/results" target="_blank" class="result-item show" data-state="Punjab"><b>PSEB Board All Results</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://resultsassam.nic.in/" target="_blank" class="result-item show" data-state="Assam"><b>Assam Board HSLC & AHSEC</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="https://results.cg.nic.in/" target="_blank" class="result-item show" data-state="Chhattisgarh"><b>CGBSE Board Results</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://uaresults.nic.in/" target="_blank" class="result-item show" data-state="Uttarakhand"><b>UBSE Board Results Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
-
-            <a href="https://hpbose.org/Result.aspx" target="_blank" class="result-item show" data-state="Himachal"><b>HPBOSE All Results</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="https://jkbose.nic.in/results/" target="_blank" class="result-item show" data-state="JK"><b>JKBOSE All Region Results</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="http://manresults.nic.in/" target="_blank" class="result-item show" data-state="Manipur"><b>Manipur Board Exam Results</b> <span class="status-tag tag-active">ACTIVE</span></a>
-
-            <a href="http://megresults.nic.in/" target="_blank" class="result-item show" data-state="Meghalaya"><b>MBOSE Board Exam Results</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="http://tripuraresults.nic.in/" target="_blank" class="result-item show" data-state="Tripura"><b>Tripura Board Results</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://www.mbse.edu.in/results" target="_blank" class="result-item show" data-state="Mizoram"><b>MBSE Mizoram Results</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="https://nbsenl.edu.in/results" target="_blank" class="result-item show" data-state="Nagaland"><b>NBSE Nagaland Results</b> <span class="status-tag tag-active">ACTIVE</span></a>
-
-            <a href="https://gbshse.gov.in/results" target="_blank" class="result-item show" data-state="Goa"><b>GBSHSE Goa Results</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <a href="https://sikkimhrdd.org/results" target="_blank" class="result-item show" data-state="Sikkim"><b>Sikkim Board Results Portal</b> <span class="status-tag tag-active">LIVE</span></a>
-
-            <a href="https://dseap.in/" target="_blank" class="result-item show" data-state="Arunachal"><b>DSEAP Board Results</b> <span class="status-tag tag-active">ACTIVE</span></a>
-
-            <div class="result-item show" data-state="Andaman"><b>Andaman & Nicobar Exam Portal</b> <span class="status-tag tag-soon">SOON</span></div>
-            <div class="result-item show" data-state="Chandigarh"><b>Chandigarh Exam Result Portal</b> <span class="status-tag tag-soon">AWAITED</span></div>
-            <div class="result-item show" data-state="Dadra"><b>Dadra & Nagar Haveli Education</b> <span class="status-tag tag-soon">SOON</span></div>
-            <div class="result-item show" data-state="Ladakh"><b>JKBOSE Ladakh Region Results</b> <span class="status-tag tag-soon">AWAITED</span></div>
-            <div class="result-item show" data-state="Lakshadweep"><b>Lakshadweep Education Result</b> <span class="status-tag tag-soon">SOON</span></div>
-            <div class="result-item show" data-state="Puducherry"><b>Puducherry Result Portal</b> <span class="status-tag tag-soon">AWAITED</span></div>
+            <a href="https://jacresults.com/" target="_blank" class="result-item show" data-state="Jharkhand"><b>JAC Board Matric & Inter Results</b> <span class="status-tag tag-active">ACTIVE</span></a>
         </div>
 
         <div class="ad-container">Google AdSense Space - Footer</div>
