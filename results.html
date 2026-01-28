@@ -18,6 +18,7 @@
         .filter-section { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .search-input { width: 100%; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 16px; outline: none; margin-bottom: 25px; box-sizing: border-box; }
         
+        /* State Grid Design */
         .state-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; max-height: 250px; overflow-y: auto; padding: 10px; border: 1px solid #f0f0f0; border-radius: 8px; }
         .state-btn { background: #f8fafc; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #e2e8f0; cursor: pointer; font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; }
         .state-btn:hover, .state-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
@@ -37,16 +38,16 @@
 <body>
 
     <header class="header">
-        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> DASHBOARD</a>
+        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK TO PORTAL</a>
         <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">VERIFIED ALL INDIA RESULTS</div>
     </header>
 
-    <div class="ad-container">Google AdSense Space - Header Banner</div>
+    <div class="ad-container">Google AdSense Space - Top Leaderboard</div>
 
     <div class="main-container">
         <div class="filter-section">
-            <input type="text" class="search-input" id="resSearch" placeholder="Quick Search Board Name..." onkeyup="filterByText()">
-            <p style="font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">SELECT STATE / UT TO FILTER:</p>
+            <input type="text" class="search-input" id="resSearch" placeholder="Quick Search (e.g. Bihar, CBSE, ITI, Matric)..." onkeyup="filterByText()">
+            <p style="font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 10px;">CHOOSE STATE TO FILTER RESULTS:</p>
             <div class="state-grid" id="stateButtons">
                 <div class="state-btn active" onclick="filterByState('ALL', this)">All India</div>
                 <div class="state-btn" onclick="filterByState('Andaman', this)">Andaman & Nicobar</div>
@@ -91,36 +92,55 @@
         <div class="section-title" id="listTitle">Verified Results Links</div>
         <div class="results-box" id="mainResultsList">
             
-            <a href="http://biharboardonline.bihar.gov.in/" target="_blank" class="result-item show" data-state="Bihar">
-                <b>BSEB Matric (10th) Official Portal</b> <span class="status-tag tag-active">ACTIVE</span>
+            <a href="http://results.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar">
+                <b>BSEB Matric (10th) Result Portal 2025-26</b> <span class="status-tag tag-active">OFFICIAL</span>
             </a>
             <div class="result-item show" data-state="Bihar">
                 <b>BSEB Inter (12th) Annual Result 2026</b> <span class="status-tag tag-soon">AWAITED</span>
             </div>
+            <a href="https://secondary.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar">
+                <b>Bihar STET (Teacher Eligibility) Result</b> <span class="status-tag tag-active">LIVE</span>
+            </a>
+            <a href="https://deledbihar.com/" target="_blank" class="result-item show" data-state="Bihar">
+                <b>Bihar D.El.Ed Joint Entrance Result</b> <span class="status-tag tag-active">ACTIVE</span>
+            </a>
+            <a href="https://bceceboard.bihar.gov.in/" target="_blank" class="result-item show" data-state="Bihar">
+                <b>Bihar ITI / Polytechnic (DCECE) Result Portal</b> <span class="status-tag tag-active">OFFICIAL</span>
+            </a>
+            <a href="https://biharcetbed-lnmu.in/" target="_blank" class="result-item show" data-state="Bihar">
+                <b>Bihar B.Ed. Common Entrance (CET) Result</b> <span class="status-tag tag-active">LIVE</span>
+            </a>
+            <a href="http://biharboardonline.bihar.gov.in/scrutiny-2025" target="_blank" class="result-item show" data-state="Bihar">
+                <b>Bihar Board Scrutiny/Re-check Result</b> <span class="status-tag tag-active">ACTIVE</span>
+            </a>
 
             <a href="https://results.cbse.nic.in/" target="_blank" class="result-item show" data-state="Delhi">
-                <b>CBSE Board Results (Main Portal)</b> <span class="status-tag tag-active">ACTIVE</span>
+                <b>CBSE Board Results (Class 10th & 12th)</b> <span class="status-tag tag-active">ACTIVE</span>
             </a>
 
             <a href="https://upresults.nic.in/" target="_blank" class="result-item show" data-state="Uttar Pradesh">
-                <b>UPMSP High School/Inter Results</b> <span class="status-tag tag-active">OFFICIAL</span>
+                <b>UP Board High School/Inter Result Portal</b> <span class="status-tag tag-active">OFFICIAL</span>
+            </a>
+
+            <a href="https://jacresults.com/" target="_blank" class="result-item show" data-state="Jharkhand">
+                <b>JAC Jharkhand Board Matric/Inter Result</b> <span class="status-tag tag-active">ACTIVE</span>
             </a>
 
             <div class="result-item show" data-state="Haryana"><b>HBSE Haryana Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
             <div class="result-item show" data-state="Punjab"><b>PSEB Punjab Board Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
-            <div class="result-item show" data-state="Jharkhand"><b>JAC Jharkhand Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
-            <div class="result-item show" data-state="Madhya Pradesh"><b>MPBSE MP Board Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
+            <div class="result-item show" data-state="Madhya Pradesh"><b>MP Board Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
             <div class="result-item show" data-state="Rajasthan"><b>RBSE Rajasthan Board Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
             <div class="result-item show" data-state="Gujarat"><b>GSEB Gujarat Board Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
-            <div class="result-item show" data-state="Maharashtra"><b>Maharashtra SSC/HSC Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
+            <div class="result-item show" data-state="Maharashtra"><b>Maharashtra Board Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
             <div class="result-item show" data-state="West Bengal"><b>WB Madhyamik Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
+            <div class="result-item show" data-state="Uttarakhand"><b>Uttarakhand Board Result 2026</b> <span class="status-tag tag-soon">COMING SOON</span></div>
             </div>
 
-        <div class="ad-container" style="margin-top: 50px;">Google AdSense Space - Footer Ad</div>
+        <div class="ad-container" style="margin-top: 50px;">Google AdSense Space - Footer Responsive</div>
     </div>
 
     <script>
-        // State Filter
+        // State Filter Function
         function filterByState(state, btn) {
             let btns = document.querySelectorAll('.state-btn');
             btns.forEach(b => b.classList.remove('active'));
@@ -138,12 +158,16 @@
             });
         }
 
-        // Text Search
+        // Search Function
         function filterByText() {
             let input = document.getElementById('resSearch').value.toLowerCase();
             let items = document.querySelectorAll('.result-item');
             items.forEach(item => {
-                item.innerText.toLowerCase().includes(input) ? item.classList.add('show') : item.classList.remove('show');
+                if(item.innerText.toLowerCase().includes(input)) {
+                    item.classList.add('show');
+                } else {
+                    item.classList.remove('show');
+                }
             });
         }
     </script>
