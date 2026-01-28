@@ -32,14 +32,14 @@
 <body>
     <header class="header">
         <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
-        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA ADMIT CARDS</div>
+        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA VERIFIED ADMIT CARDS</div>
     </header>
 
     <div class="ad-container">Google AdSense Space - Top</div>
 
     <div class="main-container">
         <div class="filter-section">
-            <input type="text" class="search-input" id="admSearch" placeholder="Search SSC, Railway, Board Admit Cards..." onkeyup="filterByText()">
+            <input type="text" class="search-input" id="admSearch" placeholder="Search SSC, UPSC, Army or Board Admit Cards..." onkeyup="filterByText()">
             <div class="state-grid">
                 <div class="state-btn active" onclick="filterByState('ALL', this)">All India</div>
                 <div class="state-btn" onclick="filterByState('Central', this)">Central Govt</div>
@@ -50,26 +50,75 @@
                 <div class="state-btn" onclick="filterByState('Maharashtra', this)">Maharashtra</div>
                 <div class="state-btn" onclick="filterByState('WestBengal', this)">West Bengal</div>
                 <div class="state-btn" onclick="filterByState('Rajasthan', this)">Rajasthan</div>
+                <div class="state-btn" onclick="filterByState('MP', this)">Madhya Pradesh</div>
                 <div class="state-btn" onclick="filterByState('Haryana', this)">Haryana</div>
+                <div class="state-btn" onclick="filterByState('Punjab', this)">Punjab</div>
                 <div class="state-btn" onclick="filterByState('Gujarat', this)">Gujarat</div>
-                <div class="state-btn" onclick="filterByState('Andaman', this)">Andaman</div>
+                <div class="state-btn" onclick="filterByState('Karnataka', this)">Karnataka</div>
+                <div class="state-btn" onclick="filterByState('Kerala', this)">Kerala</div>
+                <div class="state-btn" onclick="filterByState('TamilNadu', this)">Tamil Nadu</div>
+                <div class="state-btn" onclick="filterByState('Andhra', this)">Andhra Pradesh</div>
+                <div class="state-btn" onclick="filterByState('Telangana', this)">Telangana</div>
+                <div class="state-btn" onclick="filterByState('Odisha', this)">Odisha</div>
+                <div class="state-btn" onclick="filterByState('Assam', this)">Assam</div>
+                <div class="state-btn" onclick="filterByState('Chhattisgarh', this)">Chhattisgarh</div>
+                <div class="state-btn" onclick="filterByState('Uttarakhand', this)">Uttarakhand</div>
+                <div class="state-btn" onclick="filterByState('Himachal', this)">Himachal</div>
+                <div class="state-btn" onclick="filterByState('JK', this)">J & K</div>
+                <div class="state-btn" onclick="filterByState('Goa', this)">Goa</div>
+                <div class="state-btn" onclick="filterByState('Manipur', this)">Manipur</div>
+                <div class="state-btn" onclick="filterByState('Meghalaya', this)">Meghalaya</div>
+                <div class="state-btn" onclick="filterByState('Tripura', this)">Tripura</div>
+                <div class="state-btn" onclick="filterByState('Nagaland', this)">Nagaland</div>
+                <div class="state-btn" onclick="filterByState('Mizoram', this)">Mizoram</div>
+                <div class="state-btn" onclick="filterByState('Arunachal', this)">Arunachal</div>
+                <div class="state-btn" onclick="filterByState('Sikkim', this)">Sikkim</div>
+                <div class="state-btn" onclick="filterByState('Andaman', this)">Andaman & Nicobar</div>
                 <div class="state-btn" onclick="filterByState('Chandigarh', this)">Chandigarh</div>
+                <div class="state-btn" onclick="filterByState('Ladakh', this)">Ladakh</div>
+                <div class="state-btn" onclick="filterByState('Lakshadweep', this)">Lakshadweep</div>
+                <div class="state-btn" onclick="filterByState('Puducherry', this)">Puducherry</div>
+                <div class="state-btn" onclick="filterByState('Dadra', this)">Dadra & Nagar</div>
             </div>
         </div>
 
         <div class="results-box" id="admitCardList">
-            <a href="https://ssc.nic.in/Portal/AdmitCard" target="_blank" class="result-item show" data-state="Central"><b>SSC Exam Admit Card Portal</b> <span class="status-tag tag-central">SSC</span></a>
-            <a href="https://upsc.gov.in/admit-cards" target="_blank" class="result-item show" data-state="Central"><b>UPSC Admit Cards (IAS, NDA)</b> <span class="status-tag tag-central">UPSC</span></a>
-            <a href="https://www.rrcb.gov.in/" target="_blank" class="result-item show" data-state="Central"><b>Railway (RRB) Admit Card Portal</b> <span class="status-tag tag-central">RAILWAY</span></a>
-            <a href="https://ibps.in/" target="_blank" class="result-item show" data-state="Central"><b>IBPS Bank Exam Hall Tickets</b> <span class="status-tag tag-central">BANK</span></a>
+            <a href="https://ssc.nic.in/Portal/AdmitCard" target="_blank" class="result-item show" data-state="Central"><b>SSC Admit Card (CGL, CHSL, MTS, GD)</b> <span class="status-tag tag-central">CENTRAL GOVT</span></a>
+            <a href="https://upsc.gov.in/admit-cards" target="_blank" class="result-item show" data-state="Central"><b>UPSC Admit Cards (IAS, NDA, CDS)</b> <span class="status-tag tag-central">CENTRAL GOVT</span></a>
+            <a href="https://www.rrcb.gov.in/" target="_blank" class="result-item show" data-state="Central"><b>Railway (RRB/RRC) Admit Cards</b> <span class="status-tag tag-central">RAILWAY</span></a>
+            <a href="https://ibps.in/" target="_blank" class="result-item show" data-state="Central"><b>IBPS Bank Exam Hall Tickets</b> <span class="status-tag tag-central">BANKING</span></a>
+            <a href="https://exams.nta.ac.in/" target="_blank" class="result-item show" data-state="Central"><b>NTA (NEET, JEE, CUET) Admit Cards</b> <span class="status-tag tag-central">NTA</span></a>
+            <a href="https://www.joinindianarmy.nic.in/" target="_blank" class="result-item show" data-state="Central"><b>Indian Army/Navy/Airforce Admit Cards</b> <span class="status-tag tag-central">DEFENCE</span></a>
 
             <a href="http://secondary.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar Board Matric/Inter Admit Card</b> <span class="status-tag tag-active">BSEB</span></a>
-            <a href="https://upmsp.edu.in/" target="_blank" class="result-item show" data-state="UP"><b>UP Board High School Admit Card</b> <span class="status-tag tag-active">UPMSP</span></a>
-            <a href="https://jac.jharkhand.gov.in/" target="_blank" class="result-item show" data-state="Jharkhand"><b>JAC Board Admit Card Portal</b> <span class="status-tag tag-active">JAC</span></a>
-            <a href="https://mahahsscboard.in/" target="_blank" class="result-item show" data-state="Maharashtra"><b>Maharashtra HSC/SSC Admit Card</b> <span class="status-tag tag-active">OFFICIAL</span></a>
-
-            <div class="result-item show" data-state="Andaman"><b>Andaman Exam Admit Card Portal</b> <span class="status-tag tag-active">ACTIVE</span></div>
-            <div class="result-item show" data-state="Chandigarh"><b>Chandigarh Exam Hall Ticket Access</b> <span class="status-tag tag-active">ACTIVE</span></div>
+            <a href="https://bpsc.bih.nic.in/" target="_blank" class="result-item show" data-state="Bihar"><b>BPSC Civil Services Admit Card</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://upmsp.edu.in/" target="_blank" class="result-item show" data-state="UP"><b>UP Board Class 10th/12th Admit Card</b> <span class="status-tag tag-active">UPMSP</span></a>
+            <a href="https://jac.jharkhand.gov.in/" target="_blank" class="result-item show" data-state="Jharkhand"><b>JAC Board Matric/Inter Admit Card</b> <span class="status-tag tag-active">JAC</span></a>
+            <a href="https://mahahsscboard.in/" target="_blank" class="result-item show" data-state="Maharashtra"><b>Maharashtra Board Admit Card Portal</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://wbchse.wb.gov.in/" target="_blank" class="result-item show" data-state="WestBengal"><b>West Bengal Board Admit Card</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="https://rajeduboard.rajasthan.gov.in/" target="_blank" class="result-item show" data-state="Rajasthan"><b>Rajasthan Board (RBSE) Admit Card</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://mpbse.nic.in/" target="_blank" class="result-item show" data-state="MP"><b>MP Board Admit Card Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="https://bseh.org.in/" target="_blank" class="result-item show" data-state="Haryana"><b>Haryana Board (HBSE) Admit Card</b> <span class="status-tag tag-active">LIVE</span></a>
+            <a href="https://www.pseb.ac.in/" target="_blank" class="result-item show" data-state="Punjab"><b>Punjab Board (PSEB) Admit Card</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://www.gseb.org/" target="_blank" class="result-item show" data-state="Gujarat"><b>Gujarat Board (GSEB) Admit Card</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="https://karresults.nic.in/" target="_blank" class="result-item show" data-state="Karnataka"><b>Karnataka KSEEB Admit Card</b> <span class="status-tag tag-active">LIVE</span></a>
+            <a href="https://keralapareekshabhavan.in/" target="_blank" class="result-item show" data-state="Kerala"><b>Kerala SSLC/DHSE Admit Card</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://dge.tn.gov.in/" target="_blank" class="result-item show" data-state="TamilNadu"><b>Tamil Nadu HSE Admit Card Portal</b> <span class="status-tag tag-active">LIVE</span></a>
+            <a href="https://bse.ap.gov.in/" target="_blank" class="result-item show" data-state="Andhra"><b>Andhra Pradesh Board Admit Card</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="https://bse.telangana.gov.in/" target="_blank" class="result-item show" data-state="Telangana"><b>Telangana Board Hall Ticket</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="http://bseodisha.ac.in/" target="_blank" class="result-item show" data-state="Odisha"><b>Odisha Board Admit Card Access</b> <span class="status-tag tag-active">LIVE</span></a>
+            <a href="https://sebaonline.org/" target="_blank" class="result-item show" data-state="Assam"><b>Assam Board HSLC Admit Card</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="https://cgbse.nic.in/" target="_blank" class="result-item show" data-state="Chhattisgarh"><b>CGBSE Board Exam Admit Card</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://ubse.uk.gov.in/" target="_blank" class="result-item show" data-state="Uttarakhand"><b>Uttarakhand Board Hall Ticket</b> <span class="status-tag tag-active">LIVE</span></a>
+            <a href="https://hpbose.org/" target="_blank" class="result-item show" data-state="Himachal"><b>HPBOSE Exam Admit Card Portal</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://jkbose.nic.in/" target="_blank" class="result-item show" data-state="JK"><b>JKBOSE Admit Card (All Regions)</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            
+            <a href="#" class="result-item show" data-state="Andaman"><b>Andaman Board Admit Card Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="#" class="result-item show" data-state="Chandigarh"><b>Chandigarh Exam Hall Ticket Access</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="#" class="result-item show" data-state="Ladakh"><b>Ladakh Region Exam Admit Card</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="#" class="result-item show" data-state="Lakshadweep"><b>Lakshadweep Admit Card Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="#" class="result-item show" data-state="Puducherry"><b>Puducherry Hall Ticket Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
+            <a href="#" class="result-item show" data-state="Dadra"><b>Dadra & Nagar Admit Card Portal</b> <span class="status-tag tag-active">ACTIVE</span></a>
         </div>
     </div>
 
