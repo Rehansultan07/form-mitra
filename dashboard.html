@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; --purple: #9b59b6; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; --purple: #9b59b6; --orange: #f39c12; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); }
         
         /* Master Header */
@@ -18,14 +18,13 @@
         /* AdSense Master Template Slots */
         .ad-container { background: #f9f9f9; border: 1px dashed #ccc; margin: 20px auto; padding: 15px; text-align: center; color: #aaa; font-size: 11px; max-width: 1000px; border-radius: 8px; }
 
-        /* Clean Profile Navigation */
+        /* Profile Navigation */
         .profile-container { position: relative; cursor: pointer; display: flex; align-items: center; gap: 12px; padding: 5px 10px; border-radius: 50px; transition: 0.3s; }
         .profile-container:hover { background: #f1f5f9; }
         .profile-icon { width: 35px; height: 35px; background: var(--navy); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: bold; overflow: hidden; }
-        .profile-icon img { width: 100%; height: 100%; object-fit: cover; }
         .agent-name { font-size: 14px; font-weight: 700; color: #333; }
 
-        /* Dropdown Menu */
+        /* Dropdown Profile */
         .profile-dropdown { display: none; position: absolute; top: 55px; right: 0; width: 250px; background: #fff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); border: 1px solid #eee; padding: 20px; z-index: 2000; animation: slideDown 0.3s ease; }
         .profile-dropdown.active { display: block; }
         @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
@@ -37,7 +36,7 @@
         
         .btn-logout { width: 100%; background: #ff4757; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
 
-        /* Main Dashboard Content */
+        /* Dashboard Content */
         .main-content { padding: 30px 5%; max-width: 1200px; margin: 0 auto; }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
         .s-card { background: #fff; padding: 30px 15px; border-radius: 15px; text-align: center; border: 1px solid #eee; transition: 0.3s; cursor: pointer; text-decoration: none; display: block; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
@@ -49,7 +48,7 @@
         #welcomePopup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999; align-items: center; justify-content: center; }
         .popup-card { background: white; padding: 35px; border-radius: 15px; text-align: center; max-width: 350px; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
 
-        @media (max-width: 600px) { .agent-name { display: none; } .main-content { padding: 20px; } }
+        @media (max-width: 600px) { .agent-name { display: none; } }
     </style>
 </head>
 <body>
@@ -57,9 +56,9 @@
     <div id="welcomePopup">
         <div class="popup-card">
             <i class="fas fa-user-circle" style="font-size: 50px; color: var(--blue); margin-bottom: 15px;"></i>
-            <h2 id="welcomeMsg" style="margin:0; color:var(--navy); font-size: 1.4rem;">Welcome!</h2>
-            <p style="color: #777; font-size: 14px; margin-top: 10px;">Select a service to start your digital work today.</p>
-            <button onclick="closePopup()" style="background: var(--navy); color: white; border: none; padding: 12px 40px; border-radius: 6px; cursor: pointer; margin-top: 20px; font-weight: 600;">Let's Start</button>
+            <h2 id="welcomeMsg" style="margin:0; color:var(--navy);">Welcome!</h2>
+            <p style="color: #777; font-size: 14px; margin-top: 10px;">Aapka Digi Mitra portal ab ekdum up-to-date hai.</p>
+            <button onclick="closePopup()" style="background: var(--navy); color: white; border: none; padding: 12px 40px; border-radius: 6px; cursor: pointer; margin-top: 20px; font-weight: 600;">Let's Go</button>
         </div>
     </div>
 
@@ -69,7 +68,6 @@
             <div class="profile-icon" id="topInitial">D</div>
             <div class="agent-name" id="topNameDisplay">Agent Name</div>
             <i class="fas fa-chevron-down" style="font-size: 10px; color: #ccc;"></i>
-            
             <div class="profile-dropdown" id="profileDropdown">
                 <div class="dropdown-header">
                     <h4 id="dropAgentName" style="margin:0; color:var(--navy);">Agent Name</h4>
@@ -77,16 +75,15 @@
                 </div>
                 <div class="detail-item"><b>Email Address</b><span id="pEmail">...</span></div>
                 <div class="detail-item"><b>Mobile Number</b><span id="pPhone">...</span></div>
-                <div class="detail-item"><b>Shop Address</b><span id="pAddress">...</span></div>
                 <button class="btn-logout" onclick="handleLogout()">Logout <i class="fas fa-power-off"></i></button>
             </div>
         </div>
     </header>
 
-    <div class="ad-container">Google AdSense Space - Dashboard Top Banner</div>
+    <div class="ad-container">Google AdSense Space - Dashboard Top Slot</div>
 
     <main class="main-content">
-        <h2 style="font-size: 18px; color: var(--navy); margin-bottom: 20px; border-left: 4px solid var(--blue); padding-left: 12px;">Active Services</h2>
+        <h2 style="font-size: 18px; color: var(--navy); margin-bottom: 25px; border-left: 4px solid var(--blue); padding-left: 12px;">All India Active Services</h2>
         
         <div class="services-grid">
             <a href="photo-resizer.html" class="s-card"><i class="fas fa-camera"></i><h3>Photo Resizer</h3></a>
@@ -98,9 +95,14 @@
                 <i class="fas fa-graduation-cap" style="color:var(--purple);"></i>
                 <h3>All India Results</h3>
             </a>
+
+            <a href="admitcard.html" class="s-card" style="border-bottom: 5px solid #3498db;">
+                <i class="fas fa-ticket-alt" style="color:#3498db;"></i>
+                <h3>All India Admit Card</h3>
+            </a>
         </div>
 
-        <div class="ad-container" style="margin: 40px 0;">Google AdSense Space - In-Feed Native Ad</div>
+        <div class="ad-container" style="margin: 40px 0;">Google AdSense Space - Middle Slot</div>
 
         <h2 style="font-size: 18px; color: var(--navy); margin-bottom: 20px; border-left: 4px solid #aaa; padding-left: 12px;">Upcoming Services</h2>
         <div class="services-grid" style="opacity: 0.6;">
@@ -109,7 +111,7 @@
         </div>
     </main>
 
-    <div class="ad-container" style="margin-top: 50px;">Google AdSense Space - Footer Responsive Ad</div>
+    <div class="ad-container" style="margin-top: 50px;">Google AdSense Space - Footer Slot</div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -127,7 +129,6 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // Dropdown Logic
     window.toggleDropdown = () => document.getElementById('profileDropdown').classList.toggle('active');
     window.closePopup = () => document.getElementById('welcomePopup').style.display = 'none';
 
@@ -140,12 +141,10 @@
                     document.getElementById('dropAgentName').innerText = data.name;
                     document.getElementById('pEmail').innerText = data.email;
                     document.getElementById('pPhone').innerText = data.phone || 'Not Shared';
-                    document.getElementById('pAddress').innerText = data.address || 'Address not set';
                     document.getElementById('topInitial').innerText = data.name.charAt(0).toUpperCase();
                     
-                    // Welcome Message
                     if(!sessionStorage.getItem('welcomeShown')) {
-                        document.getElementById('welcomeMsg').innerText = "Welcome to Dashboard, " + data.name;
+                        document.getElementById('welcomeMsg').innerText = "Namaste, " + data.name;
                         document.getElementById('welcomePopup').style.display = 'flex';
                         sessionStorage.setItem('welcomeShown', 'true');
                     }
@@ -154,17 +153,7 @@
         } else { window.location.href = "login.html"; }
     });
 
-    window.handleLogout = () => signOut(auth).then(() => {
-        sessionStorage.removeItem('welcomeShown');
-        window.location.href = "login.html";
-    });
-
-    // Outside click to close dropdown
-    window.onclick = function(event) {
-        if (!event.target.closest('.profile-container')) {
-            document.getElementById('profileDropdown').classList.remove('active');
-        }
-    }
+    window.handleLogout = () => signOut(auth).then(() => window.location.href = "login.html");
 </script>
 </body>
 </html>
