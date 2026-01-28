@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All India Admit Cards - Digi Mitra</title>
+    <title>All India Verified Results - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -11,33 +11,36 @@
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; }
         .header { background: #fff; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { text-decoration: none; color: var(--navy); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .ad-container { background: #f1f5f9; border: 1px dashed #cbd5e1; margin: 20px auto; padding: 15px; text-align: center; color: #94a3b8; font-size: 11px; max-width: 1000px; border-radius: 8px; }
+        .ad-container { background: #f1f5f9; border: 1px dashed #cbd5e1; margin: 15px auto; padding: 15px; text-align: center; color: #94a3b8; font-size: 11px; max-width: 1000px; border-radius: 8px; }
         .main-container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; }
         .filter-section { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
         .search-input { width: 100%; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 16px; outline: none; margin-bottom: 25px; box-sizing: border-box; }
+        
         .state-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; max-height: 250px; overflow-y: auto; padding: 10px; border: 1px solid #f0f0f0; border-radius: 8px; }
         .state-btn { background: #f8fafc; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #e2e8f0; cursor: pointer; font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; }
         .state-btn:hover, .state-btn.active { background: var(--navy); color: white; border-color: var(--navy); }
+
         .results-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
-        .result-item { display: none; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; }
+        .result-item { display: none; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; transition: 0.2s; }
         .result-item.show { display: flex; }
         .result-item:hover { background: #f8fbff; color: var(--blue); }
         .status-tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
         .tag-central { background: #e0f2fe; color: #0369a1; }
         .tag-active { background: #dcfce7; color: #166534; }
+        .tag-soon { background: #fef3c7; color: #92400e; }
     </style>
 </head>
 <body>
     <header class="header">
         <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
-        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA ADMIT CARDS</div>
+        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA VERIFIED RESULTS</div>
     </header>
 
     <div class="ad-container">Google AdSense Space - Top</div>
 
     <div class="main-container">
         <div class="filter-section">
-            <input type="text" class="search-input" id="admSearch" placeholder="Search SSC, UPSC, Army or Board Admit Cards..." onkeyup="filterByText()">
+            <input type="text" class="search-input" id="resSearch" placeholder="Search Central or State Board Results..." onkeyup="filterByText()">
             <div class="state-grid">
                 <div class="state-btn active" onclick="filterByState('ALL', this)">All India</div>
                 <div class="state-btn" onclick="filterByState('Central', this)">Central Govt</div>
@@ -45,24 +48,72 @@
                 <div class="state-btn" onclick="filterByState('UP', this)">Uttar Pradesh</div>
                 <div class="state-btn" onclick="filterByState('Jharkhand', this)">Jharkhand</div>
                 <div class="state-btn" onclick="filterByState('Delhi', this)">Delhi</div>
-                <div class="state-btn" onclick="filterByState('Others', this)">More States...</div>
+                <div class="state-btn" onclick="filterByState('Rajasthan', this)">Rajasthan</div>
+                <div class="state-btn" onclick="filterByState('MP', this)">Madhya Pradesh</div>
+                <div class="state-btn" onclick="filterByState('Maharashtra', this)">Maharashtra</div>
+                <div class="state-btn" onclick="filterByState('Haryana', this)">Haryana</div>
+                <div class="state-btn" onclick="filterByState('Punjab', this)">Punjab</div>
+                <div class="state-btn" onclick="filterByState('Gujarat', this)">Gujarat</div>
+                <div class="state-btn" onclick="filterByState('WestBengal', this)">West Bengal</div>
+                <div class="state-btn" onclick="filterByState('Karnataka', this)">Karnataka</div>
+                <div class="state-btn" onclick="filterByState('Kerala', this)">Kerala</div>
+                <div class="state-btn" onclick="filterByState('TamilNadu', this)">Tamil Nadu</div>
+                <div class="state-btn" onclick="filterByState('Andhra', this)">Andhra Pradesh</div>
+                <div class="state-btn" onclick="filterByState('Telangana', this)">Telangana</div>
+                <div class="state-btn" onclick="filterByState('Odisha', this)">Odisha</div>
+                <div class="state-btn" onclick="filterByState('Assam', this)">Assam</div>
+                <div class="state-btn" onclick="filterByState('Chhattisgarh', this)">Chhattisgarh</div>
+                <div class="state-btn" onclick="filterByState('Uttarakhand', this)">Uttarakhand</div>
+                <div class="state-btn" onclick="filterByState('Himachal', this)">Himachal</div>
+                <div class="state-btn" onclick="filterByState('JK', this)">Jammu & Kashmir</div>
+                <div class="state-btn" onclick="filterByState('Goa', this)">Goa</div>
+                <div class="state-btn" onclick="filterByState('Manipur', this)">Manipur</div>
+                <div class="state-btn" onclick="filterByState('Meghalaya', this)">Meghalaya</div>
+                <div class="state-btn" onclick="filterByState('Tripura', this)">Tripura</div>
+                <div class="state-btn" onclick="filterByState('Nagaland', this)">Nagaland</div>
+                <div class="state-btn" onclick="filterByState('Mizoram', this)">Mizoram</div>
+                <div class="state-btn" onclick="filterByState('Arunachal', this)">Arunachal</div>
+                <div class="state-btn" onclick="filterByState('Sikkim', this)">Sikkim</div>
+                <div class="state-btn" onclick="filterByState('Andaman', this)">Andaman & Nicobar</div>
+                <div class="state-btn" onclick="filterByState('Chandigarh', this)">Chandigarh</div>
+                <div class="state-btn" onclick="filterByState('Ladakh', this)">Ladakh</div>
+                <div class="state-btn" onclick="filterByState('Lakshadweep', this)">Lakshadweep</div>
+                <div class="state-btn" onclick="filterByState('Puducherry', this)">Puducherry</div>
+                <div class="state-btn" onclick="filterByState('Dadra', this)">Dadra & Nagar</div>
             </div>
         </div>
 
-        <div class="results-box" id="admitCardList">
-            <a href="https://ssc.nic.in/Portal/AdmitCard" target="_blank" class="result-item show" data-state="Central"><b>SSC Admit Card (All Regions)</b> <span class="status-tag tag-central">SSC</span></a>
-            <a href="https://upsc.gov.in/admit-cards" target="_blank" class="result-item show" data-state="Central"><b>UPSC (IAS, NDA, CDS) Admit Cards</b> <span class="status-tag tag-central">UPSC</span></a>
-            <a href="https://www.rrcb.gov.in/" target="_blank" class="result-item show" data-state="Central"><b>Railway (RRB/RRC) Admit Card Portal</b> <span class="status-tag tag-central">RAILWAY</span></a>
-            <a href="https://ibps.in/" target="_blank" class="result-item show" data-state="Central"><b>IBPS Bank Exam Hall Tickets</b> <span class="status-tag tag-central">BANKING</span></a>
-            <a href="https://exams.nta.ac.in/" target="_blank" class="result-item show" data-state="Central"><b>NTA Exam (NEET, JEE) Admit Cards</b> <span class="status-tag tag-central">NTA</span></a>
+        <div class="results-box" id="mainResultsList">
+            <a href="https://results.cbse.nic.in/" target="_blank" class="result-item show" data-state="Central"><b>CBSE Class 10th & 12th Results</b> <span class="status-tag tag-central">CBSE</span></a>
+            <a href="https://ssc.nic.in/Portal/Results" target="_blank" class="result-item show" data-state="Central"><b>SSC Exam Results Portal</b> <span class="status-tag tag-central">SSC</span></a>
+            <a href="https://www.rrcb.gov.in/" target="_blank" class="result-item show" data-state="Central"><b>Railway (RRB) Result Portal</b> <span class="status-tag tag-central">RAILWAY</span></a>
+            
+            <a href="http://results.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar Board (BSEB) Matric Result</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            <a href="https://secondary.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar STET Result Portal</b> <span class="status-tag tag-active">LIVE</span></a>
+            
+            <a href="https://upresults.nic.in/" target="_blank" class="result-item show" data-state="UP"><b>UP Board High School & Inter Result</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+            
+            <a href="https://jacresults.com/" target="_blank" class="result-item show" data-state="Jharkhand"><b>JAC Board Matric & Inter Results</b> <span class="status-tag tag-active">ACTIVE</span></a>
 
-            <a href="http://secondary.biharboardonline.com/" target="_blank" class="result-item show" data-state="Bihar"><b>Bihar Board Matric/Inter Admit Card</b> <span class="status-tag tag-active">BSEB</span></a>
-            <a href="https://bpsc.bih.nic.in/" target="_blank" class="result-item show" data-state="Bihar"><b>BPSC Exam Admit Card Portal</b> <span class="status-tag tag-active">BPSC</span></a>
+            <a href="https://mahresult.nic.in/" target="_blank" class="result-item show" data-state="Maharashtra"><b>Maharashtra SSC & HSC Result</b> <span class="status-tag tag-active">LIVE</span></a>
 
-            <a href="https://upmsp.edu.in/" target="_blank" class="result-item show" data-state="UP"><b>UP Board High School/Inter Admit Card</b> <span class="status-tag tag-active">UPMSP</span></a>
+            <a href="https://wbresults.nic.in/" target="_blank" class="result-item show" data-state="WestBengal"><b>WB Madhyamik & HS Results</b> <span class="status-tag tag-active">ACTIVE</span></a>
+
+            <a href="https://rajresults.nic.in/" target="_blank" class="result-item show" data-state="Rajasthan"><b>RBSE Rajasthan Board Result</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+
+            <a href="https://bseh.org.in/all-results" target="_blank" class="result-item show" data-state="Haryana"><b>HBSE Haryana Board Results</b> <span class="status-tag tag-active">LIVE</span></a>
+
+            <a href="https://www.pseb.ac.in/results" target="_blank" class="result-item show" data-state="Punjab"><b>PSEB Punjab Board Results</b> <span class="status-tag tag-active">OFFICIAL</span></a>
+
+            <a href="https://www.gseb.org/" target="_blank" class="result-item show" data-state="Gujarat"><b>GSEB Gujarat Board Results</b> <span class="status-tag tag-active">ACTIVE</span></a>
+
+            <div class="result-item show" data-state="Andaman"><b>Andaman Board Result Portal</b> <span class="status-tag tag-soon">AWAITED</span></div>
+            <div class="result-item show" data-state="Chandigarh"><b>Chandigarh Board Exam Result</b> <span class="status-tag tag-soon">SOON</span></div>
+            <div class="result-item show" data-state="Ladakh"><b>JKBOSE Ladakh Region Result</b> <span class="status-tag tag-soon">AWAITED</span></div>
+            <div class="result-item show" data-state="Lakshadweep"><b>Lakshadweep Result Portal</b> <span class="status-tag tag-soon">SOON</span></div>
+            <div class="result-item show" data-state="Puducherry"><b>Puducherry Result Access</b> <span class="status-tag tag-soon">AWAITED</span></div>
+            <div class="result-item show" data-state="Dadra"><b>Dadra Education Result</b> <span class="status-tag tag-soon">SOON</span></div>
         </div>
-
-        <div class="ad-container">Google AdSense Space - Footer</div>
     </div>
 
     <script>
@@ -80,7 +131,7 @@
             });
         }
         function filterByText() {
-            let input = document.getElementById('admSearch').value.toLowerCase();
+            let input = document.getElementById('resSearch').value.toLowerCase();
             let items = document.querySelectorAll('.result-item');
             items.forEach(item => {
                 item.innerText.toLowerCase().includes(input) ? item.classList.add('show') : item.classList.remove('show');
