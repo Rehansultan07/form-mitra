@@ -3,127 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All India Results Portal - Digi Mitra</title>
+    <title>Authentic Results Portal - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --blue: #0074D9; --purple: #9b59b6; --bg: #f4f7f9; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f8fafc; --gray: #64748b; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); }
-        
-        /* Master Header */
         .header { background: #fff; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { text-decoration: none; color: var(--navy); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        
-        /* AdSense Master Template Slots */
-        .ad-container { background: #f9f9f9; border: 1px dashed #ccc; margin: 20px auto; padding: 15px; text-align: center; color: #aaa; font-size: 11px; max-width: 1000px; border-radius: 8px; }
-
+        .ad-container { background: #f1f5f9; border: 1px dashed #cbd5e1; margin: 20px auto; padding: 15px; text-align: center; color: #94a3b8; font-size: 11px; max-width: 1000px; border-radius: 8px; }
         .main-container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; }
 
-        /* Search Section */
-        .search-area { background: var(--navy); padding: 40px 20px; border-radius: 15px; color: white; text-align: center; margin-bottom: 30px; }
-        .search-input { width: 90%; max-width: 600px; padding: 15px 25px; border: none; border-radius: 50px; font-size: 16px; outline: none; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        /* Status Banner */
+        .status-banner { background: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; border: 1px solid #ffeeba; margin-bottom: 25px; font-size: 14px; text-align: center; font-weight: 600; }
 
-        /* Results Display */
-        .section-title { font-size: 20px; color: var(--navy); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; font-weight: 800; }
-        .live-dot { width: 10px; height: 10px; background: #ff4757; border-radius: 50%; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        .results-box { background: white; border-radius: 12px; border: 1px solid #eee; overflow: hidden; }
-        .result-link { display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: #333; transition: 0.2s; }
-        .result-link:hover { background: #f0f7ff; color: var(--blue); }
+        .section-title { font-size: 18px; color: var(--navy); margin: 30px 0 15px; font-weight: 800; border-left: 4px solid var(--blue); padding-left: 12px; }
+        .results-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
+        .result-link { display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; }
+        .result-link:hover { background: #f8fbff; }
         .result-link b { font-size: 14px; }
-        .new-label { background: #ff4757; color: white; font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 800; }
+        .status-tag { font-size: 11px; padding: 4px 10px; border-radius: 4px; font-weight: 700; }
+        .tag-soon { background: #e2e8f0; color: #64748b; }
+        .tag-active { background: #dcfce7; color: #166534; }
 
-        /* State Filter Grid */
-        .state-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-top: 20px; }
-        .state-btn { background: white; padding: 12px; border-radius: 8px; text-align: center; border: 1px solid #ddd; cursor: pointer; transition: 0.3s; font-size: 12px; font-weight: 700; color: #555; }
-        .state-btn:hover, .state-btn.active { background: var(--blue); color: white; border-color: var(--blue); }
-
-        @media (max-width: 600px) { .state-grid { grid-template-columns: repeat(2, 1fr); } }
+        .search-input { width: 100%; padding: 15px 25px; border: 2px solid #e2e8f0; border-radius: 50px; font-size: 16px; outline: none; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
     <header class="header">
-        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK TO PORTAL</a>
-        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy); letter-spacing: 1px;">ALL INDIA RESULTS</div>
+        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> DASHBOARD</a>
+        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">VERIFIED EXAM RESULTS</div>
     </header>
 
-    <div class="ad-container">Google AdSense Space - Top Leaderboard Ad</div>
+    <div class="ad-container">Google AdSense - Master Top Slot</div>
 
     <div class="main-container">
-        <div class="search-area">
-            <h1 style="margin-bottom: 20px; font-size: 1.8rem;">Search Your Exam Result</h1>
-            <input type="text" class="search-input" id="resultInput" placeholder="Enter Board or State Name..." onkeyup="searchResult()">
+        <div class="status-banner">
+            <i class="fas fa-info-circle"></i> Note: Currently, 2026 Academic Session results are pending. Checking Official Portals for updates...
         </div>
 
-        <div class="section-title"><div class="live-dot"></div> Recent Results Announced</div>
-        <div class="results-box" id="resultsList">
-            <a href="https://biharboardonline.bihar.gov.in/" target="_blank" class="result-link" data-state="Bihar">
-                <b>Bihar Board (BSEB) Matric 10th Result 2026</b> <span class="new-label">NEW</span>
+        <input type="text" class="search-input" id="resultInput" placeholder="Search Board (e.g. CBSE, Bihar, UP)..." onkeyup="searchResult()">
+
+        <div class="section-title">Expected/Upcoming Results (2026)</div>
+        <div class="results-box">
+            <div class="result-link">
+                <b>Bihar Board (BSEB) Class 10th Result 2026</b>
+                <span class="status-tag tag-soon">WAITING OFFICIAL DATE</span>
+            </div>
+            <div class="result-link">
+                <b>CBSE Class 12th Annual Result 2026</b>
+                <span class="status-tag tag-soon">EXAMS ONGOING</span>
+            </div>
+            <div class="result-link">
+                <b>UP Board Intermediate Result 2026</b>
+                <span class="status-tag tag-soon">AWAITED</span>
+            </div>
+        </div>
+
+        <div class="ad-container" style="margin: 40px 0;">Google AdSense - Middle Page Slot</div>
+
+        <div class="section-title">Currently Available Results (Previous Sessions)</div>
+        <div class="results-box">
+            <a href="https://results.cbse.nic.in/" target="_blank" class="result-link">
+                <b>CBSE Compartment/Re-evaluation Results</b>
+                <span class="status-tag tag-active">LINK ACTIVE</span>
             </a>
-            <a href="https://cbseresults.nic.in/" target="_blank" class="result-link" data-state="Central">
-                <b>CBSE Class 12th Senior Secondary Result</b> <span class="new-label">NEW</span>
+            <a href="http://biharboardonline.bihar.gov.in/" target="_blank" class="result-link">
+                <b>BSEB Scrutiny/Supplementary Results</b>
+                <span class="status-tag tag-active">LINK ACTIVE</span>
             </a>
-            <a href="https://upresults.nic.in/" target="_blank" class="result-link" data-state="UP">
-                <b>UP Board High School (Class X) Result</b> <span class="new-label">NEW</span>
-            </a>
-            <a href="https://jacresults.com/" target="_blank" class="result-link" data-state="Jharkhand">
-                <b>Jharkhand Board (JAC) Matric Result 2026</b>
-            </a>
-            <a href="https://rajresults.nic.in/" target="_blank" class="result-link" data-state="Rajasthan">
-                <b>Rajasthan Board (RBSE) 10th/12th Result</b>
-            </a>
-            <a href="https://mpresults.nic.in/" target="_blank" class="result-link" data-state="MP">
-                <b>MP Board Class 10th Result 2026</b>
+            <a href="https://upresults.nic.in/" target="_blank" class="result-link">
+                <b>UP Board Class 10th/12th (Archive)</b>
+                <span class="status-tag tag-active">LINK ACTIVE</span>
             </a>
         </div>
 
-        <div class="ad-container" style="margin: 40px 0;">Google AdSense Space - Middle In-Feed Ad</div>
-
-        <div class="section-title"><i class="fas fa-map-marked-alt" style="color:var(--blue);"></i> State-wise Result Access</div>
-        <div class="state-grid">
-            <div class="state-btn active" onclick="filterByState('all', this)">ALL INDIA</div>
-            <div class="state-btn" onclick="filterByState('Bihar', this)">BIHAR</div>
-            <div class="state-btn" onclick="filterByState('UP', this)">UTTAR PRADESH</div>
-            <div class="state-btn" onclick="filterByState('Jharkhand', this)">JHARKHAND</div>
-            <div class="state-btn" onclick="filterByState('MP', this)">MP</div>
-            <div class="state-btn" onclick="filterByState('Rajasthan', this)">RAJASTHAN</div>
-            <div class="state-btn" onclick="filterByState('Central', this)">CENTRAL/CBSE</div>
-        </div>
-
-        <div class="ad-container" style="margin-top: 50px;">Google AdSense Space - Footer Responsive Ad</div>
+        <div class="ad-container" style="margin-top: 50px;">Google AdSense - Footer Slot</div>
     </div>
 
     <script>
-        // Search Function
         function searchResult() {
             let input = document.getElementById('resultInput').value.toLowerCase();
-            let links = document.getElementsByClassName('result-link');
-            for (let i = 0; i < links.length; i++) {
-                if (links[i].innerText.toLowerCase().includes(input)) {
-                    links[i].style.display = "flex";
+            let links = document.querySelectorAll('.result-link');
+            links.forEach(link => {
+                if (link.innerText.toLowerCase().includes(input)) {
+                    link.style.display = "flex";
                 } else {
-                    links[i].style.display = "none";
+                    link.style.display = "none";
                 }
-            }
-        }
-
-        // State Filter Function
-        function filterByState(state, btn) {
-            // Update Active Button
-            let btns = document.getElementsByClassName('state-btn');
-            for(let b of btns) b.classList.remove('active');
-            btn.classList.add('active');
-
-            let links = document.getElementsByClassName('result-link');
-            for (let i = 0; i < links.length; i++) {
-                if (state === 'all' || links[i].getAttribute('data-state') === state) {
-                    links[i].style.display = "flex";
-                } else {
-                    links[i].style.display = "none";
-                }
-            }
+            });
         }
     </script>
 </body>
