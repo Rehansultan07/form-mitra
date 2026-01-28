@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All India Results - Digi Mitra</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --navy: #001f3f; --blue: #0074D9; --accent: #2ecc71; --bg: #f4f7f9; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); }
+        
+        .header { background: #fff; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
+        .back-btn { text-decoration: none; color: var(--navy); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        
+        /* AdSense Master Slots */
+        .ad-container { background: #f9f9f9; border: 1px dashed #ccc; margin: 20px auto; padding: 15px; text-align: center; color: #aaa; font-size: 11px; max-width: 1000px; border-radius: 8px; }
+
+        .main-container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; }
+
+        /* Search Bar Section */
+        .search-box { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; margin-bottom: 30px; }
+        .search-input { width: 80%; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 16px; outline: none; transition: 0.3s; }
+        .search-input:focus { border-color: var(--blue); }
+
+        /* Latest Results Section */
+        .section-title { font-size: 20px; color: var(--navy); margin: 30px 0 15px; display: flex; align-items: center; gap: 10px; }
+        .live-icon { width: 10px; height: 10px; background: red; border-radius: 50%; animation: blink 1s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        .results-list { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eee; }
+        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f0f0f0; text-decoration: none; color: #333; transition: 0.2s; }
+        .result-item:hover { background: #f8fbff; color: var(--blue); }
+        .result-item b { font-size: 14px; }
+        .new-tag { background: #ff4757; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: 10px; }
+
+        /* State Grid */
+        .state-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; margin-top: 20px; }
+        .state-card { background: white; padding: 15px; border-radius: 10px; text-align: center; border: 1px solid #eee; cursor: pointer; transition: 0.3s; font-weight: 600; font-size: 13px; }
+        .state-card:hover { background: var(--navy); color: white; border-color: var(--navy); }
+
+        @media (max-width: 600px) { .search-input { width: 100%; } .state-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
+        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">DIGI MITRA | ALL INDIA RESULTS</div>
+    </header>
+
+    <div class="ad-container">Google AdSense - Top Header Ad</div>
+
+    <div class="main-container">
+        <div class="search-box">
+            <h2 style="margin-bottom: 20px; color: var(--navy);">Search Board/Exam Results</h2>
+            <input type="text" class="search-input" id="resultSearch" placeholder="Type Board Name (e.g. Bihar Board, CBSE)..." onkeyup="filterResults()">
+        </div>
+
+        <div class="section-title"><div class="live-icon"></div> Currently Announced Results</div>
+        <div class="results-list" id="latestResults">
+            <a href="#" class="result-item"><b>Bihar Board (BSEB) 10th Result 2026</b> <span class="new-tag">NEW</span></a>
+            <a href="#" class="result-item"><b>CBSE Class 12th Annual Result</b> <span class="new-tag">NEW</span></a>
+            <a href="#" class="result-item"><b>UP Board High School Result 2026</b></a>
+            <a href="#" class="result-item"><b>Jharkhand Board (JAC) Matric Result</b></a>
+            <a href="#" class="result-item"><b>MP Board Class 10th/12th Result</b></a>
+            <a href="#" class="result-item"><b>Rajasthan Board (RBSE) Result</b></a>
+            <a href="#" class="result-item"><b>Haryana Board (HBSE) 10th Result</b></a>
+            <a href="#" class="result-item"><b>ICSE Class 10th Result 2026</b></a>
+            <a href="#" class="result-item"><b>West Bengal Madhyamik Result</b></a>
+            <a href="#" class="result-item"><b>Maharashtra SSC Result 2026</b></a>
+        </div>
+
+        <div class="ad-container" style="margin: 40px 0;">Google AdSense - Middle Page Native Ad</div>
+
+        <div class="section-title"><i class="fas fa-map-marker-alt" style="color: var(--blue);"></i> State Wise Results</div>
+        <div class="state-grid">
+            <div class="state-card" onclick="showStateResults('Bihar')">BIHAR</div>
+            <div class="state-card" onclick="showStateResults('UP')">UTTAR PRADESH</div>
+            <div class="state-card" onclick="showStateResults('MP')">MADHYA PRADESH</div>
+            <div class="state-card" onclick="showStateResults('Delhi')">DELHI</div>
+            <div class="state-card" onclick="showStateResults('Jharkhand')">JHARKHAND</div>
+            <div class="state-card" onclick="showStateResults('Rajasthan')">RAJASTHAN</div>
+            <div class="state-card" onclick="showStateResults('Punjab')">PUNJAB</div>
+            <div class="state-card" onclick="showStateResults('Haryana')">HARYANA</div>
+            <div class="state-card" onclick="showStateResults('Gujarat')">GUJARAT</div>
+            <div class="state-card" onclick="showStateResults('Others')">ALL STATES...</div>
+        </div>
+
+        <div class="ad-container" style="margin-top: 40px;">Google AdSense - Footer Responsive Ad</div>
+    </div>
+
+    <script>
+        function filterResults() {
+            let input = document.getElementById('resultSearch').value.toLowerCase();
+            let items = document.getElementsByClassName('result-item');
+            
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].innerText.toLowerCase().includes(input)) {
+                    items[i].style.display = "flex";
+                } else {
+                    items[i].style.display = "none";
+                }
+            }
+        }
+
+        function showStateResults(state) {
+            alert(state + " Board Results Section will open with specific links.");
+            // Yahan aap state-specific pages ya filter logic jodh sakte hain
+        }
+    </script>
+</body>
+</html>
