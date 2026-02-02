@@ -7,25 +7,33 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
         let pin = prompt("Admin Security PIN:");
-        if (pin !== "Rehan@786") { window.location.href = "index.html"; }
+        if (pin !== "Rehan@786") { 
+            alert("Galat PIN!"); 
+            window.location.href = "index.html"; 
+        }
     </script>
     <style>
-        :root { --blue: #0074D9; --navy: #001f3f; --bg: #f4f7f9; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; }
-        .admin-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 25px; border-top: 4px solid var(--blue); }
-        h2 { font-size: 16px; color: var(--navy); border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 15px; }
-        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
-        .btn { background: var(--blue); color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
-        th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
-        .btn-del { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
+        :root { --blue: #0074D9; --navy: #001f3f; --bg: #f4f7f9; --red: #e74c3c; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; color: #333; }
+        .admin-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border-top: 4px solid var(--blue); }
+        h2 { font-size: 16px; color: var(--navy); border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-size: 14px; }
+        .btn { background: var(--blue); color: white; border: none; padding: 14px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+        .btn:hover { background: #0056b3; }
+        .btn-extra { background: #2ecc71; }
+        .btn-extra:hover { background: #27ae60; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #eee; text-align: left; font-size: 13px; }
+        th { background: #f8f9fa; color: #666; text-transform: uppercase; font-size: 11px; font-weight: 800; }
+        .btn-del { background: var(--red); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 11px; font-weight: 700; }
+        .cat-tag { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; background: #e0f2fe; color: #0369a1; }
     </style>
 </head>
 <body>
 
 <div class="admin-card">
-    <h2><i class="fas fa-rss"></i> Post Live Updates (Results/Forms/PAN/etc.)</h2>
+    <h2><i class="fas fa-rss"></i> Post Live Updates (Main Portals)</h2>
     <div class="form-grid">
         <select id="updateType">
             <option value="results">Results</option>
@@ -34,29 +42,30 @@
             <option value="pan">PAN Card</option>
             <option value="voter">Voter ID</option>
             <option value="aadhaar">Aadhaar</option>
+            <option value="banking">Banking</option>
+            <option value="ration">Ration Card</option>
         </select>
-        <input type="text" id="updateTitle" placeholder="Title">
+        <input type="text" id="updateTitle" placeholder="Update Title (e.g. SSC GD Admit Card)">
         <input type="text" id="updateLink" placeholder="Official Link">
     </div>
-    <button class="btn" onclick="postUpdate()">Post Update</button>
+    <button class="btn" onclick="postToFirebase()">Live Update Now <i class="fas fa-paper-plane"></i></button>
 </div>
 
 <div class="admin-card">
-    <h2><i class="fas fa-th-large"></i> Manage Home Page (Extra Help Cards)</h2>
-    <p style="font-size: 11px; color: #666;">Yahan se aap Index page ke 10 niche wale cards change kar sakte hain.</p>
+    <h2><i class="fas fa-th-large"></i> Home Page Extra Resources</h2>
     <div class="form-grid">
         <input type="text" id="cardTitle" placeholder="Service Name (e.g. Resume Maker)">
         <input type="text" id="cardIcon" placeholder="FontAwesome Icon (e.g. fa-file-pdf)">
-        <input type="text" id="cardLink" placeholder="Service Link">
+        <input type="text" id="cardLink" placeholder="Tool Link">
     </div>
-    <button class="btn" style="background:#2ecc71;" onclick="postExtraCard()">Update Index Card</button>
+    <button class="btn btn-extra" onclick="postToHome()">Update Home Page Card <i class="fas fa-sync-alt"></i></button>
 </div>
 
 <div class="admin-card">
-    <h2><i class="fas fa-tasks"></i> Manage Existing Content</h2>
-    <table id="linksTable">
+    <h2><i class="fas fa-tasks"></i> Manage Live Content</h2>
+    <table>
         <thead><tr><th>Category</th><th>Title</th><th>Action</th></tr></thead>
-        <tbody></tbody>
+        <tbody id="linksTableBody"></tbody>
     </table>
 </div>
 
@@ -64,50 +73,66 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    const firebaseConfig = { apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4", authDomain: "formmitra-auth.firebaseapp.com", projectId: "formmitra-auth", databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app" };
+    const firebaseConfig = { 
+        apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4", 
+        authDomain: "formmitra-auth.firebaseapp.com", 
+        projectId: "formmitra-auth", 
+        databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app" 
+    };
     const app = initializeApp(firebaseConfig); const db = getDatabase(app);
 
-    // Post to Results/Admit/etc.
-    window.postUpdate = () => {
+    // 1. Post to Main Services
+    window.postToFirebase = () => {
         const type = document.getElementById('updateType').value;
         const title = document.getElementById('updateTitle').value;
         const link = document.getElementById('updateLink').value;
         if(title && link) {
             push(ref(db, 'services/' + type), { title, link, timestamp: Date.now() });
-            alert("Update Live!");
-        }
+            alert("Live ho gaya!");
+            location.reload();
+        } else { alert("Khali mat chhodiye!"); }
     };
 
-    // Post to Index Extra Cards
-    window.postExtraCard = () => {
+    // 2. Post to Home Extra Cards
+    window.postToHome = () => {
         const title = document.getElementById('cardTitle').value;
         const icon = document.getElementById('cardIcon').value;
         const link = document.getElementById('cardLink').value;
         if(title && link) {
             push(ref(db, 'index_extra'), { title, icon: icon || 'fa-star', link });
-            alert("Index Card Added!");
-        }
+            alert("Home card update ho gaya!");
+            location.reload();
+        } else { alert("Title aur Link zaroori hai!"); }
     };
 
-    // Manage Links Table
-    const cats = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar', 'index_extra'];
-    const tbody = document.querySelector('#linksTable tbody');
-    cats.forEach(cat => {
-        onValue(ref(db, 'services/' + cat), (snap) => { render(cat, snap.val()); });
-        onValue(ref(db, 'index_extra'), (snap) => { render('index_extra', snap.val()); });
+    // 3. Render Links with Loop Fix
+    const tableBody = document.getElementById('linksTableBody');
+    const categories = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar', 'banking', 'ration', 'index_extra'];
+    
+    tableBody.innerHTML = ""; // Pehle purana clear karein
+
+    categories.forEach(cat => {
+        const path = (cat === 'index_extra') ? 'index_extra' : 'services/' + cat;
+        onValue(ref(db, path), (snapshot) => {
+            const data = snapshot.val();
+            if(data) {
+                Object.keys(data).forEach(id => {
+                    const row = `<tr>
+                        <td><span class="cat-tag">${cat.toUpperCase()}</span></td>
+                        <td>${data[id].title}</td>
+                        <td><button class="btn-del" onclick="deleteItem('${cat}', '${id}')">Delete</button></td>
+                    </tr>`;
+                    tableBody.innerHTML += row; // Naya row add
+                });
+            }
+        }, { onlyOnce: true }); // Sirf ek baar load karein
     });
 
-    function render(cat, data) {
-        if(!data) return;
-        Object.keys(data).forEach(id => {
-            const row = `<tr><td>${cat.toUpperCase()}</td><td>${data[id].title}</td><td><button class="btn-del" onclick="deleteItem('${cat}', '${id}')">Del</button></td></tr>`;
-            tbody.innerHTML += row;
-        });
-    }
-
     window.deleteItem = (cat, id) => {
-        const path = cat === 'index_extra' ? 'index_extra/' + id : 'services/' + cat + '/' + id;
-        if(confirm("Delete karsun?")) remove(ref(db, path)).then(() => location.reload());
+        const path = (cat === 'index_extra') ? 'index_extra/' + id : 'services/' + cat + '/' + id;
+        if(confirm("Confirm Delete?")) {
+            remove(ref(db, path)).then(() => location.reload());
+        }
     };
 </script>
 </body>
