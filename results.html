@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All India Results - Digi Mitra</title>
+    <title>All India Results Portal - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -11,19 +11,22 @@
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; }
         .header { background: #fff; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { text-decoration: none; color: var(--navy); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .ad-slot { background: #fff; border: 1px dashed #ccc; margin: 15px auto; padding: 10px; text-align: center; color: #aaa; font-size: 10px; max-width: 1000px; border-radius: 8px; }
         .main-container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; }
         
-        .section-title { font-size: 16px; font-weight: 800; color: var(--navy); margin: 20px 0 10px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
-        .live-indicator { width: 10px; height: 10px; background: var(--red); border-radius: 50%; animation: blink 1s infinite; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
-        .results-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; margin-bottom: 30px; }
+        /* Search Box */
+        .search-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .search-input { width: 100%; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 16px; outline: none; box-sizing: border-box; }
+        
+        .section-title { font-size: 16px; font-weight: 800; color: var(--navy); margin: 25px 0 12px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+        .results-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; margin-bottom: 20px; }
         .result-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; transition: 0.2s; font-size: 14px; }
-        .result-item:hover { background: #f8fbff; transform: scale(1.01); color: var(--blue); }
-        .tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; text-transform: uppercase; }
-        .tag-admin { background: #fee2e2; color: #b91c1c; } /* Admin Updates */
-        .tag-static { background: #e0f2fe; color: #0369a1; } /* Permanent Links */
+        .result-item:hover { background: #f8fbff; color: var(--blue); }
+        .tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
+        .tag-admin { background: #fee2e2; color: #b91c1c; }
+        .tag-static { background: #e0f2fe; color: #0369a1; }
+        
+        .google-btn { display: none; text-align: center; padding: 20px; background: #fff; border-radius: 12px; border: 2px dashed #4285F4; margin-top: 20px; }
+        .google-btn a { color: #4285F4; font-weight: 800; text-decoration: none; }
     </style>
 </head>
 <body>
@@ -32,25 +35,33 @@
         <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">SARKARI PORTAL - ALL INDIA RESULTS</div>
     </header>
 
-    <div class="ad-slot">AD_SPACE_TOP</div>
-
     <div class="main-container">
-        <h2 class="section-title"><div class="live-indicator"></div> Recent Updates (Live)</h2>
-        <div class="results-box" id="adminResults">
-            </div>
-
-        <div class="ad-slot">AD_SPACE_MIDDLE</div>
-
-        <h2 class="section-title"><i class="fas fa-map-marker-alt"></i> All India Board Results</h2>
-        <div class="results-box">
-            <a href="https://results.cbse.nic.in/" target="_blank" class="result-item"><b>CBSE Board Class 10th & 12th Results</b> <span class="tag tag-static">Central</span></a>
-            <a href="http://results.biharboardonline.com/" target="_blank" class="result-item"><b>Bihar Board (BSEB) Matric/Inter Results</b> <span class="tag tag-static">Bihar</span></a>
-            <a href="https://upresults.nic.in/" target="_blank" class="result-item"><b>UP Board (UPMSP) High School Results</b> <span class="tag tag-static">UP</span></a>
-            <a href="https://jacresults.com/" target="_blank" class="result-item"><b>Jharkhand (JAC) Board Results Portal</b> <span class="tag tag-static">Jharkhand</span></a>
-            <a href="https://ctet.nic.in/" target="_blank" class="result-item"><b>CTET Central Teacher Eligibility Results</b> <span class="tag tag-static">Teacher</span></a>
-            <a href="https://ssc.nic.in/Portal/Results" target="_blank" class="result-item"><b>SSC (CGL, CHSL, MTS) Final Results</b> <span class="tag tag-static">SSC</span></a>
-            <a href="https://wbresults.nic.in/" target="_blank" class="result-item"><b>West Bengal Madhyamik/HS Results</b> <span class="tag tag-static">WB</span></a>
+        <div class="search-box">
+            <input type="text" id="masterSearch" class="search-input" placeholder="Search Result (e.g. Bihar Board, SSC, NEET)..." onkeyup="smartSearch()">
         </div>
+
+        <div id="googleFallback" class="google-btn">
+            <p style="margin:0 0 10px 0; font-size: 13px; color: #666;">Humein ye result nahi mila. Kya aap Google par dhundhna chahte hain?</p>
+            <a id="googleLink" href="#" target="_blank"><i class="fab fa-google"></i> Search on Google</a>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-bolt" style="color:#f39c12"></i> Recent Flash Updates</h2>
+        <div class="results-box" id="adminResults"></div>
+
+        <h2 class="section-title"><i class="fas fa-university"></i> All India Board & University Results</h2>
+        <div class="results-box" id="staticResults">
+            <a href="https://results.cbse.nic.in/" target="_blank" class="result-item" data-name="cbse board 10th 12th"><b>CBSE Board Class 10th & 12th Results</b> <span class="tag tag-static">Central</span></a>
+            <a href="https://ssc.nic.in/Portal/Results" target="_blank" class="result-item" data-name="ssc cgl chsl mts gd"><b>SSC (CGL, CHSL, MTS, GD) Results</b> <span class="tag tag-static">SSC</span></a>
+            <a href="https://ctet.nic.in/" target="_blank" class="result-item" data-name="ctet teacher result"><b>CTET Teacher Eligibility Results</b> <span class="tag tag-static">Central</span></a>
+            
+            <a href="http://results.biharboardonline.com/" target="_blank" class="result-item" data-name="bihar board matric inter bseb"><b>Bihar Board (BSEB) Matric/Inter Results</b> <span class="tag tag-static">Bihar</span></a>
+            <a href="https://upresults.nic.in/" target="_blank" class="result-item" data-name="up board upmsp highschool intermediate"><b>UP Board (UPMSP) All Exam Results</b> <span class="tag tag-static">UP</span></a>
+            <a href="https://jacresults.com/" target="_blank" class="result-item" data-name="jac jharkhand board academic council"><b>Jharkhand (JAC) Board Results</b> <span class="tag tag-static">Jharkhand</span></a>
+            <a href="https://mahresult.nic.in/" target="_blank" class="result-item" data-name="maharashtra board hsc ssc msbshse"><b>Maharashtra Board Results</b> <span class="tag tag-static">Maharashtra</span></a>
+            <a href="https://rajresults.nic.in/" target="_blank" class="result-item" data-name="rajasthan rbse board ajmer"><b>Rajasthan Board (RBSE) Results</b> <span class="tag tag-static">Rajasthan</span></a>
+            <a href="https://mpresults.nic.in/" target="_blank" class="result-item" data-name="mp board mponline 10th 12th"><b>MP Board Exam Results</b> <span class="tag tag-static">MP</span></a>
+            <a href="https://wbresults.nic.in/" target="_blank" class="result-item" data-name="west bengal madhyamik hs"><b>West Bengal Board Results</b> <span class="tag tag-static">WB</span></a>
+            </div>
     </div>
 
 <script type="module">
@@ -67,6 +78,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
+    // Dynamic Data from Admin Panel
     onValue(ref(db, 'services/results'), (snapshot) => {
         const container = document.getElementById('adminResults');
         container.innerHTML = "";
@@ -74,15 +86,39 @@
         if (data) {
             Object.keys(data).reverse().forEach(id => {
                 container.innerHTML += `
-                    <a href="${data[id].link}" target="_blank" class="result-item">
-                        <b>${data[id].title} (NEW Update)</b>
-                        <span class="tag tag-admin">FLASH</span>
+                    <a href="${data[id].link}" target="_blank" class="result-item" data-name="${data[id].title.toLowerCase()}">
+                        <b>${data[id].title} (FLASH Update)</b>
+                        <span class="tag tag-admin">LIVE</span>
                     </a>`;
             });
-        } else {
-            container.innerHTML = "<p style='padding:20px; color:#999;'>No new flash updates. See permanent links below.</p>";
         }
     });
+
+    // SMART SEARCH LOGIC
+    window.smartSearch = () => {
+        let input = document.getElementById('masterSearch').value.toLowerCase();
+        let items = document.querySelectorAll('.result-item');
+        let found = false;
+
+        items.forEach(item => {
+            let name = item.getAttribute('data-name');
+            if (name.includes(input)) {
+                item.style.display = "flex";
+                found = true;
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        // Agar result na mile toh Google button dikhao
+        let fallback = document.getElementById('googleFallback');
+        if (!found && input.length > 2) {
+            fallback.style.display = "block";
+            document.getElementById('googleLink').href = `https://www.google.com/search?q=${input}+result+official+website`;
+        } else {
+            fallback.style.display = "none";
+        }
+    }
 </script>
 </body>
 </html>
