@@ -3,70 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarkari Portal | All Digital Services Free</title>
+    <title>Sarkari Portal | All India Digital Services Free</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; }
         
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 8%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 24px; font-weight: 800; color: var(--navy); text-decoration: none; }
+        /* Professional Navigation (No Admin/Login) */
+        nav { display: flex; justify-content: center; align-items: center; padding: 20px 8%; background: #fff; border-bottom: 2px solid var(--blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .logo { font-size: 28px; font-weight: 800; color: var(--navy); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
         .logo span { color: var(--blue); }
 
-        .hero { padding: 50px 8%; background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%); color: white; text-align: center; }
-        .hero h1 { font-size: 2.5rem; margin: 0; font-weight: 800; }
+        .hero { padding: 60px 8%; background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%); color: white; text-align: center; }
+        .hero h1 { font-size: 2.8rem; margin: 0; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        .hero p { font-size: 1.2rem; opacity: 0.9; margin-top: 15px; }
         
-        .ad-slot { background: #fff; border: 1px dashed #ccc; margin: 20px auto; padding: 15px; text-align: center; color: #999; font-size: 12px; max-width: 1100px; border-radius: 8px; }
+        /* Maximum AdSense Space */
+        .ad-master { background: #fff; border: 1px dashed #bbb; margin: 25px auto; padding: 20px; text-align: center; color: #888; font-size: 12px; max-width: 1100px; border-radius: 10px; font-weight: 600; }
 
-        .main-container { padding: 30px 8%; max-width: 1200px; margin: 0 auto; }
+        .main-container { padding: 30px 8%; max-width: 1240px; margin: 0 auto; }
         
-        /* Service Grid */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; margin-top: 30px; }
-        .s-card { background: #fff; padding: 25px 15px; border-radius: 15px; text-align: center; border: 1px solid #eee; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .s-card:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .s-card i { font-size: 35px; color: var(--blue); margin-bottom: 15px; }
-        .s-card h3 { font-size: 12px; margin: 0; color: #333; font-weight: 800; text-transform: uppercase; }
+        /* Grid Design */
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; margin-top: 20px; }
+        .s-card { background: #fff; padding: 35px 20px; border-radius: 20px; text-align: center; border: 1px solid #e2e8f0; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 6px 12px rgba(0,0,0,0.03); }
+        .s-card:hover { transform: translateY(-8px); border-color: var(--blue); box-shadow: 0 15px 30px rgba(0,116,217,0.15); }
+        .s-card i { font-size: 40px; color: var(--blue); margin-bottom: 20px; }
+        .s-card h3 { font-size: 14px; margin: 0; color: var(--navy); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
 
-        .section-title { font-size: 18px; font-weight: 800; color: var(--navy); margin: 40px 0 20px; border-left: 5px solid var(--blue); padding-left: 15px; }
+        .section-title { font-size: 22px; font-weight: 800; color: var(--navy); margin: 50px 0 25px; border-left: 6px solid var(--blue); padding-left: 20px; }
         
-        footer { padding: 40px 8%; text-align: center; background: #fff; border-top: 1px solid #eee; margin-top: 50px; }
+        .footer { padding: 60px 8%; text-align: center; background: #fff; border-top: 1px solid #eee; margin-top: 60px; }
+        .footer p { margin: 5px 0; color: #666; font-size: 14px; }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="index.html" class="logo">SARKARI<span>PORTAL</span></a>
-        <div class="nav-links">
-            <a href="login.html" style="text-decoration:none; color:var(--navy); font-weight:700;">ADMIN LOGIN</a>
-        </div>
     </nav>
 
+    <div class="ad-master">Google AdSense Space - Top Leaderboard Banner</div>
+
     <section class="hero">
-        <h1>Sabhi Digital Services Ab Bilkul FREE</h1>
-        <p>Aadhaar, PAN, Voter ID, Results aur Admit Cards - Ek hi jagah par.</p>
+        <h1>Digital Seva Hub - 100% Free</h1>
+        <p>Aadhaar, PAN, Voter, Results aur sabhi Sarkari links ab ek hi jagah par.</p>
     </section>
 
-    <div class="ad-slot">Google AdSense Space (Top Banner)</div>
-
     <div class="main-container">
-        <h2 class="section-title">Hamari Main Services</h2>
+        <h2 class="section-title">Sabhi Important Services</h2>
         <div class="services-grid">
             <a href="aadhaar.html" class="s-card">
                 <i class="fas fa-id-card"></i>
-                <h3>Aadhaar Services</h3>
+                <h3>Aadhaar Card</h3>
             </a>
             <a href="pan.html" class="s-card">
                 <i class="fas fa-address-card"></i>
-                <h3>PAN Card Portal</h3>
+                <h3>PAN Card Hub</h3>
             </a>
             <a href="voter.html" class="s-card">
                 <i class="fas fa-user-check"></i>
-                <h3>Voter Seva</h3>
+                <h3>Voter Services</h3>
             </a>
             <a href="results.html" class="s-card">
                 <i class="fas fa-graduation-cap"></i>
-                <h3>Exam Results</h3>
+                <h3>Latest Results</h3>
             </a>
             <a href="admit-card.html" class="s-card">
                 <i class="fas fa-ticket-alt"></i>
@@ -82,30 +83,31 @@
             </a>
             <a href="forms.html" class="s-card">
                 <i class="fas fa-edit"></i>
-                <h3>Online Forms</h3>
+                <h3>Apply Online</h3>
             </a>
         </div>
 
-        <div class="ad-slot">Google AdSense Space (Middle Content Ad)</div>
+        <div class="ad-master">Google AdSense Space - In-Feed Content Banner</div>
 
-        <h2 class="section-title">Affiliate Offers (Earn Money)</h2>
+        <h2 class="section-title">Extra Help & Resources</h2>
         <div class="services-grid">
-            <a href="YOUR_AFFILIATE_LINK" target="_blank" class="s-card" style="border: 2px solid #2ecc71;">
-                <i class="fas fa-credit-card" style="color:#2ecc71;"></i>
-                <h3>Free Credit Card</h3>
+            <a href="https://myaadhaar.uidai.gov.in/" target="_blank" class="s-card" style="border-bottom: 5px solid #2ecc71;">
+                <i class="fas fa-shield-alt" style="color:#2ecc71;"></i>
+                <h3>Official Portals</h3>
             </a>
-            <a href="YOUR_AFFILIATE_LINK" target="_blank" class="s-card" style="border: 2px solid #2ecc71;">
-                <i class="fas fa-chart-line" style="color:#2ecc71;"></i>
-                <h3>Open Demat A/C</h3>
+            <a href="https://www.onlineservices.nsdl.com/" target="_blank" class="s-card" style="border-bottom: 5px solid #e67e22;">
+                <i class="fas fa-file-signature" style="color:#e67e22;"></i>
+                <h3>Instant Services</h3>
             </a>
         </div>
     </div>
 
-    <div class="ad-slot">Google AdSense Space (Footer Ad)</div>
+    <div class="ad-master">Google AdSense Space - Large Rectangle Footer Ad</div>
 
-    <footer>
-        <p style="font-weight: 800; color: var(--navy);">SARKARI PORTAL &copy; 2026</p>
-        <p style="color: #666; font-size: 14px;">Desh Ki Sabse Tez Digital Service Website.</p>
+    <footer class="footer">
+        <p style="font-weight: 800; color: var(--navy); font-size: 1.8rem;">SARKARI PORTAL</p>
+        <p>India's Fast & Free Digital Service Directory.</p>
+        <p style="color: #bbb; margin-top: 20px;">&copy; 2026 Sarkari Portal. Helping Digital India.</p>
     </footer>
 
 </body>
