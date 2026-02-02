@@ -1,16 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"><title>About Us - Digi Mitra</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | DigiMitr - Your Digital Seva Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; line-height: 1.6; padding: 50px 10%; color: #333; }
-        h1 { color: #001f3f; border-bottom: 3px solid #0074D9; display: inline-block; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
+        nav { display: flex; justify-content: center; align-items: center; padding: 20px 8%; background: #fff; border-bottom: 2px solid var(--blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .logo { font-size: 28px; font-weight: 800; color: var(--navy); text-decoration: none; text-transform: uppercase; }
+        .logo span { color: var(--blue); }
+        
+        .content-section { max-width: 900px; margin: 50px auto; padding: 40px; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        h1 { color: var(--navy); font-size: 32px; font-weight: 800; margin-bottom: 20px; text-align: center; }
+        h2 { color: var(--blue); font-size: 22px; margin-top: 30px; border-left: 5px solid var(--blue); padding-left: 15px; }
+        p { font-size: 16px; color: #555; margin-bottom: 20px; }
+        .highlight-box { background: #eef2f7; padding: 20px; border-radius: 10px; border-left: 5px solid var(--navy); margin: 25px 0; }
+        
+        .footer { background: #fff; padding: 40px 8% 20px; border-top: 1px solid #eee; margin-top: 60px; text-align: center; }
+        .footer-bottom p { color: #999; font-size: 12px; }
     </style>
 </head>
 <body>
-    <h1>About Digi Mitra</h1>
-    <p>Welcome to <b>Digi Mitra</b>. Hum ek aisi digital directory hain jo sabhi sarkari results, admit cards aur updates ko ek hi jagah par laate hain.</p>
-    <p>Hamara maqsad desh ke har nagrik tak sahi aur sateek sarkari jaankari pahunchana hai. Hum koi sarkari sanstha nahi hain, balki ek informational portal hain jo public data ko asaan tareeke se dikhate hain.</p>
+
+    <nav><a href="index.html" class="logo">DIGI<span>MITR</span></a></nav>
+
+    <div class="main-container">
+        <div class="content-section">
+            <h1>About DigiMitr</h1>
+            <p>Welcome to <strong>DigiMitr (digimitr.in)</strong>, your one-stop platform for all essential digital services and government information in India. Humara maqsad hai har nagrik ko digital sevaon se jodna aur unhe sahi aur up-to-date jankari pradan karna.</p>
+
+            <div class="highlight-box">
+                <strong>Our Mission:</strong> Hamara lakshya hai ki sarkari results, admit cards, aur digital document services (Aadhaar, PAN, Voter ID) ko asaan aur sabki pahunch mein laya jaye.
+            </div>
+
+            <h2>Who We Are</h2>
+            <p>DigiMitr ek dedicated platform hai jo latest exam results, sarkari jobs, aur daily digital resources ko organize karke pesh karta hai. Hum jante hain ki sahi waqt par sahi link milna kitna zaroori hai, isliye hum verified aur official sources se hi data fetch karte hain.</p>
+
+            <h2>What We Offer</h2>
+            <ul>
+                <li><strong>Verified Result Updates:</strong> Sabhi board aur competitive exams ke latest results.</li>
+                <li><strong>Document Services:</strong> Aadhaar, PAN Card, aur Voter ID se judi direct links.</li>
+                <li><strong>Real-time Notifications:</strong> Naye admit cards aur application forms ki turant jankari.</li>
+                <li><strong>User-Friendly Experience:</strong> Fast loading aur mobile-optimized portal.</li>
+            </ul>
+
+            <h2>Our Values</h2>
+            <p>Transparency aur Reliability hamari pehchan hai. DigiMitr kisi bhi tarah ki galat jankari ya clickbait ko promote nahi karta. Hum hamesha official government portals ko credit dete hain aur unhi ke zariye aapka kaam asaan karte hain.</p>
+
+            <h2>Contact Us</h2>
+            <p>Agar aapke paas koi sawal ya sujhav hai, toh aap hamare <strong>Contact Us</strong> page par ja kar humse sampark kar sakte hain. Aapki feedback hamare liye bahut keemti hai.</p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>&copy; 2026 DigiMitr Network. All Rights Reserved.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
