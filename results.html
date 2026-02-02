@@ -3,65 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All India Results Portal - Digi Mitra</title>
+    <title>All India Results - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; --red: #e74c3c; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; --orange: #f39c12; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; }
+        
+        /* Master Header */
         .header { background: #fff; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { text-decoration: none; color: var(--navy); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        
+        /* AdSense Master Slots */
+        .ad-master { background: #fff; border: 1px dashed #ccc; margin: 15px auto; padding: 15px; text-align: center; color: #aaa; font-size: 11px; max-width: 1000px; border-radius: 8px; }
+
         .main-container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; }
         
         /* Search Box */
-        .search-box { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .search-container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
         .search-input { width: 100%; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 16px; outline: none; box-sizing: border-box; }
-        
-        .section-title { font-size: 16px; font-weight: 800; color: var(--navy); margin: 25px 0 12px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
-        .results-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; margin-bottom: 20px; }
-        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; transition: 0.2s; font-size: 14px; }
+
+        /* Results List */
+        .section-title { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 15px; border-left: 5px solid var(--orange); padding-left: 15px; text-transform: uppercase; }
+        .results-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; margin-bottom: 30px; }
+        .result-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; transition: 0.2s; }
         .result-item:hover { background: #f8fbff; color: var(--blue); }
-        .tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
-        .tag-admin { background: #fee2e2; color: #b91c1c; }
-        .tag-static { background: #e0f2fe; color: #0369a1; }
         
-        .google-btn { display: none; text-align: center; padding: 20px; background: #fff; border-radius: 12px; border: 2px dashed #4285F4; margin-top: 20px; }
-        .google-btn a { color: #4285F4; font-weight: 800; text-decoration: none; }
+        /* Tags */
+        .tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; text-transform: uppercase; }
+        .tag-live { background: #fee2e2; color: #b91c1c; }
+        .tag-static { background: #e0f2fe; color: #0369a1; }
+
+        /* Google Search Fallback */
+        .google-fallback { display: none; text-align: center; padding: 25px; background: #fff; border-radius: 12px; border: 2px dashed #4285F4; margin-top: 20px; }
+        .google-link { color: #4285F4; font-weight: 800; text-decoration: none; display: inline-block; margin-top: 10px; }
     </style>
 </head>
 <body>
+
     <header class="header">
         <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
-        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">SARKARI PORTAL - ALL INDIA RESULTS</div>
+        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA RESULTS PORTAL</div>
     </header>
 
+    <div class="ad-master">Google AdSense Space - Top Banner</div>
+
     <div class="main-container">
-        <div class="search-box">
-            <input type="text" id="masterSearch" class="search-input" placeholder="Search Result (e.g. Bihar Board, SSC, NEET)..." onkeyup="smartSearch()">
+        <div class="search-container">
+            <input type="text" id="masterSearch" class="search-input" placeholder="Search Result (e.g. Bihar Board, SSC, CBSE)..." onkeyup="smartSearch()">
         </div>
 
-        <div id="googleFallback" class="google-btn">
-            <p style="margin:0 0 10px 0; font-size: 13px; color: #666;">Humein ye result nahi mila. Kya aap Google par dhundhna chahte hain?</p>
-            <a id="googleLink" href="#" target="_blank"><i class="fab fa-google"></i> Search on Google</a>
+        <div id="googleSection" class="google-fallback">
+            <p style="margin:0; font-size: 13px; color: #666;">Result nahi mila? Google par check karein:</p>
+            <a id="googleLink" href="#" target="_blank" class="google-link"><i class="fab fa-google"></i> Search on Google</a>
         </div>
 
-        <h2 class="section-title"><i class="fas fa-bolt" style="color:#f39c12"></i> Recent Flash Updates</h2>
+        <h2 class="section-title">Flash Updates</h2>
         <div class="results-box" id="adminResults"></div>
 
-        <h2 class="section-title"><i class="fas fa-university"></i> All India Board & University Results</h2>
+        <div class="ad-master">Google AdSense Space - Middle Banner</div>
+
+        <h2 class="section-title">Permanent State Results</h2>
         <div class="results-box" id="staticResults">
-            <a href="https://results.cbse.nic.in/" target="_blank" class="result-item" data-name="cbse board 10th 12th"><b>CBSE Board Class 10th & 12th Results</b> <span class="tag tag-static">Central</span></a>
-            <a href="https://ssc.nic.in/Portal/Results" target="_blank" class="result-item" data-name="ssc cgl chsl mts gd"><b>SSC (CGL, CHSL, MTS, GD) Results</b> <span class="tag tag-static">SSC</span></a>
-            <a href="https://ctet.nic.in/" target="_blank" class="result-item" data-name="ctet teacher result"><b>CTET Teacher Eligibility Results</b> <span class="tag tag-static">Central</span></a>
-            
-            <a href="http://results.biharboardonline.com/" target="_blank" class="result-item" data-name="bihar board matric inter bseb"><b>Bihar Board (BSEB) Matric/Inter Results</b> <span class="tag tag-static">Bihar</span></a>
-            <a href="https://upresults.nic.in/" target="_blank" class="result-item" data-name="up board upmsp highschool intermediate"><b>UP Board (UPMSP) All Exam Results</b> <span class="tag tag-static">UP</span></a>
-            <a href="https://jacresults.com/" target="_blank" class="result-item" data-name="jac jharkhand board academic council"><b>Jharkhand (JAC) Board Results</b> <span class="tag tag-static">Jharkhand</span></a>
-            <a href="https://mahresult.nic.in/" target="_blank" class="result-item" data-name="maharashtra board hsc ssc msbshse"><b>Maharashtra Board Results</b> <span class="tag tag-static">Maharashtra</span></a>
-            <a href="https://rajresults.nic.in/" target="_blank" class="result-item" data-name="rajasthan rbse board ajmer"><b>Rajasthan Board (RBSE) Results</b> <span class="tag tag-static">Rajasthan</span></a>
-            <a href="https://mpresults.nic.in/" target="_blank" class="result-item" data-name="mp board mponline 10th 12th"><b>MP Board Exam Results</b> <span class="tag tag-static">MP</span></a>
-            <a href="https://wbresults.nic.in/" target="_blank" class="result-item" data-name="west bengal madhyamik hs"><b>West Bengal Board Results</b> <span class="tag tag-static">WB</span></a>
-            </div>
+            <a href="http://results.biharboardonline.com/" target="_blank" class="result-item" data-name="bihar board matric inter bseb"><b>Bihar Board Matric & Inter Result</b> <span class="tag tag-static">Bihar</span></a>
+            <a href="https://results.cbse.nic.in/" target="_blank" class="result-item" data-name="cbse board 10th 12th"><b>CBSE Board X & XII Results</b> <span class="tag tag-static">Central</span></a>
+            <a href="https://upresults.nic.in/" target="_blank" class="result-item" data-name="up board upmsp highschool"><b>UP Board High School Result</b> <span class="tag tag-static">UP</span></a>
+            <a href="https://ssc.nic.in/Portal/Results" target="_blank" class="result-item" data-name="ssc cgl chsl mts gd"><b>SSC All Competitive Results</b> <span class="tag tag-static">SSC</span></a>
+            <a href="https://jacresults.com/" target="_blank" class="result-item" data-name="jac jharkhand board academic"><b>Jharkhand (JAC) Board Results</b> <span class="tag tag-static">Jharkhand</span></a>
+            <a href="https://mahresult.nic.in/" target="_blank" class="result-item" data-name="maharashtra board hsc ssc"><b>Maharashtra Board Results</b> <span class="tag tag-static">MH</span></a>
+        </div>
+
+        <div class="ad-master">Google AdSense Space - Footer Banner</div>
     </div>
 
 <script type="module">
@@ -78,7 +90,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Dynamic Data from Admin Panel
+    // Fetch Admin Posts
     onValue(ref(db, 'services/results'), (snapshot) => {
         const container = document.getElementById('adminResults');
         container.innerHTML = "";
@@ -87,22 +99,21 @@
             Object.keys(data).reverse().forEach(id => {
                 container.innerHTML += `
                     <a href="${data[id].link}" target="_blank" class="result-item" data-name="${data[id].title.toLowerCase()}">
-                        <b>${data[id].title} (FLASH Update)</b>
-                        <span class="tag tag-admin">LIVE</span>
+                        <b>${data[id].title}</b>
+                        <span class="tag tag-live">NEW</span>
                     </a>`;
             });
         }
     });
 
-    // SMART SEARCH LOGIC
+    // Smart Search Function
     window.smartSearch = () => {
         let input = document.getElementById('masterSearch').value.toLowerCase();
         let items = document.querySelectorAll('.result-item');
         let found = false;
 
         items.forEach(item => {
-            let name = item.getAttribute('data-name');
-            if (name.includes(input)) {
+            if (item.getAttribute('data-name').includes(input)) {
                 item.style.display = "flex";
                 found = true;
             } else {
@@ -110,11 +121,10 @@
             }
         });
 
-        // Agar result na mile toh Google button dikhao
-        let fallback = document.getElementById('googleFallback');
+        const fallback = document.getElementById('googleSection');
         if (!found && input.length > 2) {
             fallback.style.display = "block";
-            document.getElementById('googleLink').href = `https://www.google.com/search?q=${input}+result+official+website`;
+            document.getElementById('googleLink').href = `https://www.google.com/search?q=${input}+result+official+site`;
         } else {
             fallback.style.display = "none";
         }
