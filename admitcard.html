@@ -3,31 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Admit Cards - Digi Mitra</title>
+    <title>All India Admit Cards - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --orange: #f39c12; --bg: #f4f7f9; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; --red: #e74c3c; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; }
+        
         .header { background: #fff; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { text-decoration: none; color: var(--navy); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        
+        /* AdSense Master Slots */
+        .ad-master { background: #fff; border: 1px dashed #ccc; margin: 15px auto; padding: 15px; text-align: center; color: #aaa; font-size: 11px; max-width: 1000px; border-radius: 8px; }
+
         .main-container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; }
-        .list-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; min-height: 200px; }
-        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; transition: 0.2s; }
-        .item-row:hover { background: #fffaf0; color: var(--orange); }
-        .tag-soon { background: #fee2e2; color: #991b1b; font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; }
-        .loader { text-align: center; padding: 50px; color: #94a3b8; }
+        
+        .search-container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .search-input { width: 100%; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 16px; outline: none; box-sizing: border-box; }
+
+        .section-title { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 15px; border-left: 5px solid var(--red); padding-left: 15px; text-transform: uppercase; }
+        .list-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; margin-bottom: 30px; }
+        .item-row { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; transition: 0.2s; }
+        .item-row:hover { background: #fff5f5; color: var(--red); }
+        
+        .tag { font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 700; text-transform: uppercase; }
+        .tag-new { background: #fee2e2; color: #b91c1c; animation: flash 1s infinite; }
+        @keyframes flash { 50% { opacity: 0.6; } }
+        .tag-link { background: #f1f5f9; color: #475569; }
+
+        .google-fallback { display: none; text-align: center; padding: 25px; background: #fff; border-radius: 12px; border: 2px dashed #4285F4; margin-top: 20px; }
+        .google-link { color: #4285F4; font-weight: 800; text-decoration: none; display: inline-block; margin-top: 10px; }
     </style>
 </head>
 <body>
+
     <header class="header">
         <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
-        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">DOWNLOAD ADMIT CARDS</div>
+        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ADMIT CARD DOWNLOAD HUB</div>
     </header>
+
+    <div class="ad-master">Google AdSense Space - Top Banner</div>
+
     <div class="main-container">
-        <div class="list-box" id="dynamicAdmit">
-            <div class="loader">Checking for new hall tickets...</div>
+        <div class="search-container">
+            <input type="text" id="masterSearch" class="search-input" placeholder="Search Admit Card (e.g. STET, CTET, SSC, Railway)..." onkeyup="smartSearch()">
         </div>
+
+        <div id="googleSection" class="google-fallback">
+            <p style="margin:0; font-size: 13px; color: #666;">Admit Card nahi mila? Google par check karein:</p>
+            <a id="googleLink" href="#" target="_blank" class="google-link"><i class="fab fa-google"></i> Search on Google</a>
+        </div>
+
+        <h2 class="section-title">Latest Admit Cards</h2>
+        <div class="list-box" id="adminAdmit"></div>
+
+        <div class="ad-master">Google AdSense Space - Middle Banner</div>
+
+        <h2 class="section-title">Permanent Hall Ticket Links</h2>
+        <div class="list-box" id="staticAdmit">
+            <a href="https://ctet.nic.in/" target="_blank" class="item-row" data-name="ctet admit card central teacher"><b>CTET Admit Card Portal</b> <span class="tag tag-link">Central</span></a>
+            <a href="https://ssc.nic.in/Portal/AdmitCard" target="_blank" class="item-row" data-name="ssc cgl chsl mts gd admit card"><b>SSC All Region Admit Cards</b> <span class="tag tag-link">SSC</span></a>
+            <a href="https://onlinebpsc.bihar.gov.in/" target="_blank" class="item-row" data-name="bpsc tre teacher admit card bihar"><b>BPSC Teacher (TRE) Admit Card</b> <span class="tag tag-link">Bihar</span></a>
+            <a href="https://bsebstet2024.com/" target="_blank" class="item-row" data-name="bihar stet admit card bseb secondary"><b>Bihar STET Admit Card Portal</b> <span class="tag tag-link">Bihar</span></a>
+            <a href="https://upsc.gov.in/admit-cards" target="_blank" class="item-row" data-name="upsc ias nda cds admit card"><b>UPSC All Exam Admit Cards</b> <span class="tag tag-link">UPSC</span></a>
+            <a href="https://nta.ac.in/" target="_blank" class="item-row" data-name="nta neet jee cuet admit card"><b>NTA Exam Admit Cards (NEET/JEE)</b> <span class="tag tag-link">NTA</span></a>
+        </div>
+
+        <div class="ad-master">Google AdSense Space - Footer Banner</div>
     </div>
 
 <script type="module">
@@ -44,22 +86,45 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
+    // Fetch Admin Posts
     onValue(ref(db, 'services/admitcards'), (snapshot) => {
-        const container = document.getElementById('dynamicAdmit');
+        const container = document.getElementById('adminAdmit');
         container.innerHTML = "";
         const data = snapshot.val();
         if (data) {
             Object.keys(data).reverse().forEach(id => {
                 container.innerHTML += `
-                    <a href="${data[id].link}" target="_blank" class="item-row">
+                    <a href="${data[id].link}" target="_blank" class="item-row" data-name="${data[id].title.toLowerCase()}">
                         <b>${data[id].title}</b>
-                        <span class="tag-soon">Download</span>
+                        <span class="tag tag-new">DOWNLOAD NOW</span>
                     </a>`;
             });
-        } else {
-            container.innerHTML = "<div class='loader'>No admit cards found.</div>";
         }
     });
+
+    // Smart Search Function
+    window.smartSearch = () => {
+        let input = document.getElementById('masterSearch').value.toLowerCase();
+        let items = document.querySelectorAll('.item-row');
+        let found = false;
+
+        items.forEach(item => {
+            if (item.getAttribute('data-name').includes(input)) {
+                item.style.display = "flex";
+                found = true;
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        const fallback = document.getElementById('googleSection');
+        if (!found && input.length > 2) {
+            fallback.style.display = "block";
+            document.getElementById('googleLink').href = `https://www.google.com/search?q=${input}+admit+card+official+site`;
+        } else {
+            fallback.style.display = "none";
+        }
+    }
 </script>
 </body>
 </html>
