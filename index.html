@@ -3,70 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digi Mitra | All India Digital Services Free</title>
+    <title>Digi Mitra | India's Free Digital Service Portal</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; --red: #e74c3c; }
-        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; }
+        body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
         
-        /* Premium Branding */
+        /* Navigation */
         nav { display: flex; justify-content: center; align-items: center; padding: 20px 8%; background: #fff; border-bottom: 2px solid var(--blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .logo { font-size: 28px; font-weight: 800; color: var(--navy); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
         .logo span { color: var(--blue); }
 
-        .hero { padding: 50px 8%; background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%); color: white; text-align: center; }
-        .hero h1 { font-size: 2.5rem; margin: 0; font-weight: 800; }
+        /* Hero Section */
+        .hero { padding: 60px 8%; background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%); color: white; text-align: center; }
+        .hero h1 { font-size: 2.8rem; margin: 0; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
+        .hero p { font-size: 1.2rem; opacity: 0.9; margin-top: 15px; }
         
-        /* AdSense Optimized Slots */
-        .ad-master { background: #fff; border: 1px dashed #bbb; margin: 20px auto; padding: 15px; text-align: center; color: #888; font-size: 11px; max-width: 1100px; border-radius: 8px; }
+        /* Ad Slots */
+        .ad-master { background: #fff; border: 1px dashed #bbb; margin: 25px auto; padding: 15px; text-align: center; color: #888; font-size: 11px; max-width: 1100px; border-radius: 8px; font-weight: 600; }
 
         .main-container { padding: 20px 8%; max-width: 1200px; margin: 0 auto; }
         
-        /* Live Updates Section */
-        .flash-container { background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow: hidden; margin-top: -40px; border-top: 5px solid var(--red); }
-        .flash-header { background: var(--red); color: white; padding: 10px 20px; font-weight: 800; font-size: 14px; text-transform: uppercase; }
-        .flash-list { list-style: none; padding: 0; margin: 0; max-height: 250px; overflow-y: auto; }
-        .flash-list li a { display: flex; justify-content: space-between; padding: 15px 20px; text-decoration: none; color: #444; border-bottom: 1px solid #f1f5f9; font-size: 14px; font-weight: 600; }
+        /* Flash Updates */
+        .flash-container { background: #fff; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.08); overflow: hidden; margin-top: -50px; border-top: 5px solid var(--red); }
+        .flash-header { background: var(--red); color: white; padding: 12px 20px; font-weight: 800; font-size: 14px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+        .flash-list { list-style: none; padding: 0; margin: 0; max-height: 280px; overflow-y: auto; }
+        .flash-list li a { display: flex; justify-content: space-between; padding: 15px 20px; text-decoration: none; color: #444; border-bottom: 1px solid #f1f5f9; font-size: 14px; font-weight: 600; transition: 0.2s; }
         .flash-list li a:hover { background: #fff5f5; color: var(--red); }
-        .new-tag { background: #fee2e2; color: #b91c1c; font-size: 10px; padding: 2px 8px; border-radius: 4px; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.5; } }
+        .new-tag { background: #fee2e2; color: #b91c1c; font-size: 9px; padding: 2px 6px; border-radius: 4px; animation: blink 1s infinite; font-weight: 800; }
+        @keyframes blink { 50% { opacity: 0.4; } }
 
-        .section-title { font-size: 18px; font-weight: 800; color: var(--navy); margin: 40px 0 20px; border-left: 5px solid var(--blue); padding-left: 15px; text-transform: uppercase; }
-        
-        /* Grid Layout */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-        .s-card { background: #fff; padding: 25px 15px; border-radius: 15px; text-align: center; border: 1px solid #eee; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
-        .s-card:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 10px 20px rgba(0,116,217,0.1); }
-        .s-card i { font-size: 35px; color: var(--blue); margin-bottom: 15px; }
-        .s-card h3 { font-size: 12px; margin: 0; color: #333; font-weight: 800; text-transform: uppercase; }
-        .extra-card { border-bottom: 4px solid #2ecc71; }
+        /* Grid System */
+        .section-title { font-size: 20px; font-weight: 800; color: var(--navy); margin: 50px 0 25px; border-left: 6px solid var(--blue); padding-left: 18px; text-transform: uppercase; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
+        .s-card { background: #fff; padding: 30px 15px; border-radius: 18px; text-align: center; border: 1px solid #e2e8f0; text-decoration: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .s-card:hover { transform: translateY(-8px); border-color: var(--blue); box-shadow: 0 15px 30px rgba(0,116,217,0.12); }
+        .s-card i { font-size: 38px; color: var(--blue); margin-bottom: 18px; display: block; }
+        .s-card h3 { font-size: 13px; margin: 0; color: var(--navy); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+        .extra-card { border-bottom: 5px solid #2ecc71; }
         .extra-card i { color: #2ecc71; }
 
-        footer { padding: 40px 8%; text-align: center; background: #fff; border-top: 1px solid #eee; margin-top: 50px; }
+        /* Footer */
+        .footer { background: #fff; padding: 60px 8% 30px; border-top: 1px solid #eee; margin-top: 80px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; text-align: left; }
+        .footer-brand .logo { font-size: 24px; }
+        .footer-brand p { color: #666; font-size: 14px; margin-top: 15px; line-height: 1.8; }
+        .footer-links h4 { color: var(--navy); margin-bottom: 25px; font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+        .footer-links ul { list-style: none; padding: 0; }
+        .footer-links ul li { margin-bottom: 15px; }
+        .footer-links ul li a { text-decoration: none; color: #777; font-size: 14px; transition: 0.3s; }
+        .footer-links ul li a:hover { color: var(--blue); padding-left: 8px; }
+        .footer-bottom { border-top: 1px solid #eee; padding-top: 30px; margin-top: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .footer-bottom p { color: #999; font-size: 12px; margin: 0; }
+        .made-in-india { display: flex; align-items: center; gap: 8px; color: #555; font-weight: 700; font-size: 12px; }
     </style>
-    
 </head>
 <body>
 
     <nav><a href="index.html" class="logo">DIGI<span>MITRA</span></a></nav>
 
     <section class="hero">
-        <h1>Sabhi Digital Services Ab 100% FREE</h1>
-        <p>Updates, Results aur Professional Tools - Sab Kuch Ek Hi Jagah.</p>
+        <h1>Digital Seva Hub - 100% Free</h1>
+        <p>Aadhaar, PAN, Results aur sabhi Sarkari Services ab ek hi thikane par.</p>
     </section>
 
     <div class="main-container">
         <div class="flash-container">
             <div class="flash-header"><i class="fas fa-bolt"></i> Live Flash Updates</div>
             <ul class="flash-list" id="masterFlashUpdates">
-                <li><a href="#">Connecting to real-time server...</a></li>
+                <li><a href="#">Syncing with real-time database...</a></li>
             </ul>
         </div>
 
-        <div class="ad-master">Google AdSense Space - Top Leaderboard</div>
+        <div class="ad-master">Google AdSense Space - Top Leaderboard Banner</div>
 
-        <h2 class="section-title">Main Service Categories</h2>
+        <h2 class="section-title">Verified Service Categories</h2>
         <div class="services-grid">
             <a href="aadhaar.html" class="s-card"><i class="fas fa-id-card"></i><h3>Aadhaar Card</h3></a>
             <a href="pan.html" class="s-card"><i class="fas fa-address-card"></i><h3>PAN Card Hub</h3></a>
@@ -75,96 +87,50 @@
             <a href="admit-card.html" class="s-card"><i class="fas fa-ticket-alt"></i><h3>Admit Cards</h3></a>
             <a href="ration.html" class="s-card"><i class="fas fa-file-invoice"></i><h3>Ration Card</h3></a>
             <a href="banking.html" class="s-card"><i class="fas fa-university"></i><h3>Banking & NPCI</h3></a>
-            <a href="forms.html" class="s-card"><i class="fas fa-edit"></i><h3>Apply Online</h3></a>
+            <a href="forms.html" class="s-card"><i class="fas fa-edit"></i><h3>Online Forms</h3></a>
         </div>
 
-        <div class="ad-master">Google AdSense Space - Middle Content Ad</div>
+        <div class="ad-master">Google AdSense Space - In-Feed Native Ad</div>
 
         <h2 class="section-title">Extra Help & Resources</h2>
         <div class="services-grid" id="dynamicExtraCards">
             </div>
 
-        <div class="ad-master">Google AdSense Space - Footer Large Ad</div>
-    </div>
-    <style>
-    /* Footer Styling */
-    .footer { 
-        background: #fff; 
-        padding: 60px 8% 20px; 
-        border-top: 1px solid #eee; 
-        margin-top: 60px; 
-    }
-    .footer-grid { 
-        display: grid; 
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
-        gap: 40px; 
-        text-align: left; 
-        margin-bottom: 40px;
-    }
-    .footer-brand .logo { font-size: 24px; }
-    .footer-brand p { color: #666; font-size: 14px; margin-top: 15px; line-height: 1.8; }
-    
-    .footer-links h4 { color: var(--navy); margin-bottom: 20px; font-weight: 800; text-transform: uppercase; font-size: 14px; }
-    .footer-links ul { list-style: none; padding: 0; }
-    .footer-links ul li { margin-bottom: 12px; }
-    .footer-links ul li a { text-decoration: none; color: #666; font-size: 14px; transition: 0.3s; }
-    .footer-links ul li a:hover { color: var(--blue); padding-left: 5px; }
-    
-    .footer-bottom { 
-        border-top: 1px solid #eee; 
-        padding-top: 20px; 
-        display: flex; 
-        justify-content: space-between; 
-        align-items: center; 
-        flex-wrap: wrap; 
-        gap: 20px;
-    }
-    .footer-bottom p { color: #999; font-size: 12px; margin: 0; }
-    .made-in-india { display: flex; align-items: center; gap: 8px; color: #666; font-weight: 700; font-size: 12px; }
-    .made-in-india img { width: 20px; }
-</style>
-
-<footer class="footer">
-    <div class="footer-grid">
-        <div class="footer-brand">
-            <a href="#" class="logo">DIGI<span>MITRA</span></a>
-            <p>Digi Mitra India ka sabse bharosemand digital service portal hai, jo aapko sabhi sarkari updates aur results bilkul free mein minto mein provide karta hai.</p>
-        </div>
-
-        <div class="footer-links">
-            <h4>Quick Access</h4>
-            <ul>
-                <li><a href="results.html">Latest Results</a></li>
-                <li><a href="admit-card.html">Admit Cards</a></li>
-                <li><a href="forms.html">Apply Online</a></li>
-                <li><a href="aadhaar.html">Aadhaar Services</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-links">
-            <h4>Important Pages</h4>
-            <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Disclaimer</a></li>
-            </ul>
-        </div>
+        <div class="ad-master">Google AdSense Space - Footer Large Rectangle</div>
     </div>
 
-    <div class="footer-bottom">
-        <p>&copy; 2026 Digi Mitra Portal. All Rights Reserved.</p>
-        <div class="made-in-india">
-            <span>Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> in India</span>
-            <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India Flag">
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">DIGI<span>MITRA</span></a>
+                <p>Digi Mitra desh ka bharosemand digital service portal hai. Hamara maqsad har nagrik ko digital sevaon se jodna hai.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><a href="results.html">Latest Results</a></li>
+                    <li><a href="admit-card.html">Admit Cards</a></li>
+                    <li><a href="forms.html">Apply Online</a></li>
+                    <li><a href="banking.html">NPCI Seeding</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal Pages</h4>
+                <ul>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="disclaimer.html">Disclaimer</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
         </div>
-    </div>
-</footer>
-
-    <footer>
-        <p style="font-weight: 800; color: var(--navy); font-size: 1.6rem;">DIGIMITRA</p>
-        <p style="color: #666; font-size: 14px;">India's Most Trusted Digital Service Portal.</p>
-        <p style="color: #bbb; font-size: 12px; margin-top: 20px;">&copy; 2026 Digi Mitra. Helping Digital India.</p>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Digi Mitra Network. All Rights Reserved.</p>
+            <div class="made-in-india">
+                <span>Made with <i class="fas fa-heart" style="color: #e74c3c;"></i> in India</span>
+                <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" width="20" alt="India">
+            </div>
+        </div>
     </footer>
 
 <script type="module">
@@ -174,8 +140,8 @@
     const firebaseConfig = { apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4", authDomain: "formmitra-auth.firebaseapp.com", projectId: "formmitra-auth", databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app" };
     const app = initializeApp(firebaseConfig); const db = getDatabase(app);
 
-    // 1. Sync Flash Updates
-    const categories = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar'];
+    // 1. Sync Live Updates
+    const categories = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar', 'banking', 'ration'];
     const flashList = document.getElementById('masterFlashUpdates');
     
     function loadFlash() {
@@ -188,9 +154,9 @@
                         const li = document.createElement('li');
                         li.innerHTML = `<a href="${data[id].link}" target="_blank">
                             <span><span class="new-tag">NEW</span> ${data[id].title}</span>
-                            <small style="color:#aaa;">${cat.toUpperCase()}</small>
+                            <small style="color:#aaa; font-size:10px;">${cat.toUpperCase()}</small>
                         </a>`;
-                        flashList.prepend(li); // Naya update top par
+                        flashList.prepend(li);
                     });
                 }
             });
@@ -198,7 +164,7 @@
     }
     loadFlash();
 
-    // 2. Sync Extra Help Cards
+    // 2. Sync Extra Cards
     onValue(ref(db, 'index_extra'), (snapshot) => {
         const extraContainer = document.getElementById('dynamicExtraCards');
         extraContainer.innerHTML = "";
@@ -207,7 +173,7 @@
             Object.keys(data).forEach(id => {
                 extraContainer.innerHTML += `
                     <a href="${data[id].link}" target="_blank" class="s-card extra-card">
-                        <i class="fas ${data[id].icon}"></i>
+                        <i class="fas ${data[id].icon || 'fa-star'}"></i>
                         <h3>${data[id].title}</h3>
                     </a>`;
             });
@@ -216,6 +182,3 @@
 </script>
 </body>
 </html>
-
-
-
