@@ -3,154 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Admin - Sarkari Portal</title>
+    <title>Master Admin - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
-        let pin = prompt("Admin Security PIN daalein:");
-        if (pin !== "Rehan@786") { 
-            alert("Galat PIN! Access Denied."); 
-            window.location.href = "index.html"; 
-        }
+        let pin = prompt("Admin Security PIN:");
+        if (pin !== "Rehan@786") { window.location.href = "index.html"; }
     </script>
     <style>
-        :root { --blue: #007bff; --dark: #343a40; --bg: #f8f9fa; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
-        .admin-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; border-top: 4px solid var(--blue); }
-        h2 { color: var(--blue); font-size: 18px; margin-top: 0; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; padding-bottom: 15px; }
-        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-size: 14px; }
-        .btn-main { background: var(--blue); color: white; border: none; padding: 14px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
-        .btn-main:hover { background: #0056b3; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; font-size: 13px; }
-        th { background: #f1f3f5; color: var(--dark); text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
-        .btn-action { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: white; font-size: 11px; font-weight: bold; margin-right: 5px; }
-        .bg-approve { background: #2ecc71; }
-        .bg-block { background: #e74c3c; }
-        .bg-unblock { background: #3498db; }
-        .bg-delete { background: #34495e; }
-        .status-tag { padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; text-transform: uppercase; }
-        .status-Approved { background: #e8f5e9; color: #2e7d32; }
-        .status-Suspended { background: #ffebee; color: #c62828; }
+        :root { --blue: #0074D9; --navy: #001f3f; --bg: #f4f7f9; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; }
+        .admin-card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 25px; border-top: 4px solid var(--blue); }
+        h2 { font-size: 16px; color: var(--navy); border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 15px; }
+        input, select { padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
+        .btn { background: var(--blue); color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+        th, td { padding: 10px; border-bottom: 1px solid #eee; text-align: left; }
+        .btn-del { background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <div class="admin-card">
-    <h2><i class="fas fa-paper-plane"></i> Post New Live Update</h2>
+    <h2><i class="fas fa-rss"></i> Post Live Updates (Results/Forms/PAN/etc.)</h2>
     <div class="form-grid">
-        <select id="serviceType">
-            <option value="results">Exam Results</option>
+        <select id="updateType">
+            <option value="results">Results</option>
             <option value="admitcards">Admit Cards</option>
-            <option value="pan">PAN Card Services</option>
-            <option value="ration">Ration Card Portal</option>
-            <option value="voter">Voter ID Services</option>
-            <option value="aadhaar">Aadhaar Services</option>
             <option value="forms">Online Forms</option>
+            <option value="pan">PAN Card</option>
+            <option value="voter">Voter ID</option>
+            <option value="aadhaar">Aadhaar</option>
         </select>
-        <input type="text" id="postTitle" placeholder="Title (e.g. Bihar Board 10th Result)">
-        <input type="text" id="postState" placeholder="State (e.g. Bihar / Central)">
-        <input type="text" id="postLink" placeholder="Paste Official Link Here">
+        <input type="text" id="updateTitle" placeholder="Title">
+        <input type="text" id="updateLink" placeholder="Official Link">
     </div>
-    <button class="btn-main" onclick="submitToFirebase()">Live This Post Now <i class="fas fa-check-circle"></i></button>
+    <button class="btn" onclick="postUpdate()">Post Update</button>
 </div>
 
 <div class="admin-card">
-    <h2><i class="fas fa-link"></i> Manage Live Links</h2>
-    <table>
-        <thead><tr><th>Category</th><th>Title</th><th>State</th><th>Action</th></tr></thead>
-        <tbody id="liveLinksTable"></tbody>
-    </table>
+    <h2><i class="fas fa-th-large"></i> Manage Home Page (Extra Help Cards)</h2>
+    <p style="font-size: 11px; color: #666;">Yahan se aap Index page ke 10 niche wale cards change kar sakte hain.</p>
+    <div class="form-grid">
+        <input type="text" id="cardTitle" placeholder="Service Name (e.g. Resume Maker)">
+        <input type="text" id="cardIcon" placeholder="FontAwesome Icon (e.g. fa-file-pdf)">
+        <input type="text" id="cardLink" placeholder="Service Link">
+    </div>
+    <button class="btn" style="background:#2ecc71;" onclick="postExtraCard()">Update Index Card</button>
 </div>
 
 <div class="admin-card">
-    <h2><i class="fas fa-users-cog"></i> Agent Control Panel</h2>
-    <table>
-        <thead><tr><th>Name</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
-        <tbody id="agentTable"></tbody>
+    <h2><i class="fas fa-tasks"></i> Manage Existing Content</h2>
+    <table id="linksTable">
+        <thead><tr><th>Category</th><th>Title</th><th>Action</th></tr></thead>
+        <tbody></tbody>
     </table>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, onValue, update, push, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
-        authDomain: "formmitra-auth.firebaseapp.com",
-        projectId: "formmitra-auth",
-        databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app"
-    };
+    const firebaseConfig = { apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4", authDomain: "formmitra-auth.firebaseapp.com", projectId: "formmitra-auth", databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app" };
+    const app = initializeApp(firebaseConfig); const db = getDatabase(app);
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
-    // 1. POST DATA
-    window.submitToFirebase = () => {
-        const type = document.getElementById('serviceType').value;
-        const title = document.getElementById('postTitle').value;
-        const state = document.getElementById('postState').value;
-        const link = document.getElementById('postLink').value;
-
-        if(!title || !link) return alert("Please fill all details!");
-
-        push(ref(db, 'services/' + type), {
-            title, state, link, timestamp: Date.now()
-        }).then(() => {
-            alert("Post successfully live!");
-            location.reload();
-        });
-    };
-
-    // 2. LOAD AGENTS WITH REAL-TIME KICK
-    onValue(ref(db, 'agents'), (snapshot) => {
-        const table = document.getElementById('agentTable');
-        table.innerHTML = "";
-        const data = snapshot.val();
-        for (let id in data) {
-            let status = data[id].status;
-            let actionBtn = status === "Suspended" ? 
-                `<button class="btn-action bg-unblock" onclick="agentAction('${id}', 'Approved')">Unblock</button>` :
-                `<button class="btn-action bg-block" onclick="agentAction('${id}', 'Suspended')">Block</button>`;
-
-            table.innerHTML += `
-                <tr>
-                    <td><b>${data[id].name || 'N/A'}</b></td>
-                    <td>${data[id].phone || 'N/A'}</td>
-                    <td><span class="status-tag status-${status}">${status}</span></td>
-                    <td>
-                        ${actionBtn}
-                        <button class="btn-action bg-delete" onclick="deleteAgent('${id}')">Delete</button>
-                    </td>
-                </tr>`;
+    // Post to Results/Admit/etc.
+    window.postUpdate = () => {
+        const type = document.getElementById('updateType').value;
+        const title = document.getElementById('updateTitle').value;
+        const link = document.getElementById('updateLink').value;
+        if(title && link) {
+            push(ref(db, 'services/' + type), { title, link, timestamp: Date.now() });
+            alert("Update Live!");
         }
+    };
+
+    // Post to Index Extra Cards
+    window.postExtraCard = () => {
+        const title = document.getElementById('cardTitle').value;
+        const icon = document.getElementById('cardIcon').value;
+        const link = document.getElementById('cardLink').value;
+        if(title && link) {
+            push(ref(db, 'index_extra'), { title, icon: icon || 'fa-star', link });
+            alert("Index Card Added!");
+        }
+    };
+
+    // Manage Links Table
+    const cats = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar', 'index_extra'];
+    const tbody = document.querySelector('#linksTable tbody');
+    cats.forEach(cat => {
+        onValue(ref(db, 'services/' + cat), (snap) => { render(cat, snap.val()); });
+        onValue(ref(db, 'index_extra'), (snap) => { render('index_extra', snap.val()); });
     });
 
-    // 3. LOAD ALL LIVE LINKS
-    const categories = ['results', 'admitcards', 'pan', 'ration', 'voter', 'aadhaar'];
-    const linkTable = document.getElementById('liveLinksTable');
-    linkTable.innerHTML = "";
-
-    categories.forEach(cat => {
-        onValue(ref(db, 'services/' + cat), (snapshot) => {
-            const data = snapshot.val();
-            for (let id in data) {
-                linkTable.innerHTML += `
-                    <tr>
-                        <td><small>${cat.toUpperCase()}</small></td>
-                        <td>${data[id].title}</td>
-                        <td>${data[id].state || '-'}</td>
-                        <td><button class="btn-action bg-delete" onclick="deletePost('${cat}', '${id}')">Delete</button></td>
-                    </tr>`;
-            }
+    function render(cat, data) {
+        if(!data) return;
+        Object.keys(data).forEach(id => {
+            const row = `<tr><td>${cat.toUpperCase()}</td><td>${data[id].title}</td><td><button class="btn-del" onclick="deleteItem('${cat}', '${id}')">Del</button></td></tr>`;
+            tbody.innerHTML += row;
         });
-    });
+    }
 
-    // ACTIONS
-    window.agentAction = (uid, status) => update(ref(db, 'agents/' + uid), { status: status });
-    window.deleteAgent = (uid) => confirm("Permanent delete agent?") && remove(ref(db, 'agents/' + uid));
-    window.deletePost = (cat, id) => confirm("Delete this link?") && remove(ref(db, `services/${cat}/${id}`)).then(() => location.reload());
+    window.deleteItem = (cat, id) => {
+        const path = cat === 'index_extra' ? 'index_extra/' + id : 'services/' + cat + '/' + id;
+        if(confirm("Delete karsun?")) remove(ref(db, path)).then(() => location.reload());
+    };
 </script>
 </body>
 </html>
-
