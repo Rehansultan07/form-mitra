@@ -10,22 +10,18 @@
         :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; --red: #e74c3c; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; line-height: 1.6; }
         
-        /* Navigation */
         nav { display: flex; justify-content: center; align-items: center; padding: 20px 8%; background: #fff; border-bottom: 2px solid var(--blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .logo { font-size: 28px; font-weight: 800; color: var(--navy); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
         .logo span { color: var(--blue); }
 
-        /* Hero Section */
         .hero { padding: 60px 8%; background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%); color: white; text-align: center; }
         .hero h1 { font-size: 2.8rem; margin: 0; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
         .hero p { font-size: 1.2rem; opacity: 0.9; margin-top: 15px; }
         
-        /* Ad Slots */
         .ad-master { background: #fff; border: 1px dashed #bbb; margin: 25px auto; padding: 15px; text-align: center; color: #888; font-size: 11px; max-width: 1100px; border-radius: 8px; font-weight: 600; }
 
         .main-container { padding: 20px 8%; max-width: 1200px; margin: 0 auto; }
         
-        /* Flash Updates */
         .flash-container { background: #fff; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.08); overflow: hidden; margin-top: -50px; border-top: 5px solid var(--red); }
         .flash-header { background: var(--red); color: white; padding: 12px 20px; font-weight: 800; font-size: 14px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
         .flash-list { list-style: none; padding: 0; margin: 0; max-height: 280px; overflow-y: auto; }
@@ -34,22 +30,17 @@
         .new-tag { background: #fee2e2; color: #b91c1c; font-size: 9px; padding: 2px 6px; border-radius: 4px; animation: blink 1s infinite; font-weight: 800; }
         @keyframes blink { 50% { opacity: 0.4; } }
 
-        /* Grid System */
         .section-title { font-size: 20px; font-weight: 800; color: var(--navy); margin: 50px 0 25px; border-left: 6px solid var(--blue); padding-left: 18px; text-transform: uppercase; }
         .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; }
         .s-card { background: #fff; padding: 30px 15px; border-radius: 18px; text-align: center; border: 1px solid #e2e8f0; text-decoration: none; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
         .s-card:hover { transform: translateY(-8px); border-color: var(--blue); box-shadow: 0 15px 30px rgba(0,116,217,0.12); }
         .s-card i { font-size: 38px; color: var(--blue); margin-bottom: 18px; display: block; }
         .s-card h3 { font-size: 13px; margin: 0; color: var(--navy); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-        .extra-card { border-bottom: 5px solid #2ecc71; }
-        .extra-card i { color: #2ecc71; }
 
-        /* Footer */
         .footer { background: #fff; padding: 60px 8% 30px; border-top: 1px solid #eee; margin-top: 80px; }
         .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 50px; text-align: left; }
-        .footer-brand .logo { font-size: 24px; }
         .footer-brand p { color: #666; font-size: 14px; margin-top: 15px; line-height: 1.8; }
-        .footer-links h4 { color: var(--navy); margin-bottom: 25px; font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+        .footer-links h4 { color: var(--navy); margin-bottom: 25px; font-weight: 800; text-transform: uppercase; font-size: 13px; }
         .footer-links ul { list-style: none; padding: 0; }
         .footer-links ul li { margin-bottom: 15px; }
         .footer-links ul li a { text-decoration: none; color: #777; font-size: 14px; transition: 0.3s; }
@@ -72,7 +63,7 @@
         <div class="flash-container">
             <div class="flash-header"><i class="fas fa-bolt"></i> Live Flash Updates</div>
             <ul class="flash-list" id="masterFlashUpdates">
-                <li><a href="#">Syncing with real-time database...</a></li>
+                <li><a href="#">Connecting to real-time server...</a></li>
             </ul>
         </div>
 
@@ -87,7 +78,7 @@
             <a href="admit-card.html" class="s-card"><i class="fas fa-ticket-alt"></i><h3>Admit Cards</h3></a>
             <a href="ration.html" class="s-card"><i class="fas fa-file-invoice"></i><h3>Ration Card</h3></a>
             <a href="banking.html" class="s-card"><i class="fas fa-university"></i><h3>Banking & NPCI</h3></a>
-            <a href="forms.html" class="s-card"><i class="fas fa-edit"></i><h3>Online Forms</h3></a>
+            <a href="forms.html" class="s-card"><i class="fas fa-edit"></i><h3>Apply Online</h3></a>
         </div>
 
         <div class="ad-master">Google AdSense Space - In-Feed Native Ad</div>
@@ -111,7 +102,6 @@
                     <li><a href="results.html">Latest Results</a></li>
                     <li><a href="admit-card.html">Admit Cards</a></li>
                     <li><a href="forms.html">Apply Online</a></li>
-                    <li><a href="banking.html">NPCI Seeding</a></li>
                 </ul>
             </div>
             <div class="footer-links">
@@ -140,31 +130,9 @@
     const firebaseConfig = { apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4", authDomain: "formmitra-auth.firebaseapp.com", projectId: "formmitra-auth", databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app" };
     const app = initializeApp(firebaseConfig); const db = getDatabase(app);
 
-    // 1. Sync Live Updates
     const categories = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar', 'banking', 'ration'];
     const flashList = document.getElementById('masterFlashUpdates');
     
-    function loadFlash() {
-        flashList.innerHTML = "";
-        categories.forEach(cat => {
-            onValue(query(ref(db, 'services/' + cat), limitToLast(2)), (snapshot) => {
-                const data = snapshot.val();
-                if(data) {
-                    Object.keys(data).forEach(id => {
-                        const li = document.createElement('li');
-                        li.innerHTML = `<a href="${data[id].link}" target="_blank">
-                            <span><span class="new-tag">NEW</span> ${data[id].title}</span>
-                            <small style="color:#aaa; font-size:10px;">${cat.toUpperCase()}</small>
-                        </a>`;
-                        flashList.prepend(li);
-                    });
-                }
-            });
-        });
-    }
-    loadFlash();
-
-    // 2. Sync Extra Cards
     onValue(ref(db, 'index_extra'), (snapshot) => {
         const extraContainer = document.getElementById('dynamicExtraCards');
         extraContainer.innerHTML = "";
@@ -172,12 +140,28 @@
         if(data) {
             Object.keys(data).forEach(id => {
                 extraContainer.innerHTML += `
-                    <a href="${data[id].link}" target="_blank" class="s-card extra-card">
-                        <i class="fas ${data[id].icon || 'fa-star'}"></i>
+                    <a href="${data[id].link}" target="_blank" class="s-card" style="border-bottom:5px solid #2ecc71;">
+                        <i class="fas ${data[id].icon || 'fa-star'}" style="color:#2ecc71;"></i>
                         <h3>${data[id].title}</h3>
                     </a>`;
             });
         }
+    });
+
+    categories.forEach(cat => {
+        onValue(query(ref(db, 'services/' + cat), limitToLast(2)), (snapshot) => {
+            const data = snapshot.val();
+            if(data) {
+                Object.keys(data).forEach(id => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${data[id].link}" target="_blank">
+                        <span><span class="new-tag">NEW</span> ${data[id].title}</span>
+                        <small style="color:#aaa; font-size:10px;">${cat.toUpperCase()}</small>
+                    </a>`;
+                    flashList.prepend(li);
+                });
+            }
+        });
     });
 </script>
 </body>
