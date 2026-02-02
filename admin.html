@@ -13,20 +13,23 @@
         }
     </script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; padding: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
         .master-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
         h2 { color: #007bff; border-bottom: 2px solid #f0f2f5; padding-bottom: 15px; margin-top: 0; display: flex; align-items: center; gap: 10px; }
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         input, select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; }
-        .btn-main { background: #007bff; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; }
+        .btn-main { background: #007bff; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+        .btn-main:hover { background: #0056b3; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; }
         th, td { padding: 12px 15px; border-bottom: 1px solid #eee; text-align: left; font-size: 14px; }
-        th { background: #007bff; color: white; text-transform: uppercase; font-size: 11px; }
-        .btn-action { padding: 6px 10px; border: none; border-radius: 4px; cursor: pointer; color: white; font-size: 11px; font-weight: bold; margin-right: 5px; }
+        th { background: #007bff; color: white; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+        .btn-action { padding: 8px 12px; border: none; border-radius: 6px; cursor: pointer; color: white; font-size: 11px; font-weight: bold; margin-right: 5px; transition: 0.2s; }
         .bg-approve { background: #2ecc71; }
         .bg-block { background: #e74c3c; }
+        .bg-unblock { background: #3498db; }
         .bg-delete { background: #34495e; }
-        .status-tag { padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 800; }
+        .btn-action:hover { opacity: 0.8; }
+        .status-tag { padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
         .status-Approved { background: #e8f5e9; color: #2e7d32; }
         .status-Pending { background: #fff3e0; color: #ef6c00; }
         .status-Suspended { background: #ffebee; color: #c62828; }
@@ -92,20 +95,29 @@
         .then(() => { alert("Post Live!"); location.reload(); });
     };
 
-    // AGENT LIST LOADING
+    // AGENT LIST LOADING WITH DYNAMIC BUTTONS
     onValue(ref(db, 'agents'), (snapshot) => {
         const data = snapshot.val();
         const table = document.getElementById('agentTable');
         table.innerHTML = "";
         for (let id in data) {
+            let status = data[id].status;
+            let actionButtons = "";
+
+            if (status === "Suspended") {
+                actionButtons = `<button class="btn-action bg-unblock" onclick="agentAction('${id}', 'Approved')">Unblock</button>`;
+            } else {
+                actionButtons = `<button class="btn-action bg-approve" onclick="agentAction('${id}', 'Approved')">Approve</button>
+                                 <button class="btn-action bg-block" onclick="agentAction('${id}', 'Suspended')">Block</button>`;
+            }
+
             table.innerHTML += `
                 <tr>
                     <td><b>${data[id].name || 'N/A'}</b></td>
                     <td>${data[id].phone || 'N/A'}</td>
-                    <td><span class="status-tag status-${data[id].status}">${data[id].status}</span></td>
+                    <td><span class="status-tag status-${status}">${status}</span></td>
                     <td>
-                        <button class="btn-action bg-approve" onclick="agentAction('${id}', 'Approved')">Approve</button>
-                        <button class="btn-action bg-block" onclick="agentAction('${id}', 'Suspended')">Block</button>
+                        ${actionButtons}
                         <button class="btn-action bg-delete" onclick="deleteAgent('${id}')">Delete</button>
                     </td>
                 </tr>`;
@@ -115,6 +127,7 @@
     // LIVE LINKS LOADING
     const serviceTypes = ['results', 'admitcards', 'pan', 'ration'];
     const linkTable = document.getElementById('liveLinksTable');
+    linkTable.innerHTML = "";
     serviceTypes.forEach(type => {
         onValue(ref(db, 'services/' + type), (snapshot) => {
             const data = snapshot.val();
@@ -124,15 +137,15 @@
                         <td><small>${type.toUpperCase()}</small></td>
                         <td>${data[id].title}</td>
                         <td>${data[id].state}</td>
-                        <td><button class="btn-action bg-block" onclick="deletePost('${type}', '${id}')">Delete</button></td>
+                        <td><button class="btn-action bg-block" onclick="deletePost('${type}', '${id}')">Delete Link</button></td>
                     </tr>`;
             }
         });
     });
 
     window.agentAction = (uid, status) => update(ref(db, 'agents/' + uid), { status: status });
-    window.deleteAgent = (uid) => confirm("Delete agent?") && remove(ref(db, 'agents/' + uid));
-    window.deletePost = (type, id) => confirm("Delete link?") && remove(ref(db, `services/${type}/${id}`)).then(() => location.reload());
+    window.deleteAgent = (uid) => confirm("Kya aap is agent ko hamesha ke liye delete karna chahte hain?") && remove(ref(db, 'agents/' + uid));
+    window.deletePost = (type, id) => confirm("Kya aap is link ko delete karna chahte hain?") && remove(ref(db, `services/${type}/${id}`)).then(() => location.reload());
 </script>
 </body>
 </html>
