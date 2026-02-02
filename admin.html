@@ -3,54 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Admin - Form Mitra</title>
+    <title>Master Admin - Digi Mitra</title>
     <script>
-        // Admin Security Lock
         let pin = prompt("Admin Security PIN daalein:");
-        
-        // Agar PIN galat hai ya cancel kiya, toh hi bahar phenko
         if (pin !== "Rehan@786") { 
             alert("Galat PIN! Access Denied."); 
             window.location.href = "index.html"; 
         }
-        // Agar PIN sahi hai, toh ye script khatam ho jayegi aur niche wala page load hoga.
     </script>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; padding: 20px; }
-        .master-card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h2 { color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
-        th { background: #007bff; color: white; }
-        .btn { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: white; font-weight: bold; margin: 2px; }
-        .btn-approve { background: #28a745; }
-        .btn-reject { background: #ffc107; color: black; }
-        .btn-block { background: #dc3545; }
-        .status-tag { font-weight: bold; padding: 4px 8px; border-radius: 4px; }
+        .master-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        h2 { color: #007bff; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-top: 0; }
+        .form-group { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        input, select { padding: 12px; border: 1px solid #ddd; border-radius: 6px; outline: none; flex: 1; min-width: 200px; }
+        .btn-post { background: #007bff; color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
+        th, td { padding: 15px; border-bottom: 1px solid #eee; text-align: left; }
+        th { background: #007bff; color: white; text-transform: uppercase; font-size: 12px; }
+        .btn { padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; color: white; font-weight: bold; font-size: 12px; }
+        .btn-approve { background: #2ecc71; }
+        .btn-block { background: #e74c3c; }
+        .status-tag { font-size: 11px; padding: 5px 10px; border-radius: 50px; background: #eee; font-weight: 700; }
     </style>
 </head>
 <body>
 
 <div class="master-card">
-    <h2>Form Mitra - Master Control Panel</h2>
+    <h2>Post New Update (Result/Admit Card)</h2>
+    <div class="form-group">
+        <select id="postType">
+            <option value="results">Result</option>
+            <option value="admitcards">Admit Card</option>
+        </select>
+        <input type="text" id="postTitle" placeholder="Exam/Board Name (e.g. Bihar Board 10th)">
+        <input type="text" id="postState" placeholder="State (e.g. Bihar)">
+        <input type="text" id="postLink" placeholder="Direct Official Link">
+        <button class="btn-post" onclick="submitPost()">Live This Post</button>
+    </div>
+</div>
+
+<div class="master-card">
+    <h2>Agent Management</h2>
     <table>
         <thead>
             <tr>
                 <th>Agent Name</th>
                 <th>Phone</th>
-                <th>Address</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody id="adminTable">
-            </tbody>
+        <tbody id="adminTable"></tbody>
     </table>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, onValue, update, push, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4",
@@ -62,33 +72,51 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    // Agents ki list database se khichna
-    const agentsRef = ref(db, 'agents');
-    onValue(agentsRef, (snapshot) => {
+    // Dynamic Posting Logic
+    window.submitPost = () => {
+        const type = document.getElementById('postType').value;
+        const title = document.getElementById('postTitle').value;
+        const state = document.getElementById('postState').value;
+        const link = document.getElementById('postLink').value;
+
+        if(!title || !link || !state) return alert("Bhai, saari details bhariye!");
+
+        const dbPath = type; // Either 'results' or 'admitcards'
+        const newPostRef = push(ref(db, dbPath));
+        set(newPostRef, {
+            title: title,
+            state: state,
+            link: link,
+            date: new Date().toLocaleDateString()
+        }).then(() => {
+            alert("Naya update live ho gaya!");
+            document.getElementById('postTitle').value = "";
+            document.getElementById('postLink').value = "";
+        });
+    };
+
+    // Agent Loading Logic
+    onValue(ref(db, 'agents'), (snapshot) => {
         const data = snapshot.val();
         const table = document.getElementById('adminTable');
         table.innerHTML = ""; 
-
         for (let id in data) {
             table.innerHTML += `
                 <tr>
-                    <td>${data[id].name || 'N/A'}</td>
+                    <td><b>${data[id].name || 'N/A'}</b></td>
                     <td>${data[id].phone || 'N/A'}</td>
-                    <td>${data[id].address || 'N/A'}</td>
                     <td><span class="status-tag">${data[id].status}</span></td>
                     <td>
                         <button class="btn btn-approve" onclick="setStatus('${id}', 'Approved')">Approve</button>
-                        <button class="btn btn-reject" onclick="setStatus('${id}', 'Rejected')">Reject</button>
                         <button class="btn btn-block" onclick="setStatus('${id}', 'Suspended')">Block</button>
                     </td>
                 </tr>`;
         }
     });
 
-    // Status update karne ka function
     window.setStatus = (uid, newStatus) => {
         update(ref(db, 'agents/' + uid), { status: newStatus });
-        alert("Agent status updated to: " + newStatus);
+        alert("Status updated!");
     };
 </script>
 </body>
