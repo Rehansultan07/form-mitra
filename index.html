@@ -3,112 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarkari Portal | All India Digital Services Free</title>
+    <title>Digi Mitra | Free Digital Services Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; }
+        :root { --navy: #001f3f; --blue: #0074D9; --bg: #f4f7f9; --red: #e74c3c; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; }
-        
-        /* Professional Navigation (No Admin/Login) */
         nav { display: flex; justify-content: center; align-items: center; padding: 20px 8%; background: #fff; border-bottom: 2px solid var(--blue); position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .logo { font-size: 28px; font-weight: 800; color: var(--navy); text-decoration: none; text-transform: uppercase; letter-spacing: 1px; }
         .logo span { color: var(--blue); }
-
-        .hero { padding: 60px 8%; background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%); color: white; text-align: center; }
-        .hero h1 { font-size: 2.8rem; margin: 0; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.2); }
-        .hero p { font-size: 1.2rem; opacity: 0.9; margin-top: 15px; }
-        
-        /* Maximum AdSense Space */
-        .ad-master { background: #fff; border: 1px dashed #bbb; margin: 25px auto; padding: 20px; text-align: center; color: #888; font-size: 12px; max-width: 1100px; border-radius: 10px; font-weight: 600; }
-
-        .main-container { padding: 30px 8%; max-width: 1240px; margin: 0 auto; }
-        
-        /* Grid Design */
-        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; margin-top: 20px; }
-        .s-card { background: #fff; padding: 35px 20px; border-radius: 20px; text-align: center; border: 1px solid #e2e8f0; text-decoration: none; transition: all 0.3s ease; box-shadow: 0 6px 12px rgba(0,0,0,0.03); }
-        .s-card:hover { transform: translateY(-8px); border-color: var(--blue); box-shadow: 0 15px 30px rgba(0,116,217,0.15); }
-        .s-card i { font-size: 40px; color: var(--blue); margin-bottom: 20px; }
-        .s-card h3 { font-size: 14px; margin: 0; color: var(--navy); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-
-        .section-title { font-size: 22px; font-weight: 800; color: var(--navy); margin: 50px 0 25px; border-left: 6px solid var(--blue); padding-left: 20px; }
-        
-        .footer { padding: 60px 8%; text-align: center; background: #fff; border-top: 1px solid #eee; margin-top: 60px; }
-        .footer p { margin: 5px 0; color: #666; font-size: 14px; }
+        .hero { padding: 50px 8%; background: linear-gradient(135deg, #001f3f 0%, #0074D9 100%); color: white; text-align: center; }
+        .hero h1 { font-size: 2.5rem; margin: 0; font-weight: 800; }
+        .ad-master { background: #fff; border: 1px dashed #bbb; margin: 20px auto; padding: 15px; text-align: center; color: #888; font-size: 11px; max-width: 1100px; border-radius: 8px; }
+        .main-container { padding: 20px 8%; max-width: 1200px; margin: 0 auto; }
+        .flash-container { background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); overflow: hidden; margin-top: -40px; border-top: 5px solid var(--red); }
+        .flash-header { background: var(--red); color: white; padding: 10px 20px; font-weight: 800; font-size: 14px; text-transform: uppercase; }
+        .flash-list { list-style: none; padding: 0; margin: 0; max-height: 250px; overflow-y: auto; }
+        .flash-list li a { display: flex; justify-content: space-between; padding: 15px 20px; text-decoration: none; color: #444; border-bottom: 1px solid #f1f5f9; font-size: 14px; font-weight: 600; }
+        .section-title { font-size: 18px; font-weight: 800; color: var(--navy); margin: 40px 0 20px; border-left: 5px solid var(--blue); padding-left: 15px; text-transform: uppercase; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
+        .s-card { background: #fff; padding: 25px 15px; border-radius: 15px; text-align: center; border: 1px solid #eee; text-decoration: none; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .s-card:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .s-card i { font-size: 35px; color: var(--blue); margin-bottom: 15px; }
+        .s-card h3 { font-size: 12px; margin: 0; color: #333; font-weight: 800; text-transform: uppercase; }
+        .extra-card { border-bottom: 4px solid #2ecc71; }
+        .extra-card i { color: #2ecc71; }
+        footer { padding: 40px 8%; text-align: center; background: #fff; border-top: 1px solid #eee; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="logo">SARKARI<span>PORTAL</span></a>
-    </nav>
-
-    <div class="ad-master">Google AdSense Space - Top Leaderboard Banner</div>
+    <nav><a href="index.html" class="logo">DIGI<span>MITRA</span></a></nav>
 
     <section class="hero">
         <h1>Digital Seva Hub - 100% Free</h1>
-        <p>Aadhaar, PAN, Voter, Results aur sabhi Sarkari links ab ek hi jagah par.</p>
+        <p>Sabhi Digital Services aur Updates ab ek hi thikane par.</p>
     </section>
 
     <div class="main-container">
-        <h2 class="section-title">Sabhi Important Services</h2>
-        <div class="services-grid">
-            <a href="aadhaar.html" class="s-card">
-                <i class="fas fa-id-card"></i>
-                <h3>Aadhaar Card</h3>
-            </a>
-            <a href="pan.html" class="s-card">
-                <i class="fas fa-address-card"></i>
-                <h3>PAN Card Hub</h3>
-            </a>
-            <a href="voter.html" class="s-card">
-                <i class="fas fa-user-check"></i>
-                <h3>Voter Services</h3>
-            </a>
-            <a href="results.html" class="s-card">
-                <i class="fas fa-graduation-cap"></i>
-                <h3>Latest Results</h3>
-            </a>
-            <a href="admit-card.html" class="s-card">
-                <i class="fas fa-ticket-alt"></i>
-                <h3>Admit Cards</h3>
-            </a>
-            <a href="ration.html" class="s-card">
-                <i class="fas fa-file-invoice"></i>
-                <h3>Ration Card</h3>
-            </a>
-            <a href="banking.html" class="s-card">
-                <i class="fas fa-university"></i>
-                <h3>Banking & NPCI</h3>
-            </a>
-            <a href="forms.html" class="s-card">
-                <i class="fas fa-edit"></i>
-                <h3>Apply Online</h3>
-            </a>
+        <div class="flash-container">
+            <div class="flash-header"><i class="fas fa-bolt"></i> Live Updates</div>
+            <ul class="flash-list" id="masterFlashUpdates"><li><a href="#">Loading updates...</a></li></ul>
         </div>
 
-        <div class="ad-master">Google AdSense Space - In-Feed Content Banner</div>
+        <div class="ad-master">AdSense Slot - Top</div>
+
+        <h2 class="section-title">Verified Services</h2>
+        <div class="services-grid">
+            <a href="aadhaar.html" class="s-card"><i class="fas fa-id-card"></i><h3>Aadhaar</h3></a>
+            <a href="pan.html" class="s-card"><i class="fas fa-address-card"></i><h3>PAN Card</h3></a>
+            <a href="voter.html" class="s-card"><i class="fas fa-user-check"></i><h3>Voter ID</h3></a>
+            <a href="results.html" class="s-card"><i class="fas fa-graduation-cap"></i><h3>Results</h3></a>
+            <a href="admit-card.html" class="s-card"><i class="fas fa-ticket-alt"></i><h3>Admit Cards</h3></a>
+            <a href="ration.html" class="s-card"><i class="fas fa-file-invoice"></i><h3>Ration Card</h3></a>
+            <a href="banking.html" class="s-card"><i class="fas fa-university"></i><h3>Banking</h3></a>
+            <a href="forms.html" class="s-card"><i class="fas fa-edit"></i><h3>Apply Online</h3></a>
+        </div>
+
+        <div class="ad-master">AdSense Slot - Middle</div>
 
         <h2 class="section-title">Extra Help & Resources</h2>
         <div class="services-grid">
-            <a href="https://myaadhaar.uidai.gov.in/" target="_blank" class="s-card" style="border-bottom: 5px solid #2ecc71;">
-                <i class="fas fa-shield-alt" style="color:#2ecc71;"></i>
-                <h3>Official Portals</h3>
-            </a>
-            <a href="https://www.onlineservices.nsdl.com/" target="_blank" class="s-card" style="border-bottom: 5px solid #e67e22;">
-                <i class="fas fa-file-signature" style="color:#e67e22;"></i>
-                <h3>Instant Services</h3>
-            </a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-calculator"></i><h3>Age Calculator</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-file-pdf"></i><h3>Resume Maker</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-compress-arrows-alt"></i><h3>Photo Resizer</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-file-contract"></i><h3>Affidavit Format</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-map-marked-alt"></i><h3>Find Pin Code</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-exchange-alt"></i><h3>PDF Converter</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-language"></i><h3>English to Hindi</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-print"></i><h3>Character Certificate</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-money-check"></i><h3>Check Bank IFSC</h3></a>
+            <a href="#" class="s-card extra-card"><i class="fas fa-id-badge"></i><h3>Identity Maker</h3></a>
         </div>
+
+        <div class="ad-master">AdSense Slot - Footer</div>
     </div>
 
-    <div class="ad-master">Google AdSense Space - Large Rectangle Footer Ad</div>
-
-    <footer class="footer">
-        <p style="font-weight: 800; color: var(--navy); font-size: 1.8rem;">SARKARI PORTAL</p>
-        <p>India's Fast & Free Digital Service Directory.</p>
-        <p style="color: #bbb; margin-top: 20px;">&copy; 2026 Sarkari Portal. Helping Digital India.</p>
+    <footer>
+        <p style="font-weight: 800; color: var(--navy);">DIGIMITRA &copy; 2026</p>
+        <p>India's Most Trusted Digital Service Portal.</p>
     </footer>
 
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, onValue, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    const firebaseConfig = { apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4", authDomain: "formmitra-auth.firebaseapp.com", projectId: "formmitra-auth", databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app" };
+    const app = initializeApp(firebaseConfig); const db = getDatabase(app);
+    const categories = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar'];
+    const flashList = document.getElementById('masterFlashUpdates');
+    function loadUpdates() {
+        flashList.innerHTML = "";
+        categories.forEach(cat => {
+            onValue(query(ref(db, 'services/' + cat), limitToLast(2)), (snapshot) => {
+                const data = snapshot.val();
+                if(data) { Object.keys(data).forEach(id => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="${data[id].link}" target="_blank"><span><span style="color:red; font-size:10px;">NEW</span> ${data[id].title}</span><small>${cat.toUpperCase()}</small></a>`;
+                    flashList.prepend(li);
+                });}
+            });
+        });
+    }
+    loadUpdates();
+</script>
 </body>
 </html>
