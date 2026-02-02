@@ -3,96 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All India Ration Card Services - Digi Mitra</title>
+    <title>Ration Card Services - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        :root { --navy: #001f3f; --blue: #0074D9; --green: #2ecc71; --bg: #f4f7f9; }
+        :root { --navy: #001f3f; --green: #2ecc71; --bg: #f4f7f9; }
         body { font-family: 'Inter', sans-serif; margin: 0; background: var(--bg); color: #333; }
         .header { background: #fff; padding: 15px 5%; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000; }
         .back-btn { text-decoration: none; color: var(--navy); font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px; }
-        .ad-container { background: #fff; border: 1px dashed #ddd; margin: 15px auto; padding: 15px; text-align: center; color: #999; font-size: 11px; max-width: 1000px; border-radius: 8px; }
+        .ad-master { background: #fff; border: 1px dashed #ccc; margin: 15px auto; padding: 15px; text-align: center; color: #aaa; font-size: 11px; max-width: 1000px; border-radius: 8px; }
         .main-container { padding: 20px 5%; max-width: 1100px; margin: 0 auto; }
-        .filter-section { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .search-input { width: 100%; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 16px; outline: none; margin-bottom: 25px; box-sizing: border-box; }
-        
-        .state-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; max-height: 250px; overflow-y: auto; padding: 10px; border: 1px solid #f0f0f0; border-radius: 8px; }
-        .state-btn { background: #f8fafc; padding: 10px; border-radius: 6px; text-align: center; border: 1px solid #e2e8f0; cursor: pointer; font-size: 11px; font-weight: 700; color: #475569; text-transform: uppercase; }
-        .state-btn:hover, .state-btn.active { background: var(--green); color: white; border-color: var(--green); }
-
-        .list-box { background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; }
-        .item-row { display: none; justify-content: space-between; align-items: center; padding: 18px 25px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: #333; transition: 0.2s; }
-        .item-row.show { display: flex; }
-        .item-row:hover { background: #f0fff4; color: #27ae60; }
-        .tag { font-size: 10px; padding: 4px 10px; border-radius: 4px; font-weight: 700; }
-        .tag-central { background: #e8f5e9; color: #2e7d32; }
-        .tag-state { background: #f0f9ff; color: #075985; }
+        .search-container { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .search-input { width: 100%; padding: 15px 25px; border: 2px solid #eee; border-radius: 50px; font-size: 16px; outline: none; box-sizing: border-box; }
+        .section-title { font-size: 16px; font-weight: 800; color: var(--navy); margin-bottom: 15px; border-left: 5px solid var(--green); padding-left: 15px; text-transform: uppercase; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; margin-bottom: 25px; }
+        .s-card { background: #fff; padding: 25px 15px; border-radius: 15px; text-align: center; border: 1px solid #eee; text-decoration: none; transition: 0.3s; display: block; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+        .s-card:hover { transform: translateY(-5px); border-color: var(--green); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .s-card i { font-size: 35px; color: var(--green); margin-bottom: 15px; }
+        .s-card h3 { font-size: 13px; margin: 0; color: #333; font-weight: 800; text-transform: uppercase; }
+        .google-fallback { display: none; text-align: center; padding: 25px; background: #fff; border-radius: 12px; border: 2px dashed #4285F4; margin-top: 20px; }
     </style>
 </head>
 <body>
-    <header class="header">
-        <a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a>
-        <div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">ALL INDIA RATION CARD SERVICES</div>
-    </header>
-
-    <div class="ad-container">Google AdSense Space - Top</div>
-
+    <header class="header"><a href="dashboard.html" class="back-btn"><i class="fas fa-arrow-left"></i> BACK</a><div style="flex-grow: 1; text-align: center; font-weight: 800; color: var(--navy);">RATION CARD PORTAL</div></header>
+    <div class="ad-master">Google AdSense Space - Top</div>
     <div class="main-container">
-        <div class="filter-section">
-            <input type="text" class="search-input" id="ratSearch" placeholder="Search State (Bihar, UP, Jharkhand)..." onkeyup="filterText()">
-            <div class="state-grid">
-                <div class="state-btn active" onclick="filterState('ALL', this)">All India</div>
-                <div class="state-btn" onclick="filterState('Central', this)">Central Govt</div>
-                <div class="state-btn" onclick="filterState('Bihar', this)">Bihar</div>
-                <div class="state-btn" onclick="filterState('UP', this)">Uttar Pradesh</div>
-                <div class="state-btn" onclick="filterState('Jharkhand', this)">Jharkhand</div>
-                <div class="state-btn" onclick="filterState('WB', this)">West Bengal</div>
-                <div class="state-btn" onclick="filterState('Delhi', this)">Delhi</div>
-                <div class="state-btn" onclick="filterState('MP', this)">Madhya Pradesh</div>
-                <div class="state-btn" onclick="filterState('Rajasthan', this)">Rajasthan</div>
-                <div class="state-btn" onclick="filterState('Others', this)">More States...</div>
-            </div>
+        <div class="search-container"><input type="text" id="masterSearch" class="search-input" placeholder="Search State (e.g. Bihar, UP)..." onkeyup="smartSearch()"></div>
+        <div id="googleSection" class="google-fallback"><p style="margin:0; font-size: 13px;">Nahi mila? Google par check karein:</p><a id="googleLink" href="#" target="_blank" style="color:#4285F4; font-weight:800; text-decoration:none;"><i class="fab fa-google"></i> Search on Google</a></div>
+        <h2 class="section-title">New Updates (Admin)</h2>
+        <div class="services-grid" id="adminRation"></div>
+        <div class="ad-master">Google AdSense Space - Middle</div>
+        <h2 class="section-title">Standard PDS Links</h2>
+        <div class="services-grid" id="staticRation">
+            <a href="http://epds.bihar.gov.in/" target="_blank" class="s-card" data-name="bihar ration card list epds rcms">
+                <i class="fas fa-file-invoice"></i><h3>Bihar Ration Card</h3>
+            </a>
+            <a href="https://fcs.up.gov.in/" target="_blank" class="s-card" data-name="up ration card list fcs eligibility">
+                <i class="fas fa-id-card-alt"></i><h3>UP Ration Card</h3>
+            </a>
+            <a href="https://aahar.jharkhand.gov.in/" target="_blank" class="s-card" data-name="jharkhand aahar ration card status">
+                <i class="fas fa-clipboard-list"></i><h3>Jharkhand Aahar</h3>
+            </a>
+            <a href="https://nfsa.gov.in/" target="_blank" class="s-card" data-name="central ration card nfsa portal">
+                <i class="fas fa-globe"></i><h3>Central NFSA</h3>
+            </a>
         </div>
-
-        <div class="list-box" id="rationList">
-            <a href="https://nfsa.gov.in/portal/Ration_Card_State_Portals_AA" target="_blank" class="item-row show" data-state="Central"><b>NFSA Central Ration Card Dashboard</b> <span class="tag tag-central">CENTRAL</span></a>
-            <a href="https://pdsportal.nic.in/main.aspx" target="_blank" class="item-row show" data-state="Central"><b>PDS National Portal (All States)</b> <span class="tag tag-central">PDS</span></a>
-
-            <a href="http://epds.bihar.gov.in/DistrictWiseRationCardDetailsBH.aspx" target="_blank" class="item-row show" data-state="Bihar"><b>Bihar Ration Card List (RCMS)</b> <span class="tag tag-state">EPDS BIHAR</span></a>
-            <a href="http://epds.bihar.gov.in/" target="_blank" class="item-row show" data-state="Bihar"><b>Apply / Download Bihar Ration Card</b> <span class="tag tag-state">EPDS BIHAR</span></a>
-
-            <a href="https://fcs.up.gov.in/" target="_blank" class="item-row show" data-state="UP"><b>UP Ration Card New List / Eligibility</b> <span class="tag tag-state">FCS UP</span></a>
-            
-            <a href="https://aahar.jharkhand.gov.in/secc_cardholders/searchRation" target="_blank" class="item-row show" data-state="Jharkhand"><b>Jharkhand Aahar Ration Card Search</b> <span class="tag tag-state">AAHAR</span></a>
-
-            <a href="https://nfs.delhigovt.nic.in/" target="_blank" class="item-row show" data-state="Delhi"><b>Delhi e-Ration Card Download</b> <span class="tag tag-state">NFS DELHI</span></a>
-
-            <a href="https://wbpds.wb.gov.in/" target="_blank" class="item-row show" data-state="WB"><b>West Bengal Digital Ration Card Portal</b> <span class="tag tag-state">WBPDS</span></a>
-
-            <a href="https://food.rajasthan.gov.in/" target="_blank" class="item-row show" data-state="Rajasthan"><b>Rajasthan Ration Card Details (PDS)</b> <span class="tag tag-state">FOOD RAJ</span></a>
-        </div>
+        <div class="ad-master">Google AdSense Space - Footer</div>
     </div>
-
-    <script>
-        function filterState(st, btn) {
-            let btns = document.querySelectorAll('.state-btn');
-            btns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            let rows = document.querySelectorAll('.item-row');
-            rows.forEach(row => {
-                if (st === 'ALL' || row.getAttribute('data-state') === st) {
-                    row.classList.add('show');
-                } else {
-                    row.classList.remove('show');
-                }
-            });
-        }
-        function filterText() {
-            let input = document.getElementById('ratSearch').value.toLowerCase();
-            let rows = document.querySelectorAll('.item-row');
-            rows.forEach(row => {
-                row.innerText.toLowerCase().includes(input) ? row.classList.add('show') : row.classList.remove('show');
-            });
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        const firebaseConfig = { apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4", authDomain: "formmitra-auth.firebaseapp.com", projectId: "formmitra-auth", databaseURL: "https://formmitra-auth-default-rtdb.asia-southeast1.firebasedatabase.app" };
+        const app = initializeApp(firebaseConfig); const db = getDatabase(app);
+        onValue(ref(db, 'services/ration'), (snapshot) => {
+            const container = document.getElementById('adminRation'); container.innerHTML = "";
+            const data = snapshot.val(); if (data) { Object.keys(data).reverse().forEach(id => {
+                container.innerHTML += `<a href="${data[id].link}" target="_blank" class="s-card" data-name="${data[id].title.toLowerCase()}"><i class="fas fa-star" style="color:#f1c40f"></i><h3>${data[id].title}</h3></a>`;
+            }); }
+        });
+        window.smartSearch = () => {
+            let input = document.getElementById('masterSearch').value.toLowerCase();
+            let items = document.querySelectorAll('.s-card'); let found = false;
+            items.forEach(item => { if (item.getAttribute('data-name').includes(input)) { item.style.display = "block"; found = true; } else { item.style.display = "none"; } });
+            document.getElementById('googleSection').style.display = (!found && input.length > 2) ? "block" : "none";
+            document.getElementById('googleLink').href = `https://www.google.com/search?q=${input}+ration+card+official+site`;
         }
     </script>
 </body>
