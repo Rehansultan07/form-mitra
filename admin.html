@@ -5,32 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Master Admin - Digi Mitra</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <script>
-        let pin = prompt("Admin Security PIN:");
-        if (pin !== "Rehan@786") { 
-            alert("Galat PIN!"); 
-            window.location.href = "index.html"; 
+        function checkAdminAuth() {
+            const masterPin = "Rehan@786";
+            // Check if already logged in for this session
+            if (sessionStorage.getItem("adminLoggedIn") !== "true") {
+                let pin = prompt("Admin Security PIN:");
+                if (pin === masterPin) {
+                    sessionStorage.setItem("adminLoggedIn", "true");
+                } else {
+                    alert("Galat PIN!");
+                    window.location.href = "index.html";
+                }
+            }
+        }
+        checkAdminAuth();
+
+        function logoutAdmin() {
+            sessionStorage.removeItem("adminLoggedIn");
+            window.location.reload();
         }
     </script>
+
     <style>
         :root { --blue: #0074D9; --navy: #001f3f; --bg: #f4f7f9; --red: #e74c3c; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; color: #333; }
         .admin-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border-top: 4px solid var(--blue); }
-        h2 { font-size: 16px; color: var(--navy); border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        h2 { font-size: 16px; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 10px; }
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         input, select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-size: 14px; }
         .btn { background: var(--blue); color: white; border: none; padding: 14px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
         .btn:hover { background: #0056b3; }
         .btn-extra { background: #2ecc71; }
-        .btn-extra:hover { background: #27ae60; }
+        .btn-del { background: var(--red); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 11px; font-weight: 700; }
+        .logout-btn { background: #666; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; }
         th, td { padding: 12px 15px; border-bottom: 1px solid #eee; text-align: left; font-size: 13px; }
         th { background: #f8f9fa; color: #666; text-transform: uppercase; font-size: 11px; font-weight: 800; }
-        .btn-del { background: var(--red); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 11px; font-weight: 700; }
         .cat-tag { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; background: #e0f2fe; color: #0369a1; }
     </style>
 </head>
 <body>
+
+<div class="header-flex">
+    <h1><i class="fas fa-user-shield"></i> Master Dashboard</h1>
+    <button class="logout-btn" onclick="logoutAdmin()">Logout Session <i class="fas fa-sign-out-alt"></i></button>
+</div>
 
 <div class="admin-card">
     <h2><i class="fas fa-rss"></i> Post Live Updates (Main Portals)</h2>
@@ -81,7 +103,6 @@
     };
     const app = initializeApp(firebaseConfig); const db = getDatabase(app);
 
-    // 1. Post to Main Services
     window.postToFirebase = () => {
         const type = document.getElementById('updateType').value;
         const title = document.getElementById('updateTitle').value;
@@ -89,11 +110,11 @@
         if(title && link) {
             push(ref(db, 'services/' + type), { title, link, timestamp: Date.now() });
             alert("Live ho gaya!");
-            location.reload();
+            // No reload needed for modern UI, but keeping for consistency with your old logic
+            location.reload(); 
         } else { alert("Khali mat chhodiye!"); }
     };
 
-    // 2. Post to Home Extra Cards
     window.postToHome = () => {
         const title = document.getElementById('cardTitle').value;
         const icon = document.getElementById('cardIcon').value;
@@ -105,11 +126,10 @@
         } else { alert("Title aur Link zaroori hai!"); }
     };
 
-    // 3. Render Links with Loop Fix
     const tableBody = document.getElementById('linksTableBody');
     const categories = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar', 'banking', 'ration', 'index_extra'];
     
-    tableBody.innerHTML = ""; // Pehle purana clear karein
+    tableBody.innerHTML = ""; 
 
     categories.forEach(cat => {
         const path = (cat === 'index_extra') ? 'index_extra' : 'services/' + cat;
@@ -122,15 +142,16 @@
                         <td>${data[id].title}</td>
                         <td><button class="btn-del" onclick="deleteItem('${cat}', '${id}')">Delete</button></td>
                     </tr>`;
-                    tableBody.innerHTML += row; // Naya row add
+                    tableBody.innerHTML += row;
                 });
             }
-        }, { onlyOnce: true }); // Sirf ek baar load karein
+        }, { onlyOnce: true });
     });
 
     window.deleteItem = (cat, id) => {
         const path = (cat === 'index_extra') ? 'index_extra/' + id : 'services/' + cat + '/' + id;
-        if(confirm("Confirm Delete?")) {
+        // Seedhe delete karega bina password mange, bas confirmation lega
+        if(confirm("Are you sure? It will be removed instantly.")) {
             remove(ref(db, path)).then(() => location.reload());
         }
     };
