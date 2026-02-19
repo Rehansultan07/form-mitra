@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Admin - Digi Mitra</title>
+    <title>Master Admin - DigiMitr</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script>
         function checkAdminAuth() {
             const masterPin = "Rehan@786";
-            // Check if already logged in for this session
             if (sessionStorage.getItem("adminLoggedIn") !== "true") {
                 let pin = prompt("Admin Security PIN:");
                 if (pin === masterPin) {
@@ -21,79 +20,58 @@
             }
         }
         checkAdminAuth();
-
-        function logoutAdmin() {
-            sessionStorage.removeItem("adminLoggedIn");
-            window.location.reload();
-        }
+        function logoutAdmin() { sessionStorage.removeItem("adminLoggedIn"); window.location.reload(); }
     </script>
 
     <style>
-        :root { --blue: #0074D9; --navy: #001f3f; --bg: #f4f7f9; --red: #e74c3c; }
+        :root { --blue: #0074D9; --navy: #001f3f; --bg: #f4f7f9; --red: #e74c3c; --gold: #f1c40f; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; color: #333; }
         .admin-card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border-top: 4px solid var(--blue); }
         .header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        h2 { font-size: 16px; color: var(--navy); margin: 0; display: flex; align-items: center; gap: 10px; }
         .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
         input, select { padding: 12px; border: 1px solid #ddd; border-radius: 8px; outline: none; font-size: 14px; }
         .btn { background: var(--blue); color: white; border: none; padding: 14px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
-        .btn:hover { background: #0056b3; }
-        .btn-extra { background: #2ecc71; }
-        .btn-del { background: var(--red); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 11px; font-weight: 700; }
-        .logout-btn { background: #666; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; }
+        .btn-gold { background: var(--gold); color: #000; }
         table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 8px; overflow: hidden; }
         th, td { padding: 12px 15px; border-bottom: 1px solid #eee; text-align: left; font-size: 13px; }
-        th { background: #f8f9fa; color: #666; text-transform: uppercase; font-size: 11px; font-weight: 800; }
-        .cat-tag { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 800; background: #e0f2fe; color: #0369a1; }
+        .btn-del { background: var(--red); color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 11px; }
     </style>
 </head>
 <body>
 
 <div class="header-flex">
-    <h1><i class="fas fa-user-shield"></i> Master Dashboard</h1>
-    <button class="logout-btn" onclick="logoutAdmin()">Logout Session <i class="fas fa-sign-out-alt"></i></button>
+    <h1><i class="fas fa-user-shield"></i> DigiMitr Admin</h1>
+    <button onclick="logoutAdmin()" style="cursor:pointer">Logout</button>
+</div>
+
+<div class="admin-card" style="border-top-color: var(--gold);">
+    <h2><i class="fas fa-gift"></i> Active Affiliate Popup</h2>
+    <div class="form-grid">
+        <input type="text" id="popTitle" placeholder="Offer Title (e.g. SBI Credit Card)">
+        <input type="text" id="popText" placeholder="Short Desc (e.g. Free for Lifetime)">
+        <input type="text" id="popLink" placeholder="Affiliate Link">
+    </div>
+    <button class="btn btn-gold" onclick="setPopupOffer()">Set Live Popup <i class="fas fa-magic"></i></button>
 </div>
 
 <div class="admin-card">
-    <h2><i class="fas fa-rss"></i> Post Live Updates (Main Portals)</h2>
+    <h2><i class="fas fa-rss"></i> Live Updates</h2>
     <div class="form-grid">
         <select id="updateType">
             <option value="results">Results</option>
             <option value="admitcards">Admit Cards</option>
             <option value="forms">Online Forms</option>
             <option value="pan">PAN Card</option>
-            <option value="voter">Voter ID</option>
             <option value="aadhaar">Aadhaar</option>
-            <option value="banking">Banking</option>
-            <option value="ration">Ration Card</option>
         </select>
-        <input type="text" id="updateTitle" placeholder="Update Title (e.g. SSC GD Admit Card)">
+        <input type="text" id="updateTitle" placeholder="Update Title">
         <input type="text" id="updateLink" placeholder="Official Link">
     </div>
-    <button class="btn" onclick="postToFirebase()">Live Update Now <i class="fas fa-paper-plane"></i></button>
-</div> 
-    <div class="admin-card" style="border-top-color: #f1c40f;">
-    <h2><i class="fas fa-gift"></i> Active Affiliate Popup Offer</h2>
-    <div class="form-grid">
-        <input type="text" id="popTitle" placeholder="Offer Title (e.g. SBI Credit Card)">
-        <input type="text" id="popText" placeholder="Short Desc (e.g. Get ₹500 Cashback)">
-        <input type="text" id="popLink" placeholder="BankSaathi Affiliate Link">
-    </div>
-    <button class="btn" style="background:#f1c40f; color:#000;" onclick="setPopupOffer()">Set Live Popup <i class="fas fa-magic"></i></button>
+    <button class="btn" onclick="postToFirebase()">Post Update</button>
 </div>
 
 <div class="admin-card">
-    <h2><i class="fas fa-th-large"></i> Home Page Extra Resources</h2>
-    <div class="form-grid">
-        <input type="text" id="cardTitle" placeholder="Service Name (e.g. Resume Maker)">
-        <input type="text" id="cardIcon" placeholder="FontAwesome Icon (e.g. fa-file-pdf)">
-        <input type="text" id="cardLink" placeholder="Tool Link">
-    </div>
-    <button class="btn btn-extra" onclick="postToHome()">Update Home Page Card <i class="fas fa-sync-alt"></i></button>
-</div>
-
-<div class="admin-card">
-    <h2><i class="fas fa-tasks"></i> Manage Live Content</h2>
+    <h2><i class="fas fa-tasks"></i> Manage Content</h2>
     <table>
         <thead><tr><th>Category</th><th>Title</th><th>Action</th></tr></thead>
         <tbody id="linksTableBody"></tbody>
@@ -102,7 +80,7 @@
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    import { getDatabase, ref, push, onValue, remove, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
     const firebaseConfig = { 
         apiKey: "AIzaSyA38pu8oY78SaLciR3JzwdwC4avpdEHBg4", 
@@ -112,59 +90,53 @@
     };
     const app = initializeApp(firebaseConfig); const db = getDatabase(app);
 
+    // FIX: Function to Set Popup Offer
+    window.setPopupOffer = () => {
+        const title = document.getElementById('popTitle').value;
+        const text = document.getElementById('popText').value;
+        const link = document.getElementById('popLink').value;
+        if(title && link) {
+            set(ref(db, 'active_popup'), { title, text, link, active: true }).then(() => {
+                alert("Popup Live Ho Gaya!");
+                location.reload();
+            });
+        } else { alert("Title aur Link bhariye!"); }
+    };
+
     window.postToFirebase = () => {
         const type = document.getElementById('updateType').value;
         const title = document.getElementById('updateTitle').value;
         const link = document.getElementById('updateLink').value;
         if(title && link) {
             push(ref(db, 'services/' + type), { title, link, timestamp: Date.now() });
-            alert("Live ho gaya!");
-            // No reload needed for modern UI, but keeping for consistency with your old logic
-            location.reload(); 
-        } else { alert("Khali mat chhodiye!"); }
-    };
-
-    window.postToHome = () => {
-        const title = document.getElementById('cardTitle').value;
-        const icon = document.getElementById('cardIcon').value;
-        const link = document.getElementById('cardLink').value;
-        if(title && link) {
-            push(ref(db, 'index_extra'), { title, icon: icon || 'fa-star', link });
-            alert("Home card update ho gaya!");
+            alert("Update Posted!");
             location.reload();
-        } else { alert("Title aur Link zaroori hai!"); }
+        }
     };
 
+    const categories = ['results', 'admitcards', 'forms', 'pan', 'aadhaar'];
     const tableBody = document.getElementById('linksTableBody');
-    const categories = ['results', 'admitcards', 'forms', 'pan', 'voter', 'aadhaar', 'banking', 'ration', 'index_extra'];
-    
-    tableBody.innerHTML = ""; 
 
     categories.forEach(cat => {
-        const path = (cat === 'index_extra') ? 'index_extra' : 'services/' + cat;
-        onValue(ref(db, path), (snapshot) => {
+        onValue(ref(db, 'services/' + cat), (snapshot) => {
             const data = snapshot.val();
             if(data) {
                 Object.keys(data).forEach(id => {
-                    const row = `<tr>
-                        <td><span class="cat-tag">${cat.toUpperCase()}</span></td>
+                    tableBody.innerHTML += `<tr>
+                        <td>${cat.toUpperCase()}</td>
                         <td>${data[id].title}</td>
                         <td><button class="btn-del" onclick="deleteItem('${cat}', '${id}')">Delete</button></td>
                     </tr>`;
-                    tableBody.innerHTML += row;
                 });
             }
         }, { onlyOnce: true });
     });
 
     window.deleteItem = (cat, id) => {
-        const path = (cat === 'index_extra') ? 'index_extra/' + id : 'services/' + cat + '/' + id;
-        // Seedhe delete karega bina password mange, bas confirmation lega
-        if(confirm("Are you sure? It will be removed instantly.")) {
-            remove(ref(db, path)).then(() => location.reload());
+        if(confirm("Delete?")) {
+            remove(ref(db, 'services/' + cat + '/' + id)).then(() => location.reload());
         }
     };
 </script>
 </body>
 </html>
-
